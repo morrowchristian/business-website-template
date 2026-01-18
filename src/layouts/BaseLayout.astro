@@ -1,0 +1,37 @@
+---
+import "../styles/global.css";
+
+const { 
+  title = "Business Website", 
+  description = "Professional business website template built with Astro" 
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- SEO defaults -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+
+  <body class="min-h-screen flex flex-col text-gray-900 bg-white antialiased">
+    <header class="w-full">
+      <slot name="header" />
+    </header>
+
+    <main class="flex-1 w-full max-w-6xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+
+    <footer class="w-full mt-12">
+      <slot name="footer" />
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout 
+  title="Test Page" 
+  description="This is a test page for the Astro project."
+>
+  <div slot="header" class="bg-gray-100 p-4">
+    Header Slot Test
+  </div>
+
+  <h1 class="text-2xl font-bold mb-4">Welcome to the Test Page</h1>
+  <p class="text-lg">
+    This page is designed to test the layout and styling of the Astro project.
+  </p>
+
+  <div slot="footer" class="bg-gray-100 p-4 mt-8">
+    Footer Slot Test
+  </div>
+</BaseLayout>
