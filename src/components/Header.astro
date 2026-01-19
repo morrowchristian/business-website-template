@@ -1,0 +1,32 @@
+---
+import { navigation } from "../data/navigation";
+---
+
+<header class="w-full border-b bg-white">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <!-- Logo / Site Title -->
+    <a href="/" class="text-xl font-bold tracking-tight">
+      Business Website
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex space-x-6">
+      {navigation.map((item) => (
+        <a 
+          href={item.href} 
+          class="text-gray-700 hover:text-blue-600 transition"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Mobile Menu Placeholder -->
+    <button 
+      class="md:hidden p-2 rounded border text-gray-700 hover:bg-gray-100"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+  </div>
+</header>
