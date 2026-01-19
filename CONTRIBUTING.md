@@ -37,24 +37,24 @@ Types of issues include:
 
 Use the following format:
 
-"""
+'''
 <type>/<short-description>
-"""
+'''
 
 Examples:
 
-"""
+'''
 feature/add-hero-component
 fix/header-mobile-menu
 docs/setup-documentation-structure
 refactor/card-layout
-"""
+'''
 
 If the work relates to a specific issue, you may optionally include the issue number:
 
-"""
+'''
 feature/12-hero-component
-"""
+'''
 
 ---
 
@@ -62,19 +62,19 @@ feature/12-hero-component
 
 Use clear, descriptive commit messages:
 
-"""
+'''
 type(scope): short description
 
 Optional longer explanation if needed.
-"""
+'''
 
 Examples:
 
-"""
+'''
 feat(components): add initial Hero component
 fix(layout): correct footer spacing on mobile
 docs: add architecture.md outline
-"""
+'''
 
 Accepted commit types:
 
@@ -136,7 +136,7 @@ When adding new components, pages, or architectural decisions:
 
 - Update `components.md`, `pages.md`, or `decisions.md`  
 - Keep explanations concise and consistent  
-- Use triple quotes (`"""`) for code blocks  
+- Use triple quotes (`'''`) for code blocks  
 
 ---
 
