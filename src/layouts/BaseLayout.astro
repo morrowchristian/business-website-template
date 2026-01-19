@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { navigation } from "../data/navigation";
+import Header from "../components/Header.astro";
 
 
 const { 
@@ -13,6 +13,7 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="white" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -24,14 +25,10 @@ const {
   </head>
 
   <body class="min-h-screen flex flex-col text-gray-900 bg-white antialiased">
-    <header class="w-full">
-      <slot name="header" />
-    </header>
-    
+    <Header />
     <main class="flex-1 w-full max-w-6xl mx-auto px-4 py-8">
       <slot />
     </main>
-
     <footer class="w-full mt-12">
       <slot name="footer" />
     </footer>
