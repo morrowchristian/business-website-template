@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
-import { navigation } from "../data/navigation.js";
+import { navigation } from "../data/navigation";
+
 
 const { 
   title = "Business Website", 
@@ -26,7 +27,7 @@ const {
     <header class="w-full">
       <slot name="header" />
     </header>
-
+    
     <main class="flex-1 w-full max-w-6xl mx-auto px-4 py-8">
       <slot />
     </main>
