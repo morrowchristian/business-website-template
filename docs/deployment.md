@@ -9,9 +9,9 @@ Astro supports static site output, which makes deployment simple and flexible.
 
 Before deploying, generate the production build:
 
-"""
+'''
 npm run build
-"""
+'''
 
 The output will be created in the `dist/` directory.
 
@@ -43,9 +43,9 @@ Netlify will automatically deploy on every push to `main`.
 
 1. Install the Vercel CLI (optional):
 
-"""
+'''
 npm install -g vercel
-"""
+'''
 
 2. Push your project to GitHub
 3. Import the repo at https://vercel.com/new
@@ -65,13 +65,13 @@ Vercel will handle the rest.
 
 1. Install the GitHub Pages adapter:
 
-"""
+'''
 npm install @astrojs/github
-"""
+'''
 
 2. Update `astro.config.mjs`:
 
-"""
+'''
 import { defineConfig } from 'astro/config';
 import github from '@astrojs/github';
 
@@ -79,7 +79,7 @@ export default defineConfig({
   output: 'static',
   adapter: github(),
 });
-"""
+'''
 
 3. Push to GitHub  
 4. Enable GitHub Pages in repository settings  
@@ -99,9 +99,9 @@ If you add features that require environment variables:
 - Create a `.env` file
 - Add variables like:
 
-"""
+'''
 PUBLIC_API_URL="https://example.com"
-"""
+'''
 
 Astro automatically loads `.env` files during build.
 
