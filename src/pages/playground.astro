@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { navigation } from "../data/navigation";
+---
+
+<BaseLayout title="Playground" description="Component and layout testing area">
+  <h1 class="text-3xl font-bold mb-6">Playground</h1>
+
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-2">Navigation Data Test</h2>
+    <ul class="list-disc pl-6 space-y-1">
+      {navigation.map((item) => (
+        <li>
+          <a href={item.href} class="text-blue-600 hover:underline">
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-2">Component Sandbox</h2>
+    <p class="text-gray-600">
+      Drop any component here to test it in isolation.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="text-xl font-semibold mb-2">Style & Layout Experiments</h2>
+    <div class="p-4 border rounded-lg bg-gray-50">
+      <p class="text-gray-700">
+        Use this area to test Tailwind classes, spacing, typography, etc.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
