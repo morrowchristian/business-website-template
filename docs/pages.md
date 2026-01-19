@@ -63,7 +63,7 @@ Components Used:
 
 Each page follows this pattern:
 
-"""
+'''
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
@@ -77,7 +77,7 @@ import Footer from '../components/Footer.astro';
 
   <Footer />
 </BaseLayout>
-"""
+'''
 
 ---
 

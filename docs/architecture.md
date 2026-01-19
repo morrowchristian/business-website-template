@@ -16,7 +16,7 @@ It explains how the project is structured, how components interact, and how data
 
 ## 2. Folder Structure
 
-"""
+'''
 src/
 ├── components/        # Reusable UI components
 ├── layouts/           # Page layouts (BaseLayout, etc.)
@@ -24,7 +24,7 @@ src/
 ├── data/              # Global navigation, site metadata, etc.
 ├── styles/            # Global styles and Tailwind config
 └── assets/            # Images, icons, and static assets
-"""
+'''
 
 ---
 
