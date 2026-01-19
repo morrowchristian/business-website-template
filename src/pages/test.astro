@@ -5,14 +5,26 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   title="Test Page" 
   description="This is a test page for the Astro project."
 >
+  <img src="/src/assets/branding/logo.svg" alt="logo" class="h-10 mb-4" />
+  <img src="/src/assets/branding/logo-dark.svg" alt="dark logo" class="h-10 bg-gray-900 p-2" />
+
+  <div class="bg-gray-100 p-8">
+    <div class="bg-brand-primary text-white p-4 rounded-lg">
+      Brand Primary Color Test
+    </div>
+  </div>
+
   <div slot="header" class="bg-gray-100 p-4">
     Header Slot Test
   </div>
-
   <h1 class="text-2xl font-bold mb-4">Welcome to the Test Page</h1>
   <p class="text-lg">
     This page is designed to test the layout and styling of the Astro project.
   </p>
+
+  <div class="bg-red-500 text-white p-4 rounded-lg">
+    Tailwind Test
+  </div>
 
   <div slot="footer" class="bg-gray-100 p-4 mt-8">
     Footer Slot Test
