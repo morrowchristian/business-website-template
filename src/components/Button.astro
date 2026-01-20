@@ -5,6 +5,7 @@ interface Props {
   href?: string | null;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  fullWidth?: boolean;
 }
 
 const props = Astro.props as Props;
@@ -15,6 +16,7 @@ const {
   href = null,
   type = "button",
   disabled = false,
+  fullWidth = false,
 } = props;
 
 const base =
@@ -35,7 +37,9 @@ const variants: Record<NonNullable<Props["variant"]>, string> = {
     "border border-gray-300 text-gray-900 hover:bg-gray-50 focus-visible:outline-gray-400",
 };
 
-const classes = `${base} ${sizes[size]} ${variants[variant]}`;
+const widthClass = fullWidth ? "w-full" : "";
+
+const classes = `${base} ${sizes[size]} ${variants[variant]} ${widthClass}`;
 ---
 
 {href ? (
