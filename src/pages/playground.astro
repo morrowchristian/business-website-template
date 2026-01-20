@@ -28,6 +28,17 @@ import { navigation } from "../data/navigation";
     </section>
 
     <section>
+      <h2 class="text-xl font-semibold mb-2">Button Size Variants</h2>
+      <p class="text-gray-600 mb-4">Testing sm, md, and lg sizes.</p>
+
+      <div class="flex flex-wrap gap-4">
+        <Button size="sm">Small Button</Button>
+        <Button size="md">Medium Button</Button>
+        <Button size="lg">Large Button</Button>
+      </div>
+    </section>
+    
+    <section>
       <h2 class="text-xl font-semibold mb-2">Navigation Data Test</h2>
       <ul class="list-disc pl-6 space-y-1">
         {navigation.map((item) => (
