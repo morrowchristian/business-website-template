@@ -43,7 +43,12 @@ const classes = `${base} ${sizes[size]} ${variants[variant]} ${widthClass}`;
 ---
 
 {href ? (
-  <a href={href} class={classes} aria-disabled={disabled}>
+  <a
+    href={disabled ? undefined : href}
+    class={classes}
+    aria-disabled={disabled}
+    tabindex={disabled ? -1 : 0}
+  >
     <slot />
   </a>
 ) : (

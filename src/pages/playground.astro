@@ -50,6 +50,18 @@ import { navigation } from "../data/navigation";
     </section>
 
     <section>
+      <h2 class="text-xl font-semibold mb-2">Disabled State Test</h2>
+      <p class="text-gray-600 mb-4">Testing disabled behavior for buttons and links.</p>
+
+      <div class="flex flex-wrap gap-4">
+        <Button disabled={true}>Disabled Primary</Button>
+        <Button variant="secondary" disabled={true}>Disabled Secondary</Button>
+        <Button variant="outline" disabled={true}>Disabled Outline</Button>
+        <Button href="https://example.com" disabled={true}>Disabled Link Button</Button>
+      </div>
+    </section>
+
+    <section>
       <h2 class="text-xl font-semibold mb-2">Navigation Data Test</h2>
       <ul class="list-disc pl-6 space-y-1">
         {navigation.map((item) => (
