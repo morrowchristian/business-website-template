@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Playground" description="Component and layout testing area">
+  <h1 class="text-3xl font-bold mb-6">Component Playground</h1>
+
+  <p class="text-gray-600 mb-8">
+    Select a component below to view its interactive demos.
+  </p>
+
+  <ul class="space-y-4">
+    <li>
+      <a href="/playground/buttons" class="block p-4 border rounded-lg hover:bg-gray-50 transition">
+        <span class="text-lg font-medium">Buttons</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="/playground/cards" class="block p-4 border rounded-lg hover:bg-gray-50 transition">
+        <span class="text-lg font-medium">Cards</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="/playground/hero" class="block p-4 border rounded-lg hover:bg-gray-50 transition">
+        <span class="text-lg font-medium">Hero</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="/playground/navigation" class="block p-4 border rounded-lg hover:bg-gray-50 transition">
+        <span class="text-lg font-medium">Navigation</span>
+      </a>
+    </li>
+  </ul>
+</BaseLayout>

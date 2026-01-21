@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroComponent from "../../components/Hero.astro";
+---
+
+<BaseLayout title="Hero Playground" description="Testing the Hero component">
+  <h1 class="text-3xl font-bold mb-6">Hero</h1>
+
+  <section class="space-y-6">
+    <p class="text-gray-600">
+      This page is dedicated to testing the Hero component in isolation.
+    </p>
+
+    <!-- Default Hero -->
+    <div class="border rounded-lg p-4 bg-gray-50">
+      <HeroComponent />
+    </div>
+
+    <!-- Future: variations -->
+    <p class="text-gray-500 italic">
+      Add variations here once the Hero component supports props.
+    </p>
+  </section>
+</BaseLayout>
