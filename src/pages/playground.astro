@@ -85,6 +85,18 @@ import { navigation } from "../data/navigation";
     </section>
 
     <section>
+      <h2 class="text-xl font-semibold mb-2">Loading State Test</h2>
+      <p class="text-gray-600 mb-4">Testing loading behavior with spinner and aria-live.</p>
+
+      <div class="flex flex-wrap gap-4">
+        <Button loading={true}>Loading Primary</Button>
+        <Button variant="secondary" loading={true}>Loading Secondary</Button>
+        <Button variant="outline" loading={true}>Loading Outline</Button>
+        <Button href="https://example.com" loading={true}>Loading Link Button</Button>
+      </div>
+    </section>
+
+    <section>
       <h2 class="text-xl font-semibold mb-2">Navigation Data Test</h2>
       <ul class="list-disc pl-6 space-y-1">
         {navigation.map((item) => (
