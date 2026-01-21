@@ -49,10 +49,18 @@ const classes = `${base} ${sizes[size]} ${variants[variant]} ${widthClass}`;
     aria-disabled={disabled}
     tabindex={disabled ? -1 : 0}
   >
-    <slot />
+    <span class="inline-flex items-center gap-2">
+      <slot name="icon-left" />
+      <slot />
+      <slot name="icon-right" />
+    </span>
   </a>
 ) : (
   <button type={type} class={classes} disabled={disabled}>
-    <slot />
+    <span class="inline-flex items-center gap-2">
+      <slot name="icon-left" />
+      <slot />
+      <slot name="icon-right" />
+    </span>
   </button>
 )}
