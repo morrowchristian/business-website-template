@@ -167,7 +167,53 @@ import { navigation } from "../data/navigation";
       </div>
     </section>
 
-    
+    <!-- Card Variants -->
+    <section>
+      <h2 class="text-xl font-semibold mb-2">Card Variants</h2>
+      <p class="text-gray-600 mb-4">Testing base, horizontal, and minimal card layouts.</p>
+
+      <div class="space-y-8">
+
+        <!-- Base (image-top) -->
+        <div>
+          <h3 class="text-lg font-medium mb-2">Base Card</h3>
+          <Card
+            variant="base"
+            image="/placeholder.jpg"
+            title="Base Card"
+            description="This is the default card layout with the image on top."
+          >
+            <Button variant="primary">Learn More</Button>
+          </Card>
+        </div>
+
+        <!-- Horizontal -->
+        <div>
+          <h3 class="text-lg font-medium mb-2">Horizontal Card</h3>
+          <Card
+            variant="horizontal"
+            image="/placeholder.jpg"
+            title="Horizontal Card"
+            description="Image on the left, content on the right."
+          >
+            <Button variant="secondary">Details</Button>
+          </Card>
+        </div>
+
+        <!-- Minimal -->
+        <div>
+          <h3 class="text-lg font-medium mb-2">Minimal Card</h3>
+          <Card
+            variant="minimal"
+            title="Minimal Card"
+            description="A clean, text-first layout without borders or shadows."
+          >
+            <Button variant="outline">Action</Button>
+          </Card>
+        </div>
+
+      </div>
+    </section>
 
     <!-- Style Experiments -->
     <section>
