@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
 import ButtonGroup from "../components/ButtonGroup.astro";
+import Card from "../components/Card.astro";
 import Hero from "../components/Hero.astro";
 import { navigation } from "../data/navigation";
 ---
@@ -12,10 +13,30 @@ import { navigation } from "../data/navigation";
   <div class="space-y-12">
     <!-- Header Test -->
     <section>
-      <h2 class="text-xl font-semibold mb-2">Header Test</h2>
       <p class="text-gray-600">
         The Header above should reflect the navigation data correctly.
       </p>
+    </section>
+
+    <!-- Hero Test -->
+    <section>
+      <h2 class="text-xl font-semibold mb-2">Hero Test</h2>
+      <p class="text-gray-600 mb-4">The Hero component should render below.</p>
+      <Hero />
+    </section>
+
+    <!-- Navigation Data -->
+    <section>
+      <h2 class="text-xl font-semibold mb-2">Navigation Data Test</h2>
+      <ul class="list-disc pl-6 space-y-1">
+        {navigation.map((item) => (
+          <li>
+            <a href={item.href} class="text-blue-600 hover:underline">
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
 
     <!-- Button Variants -->
@@ -128,32 +149,25 @@ import { navigation } from "../data/navigation";
       </div>
     </section>
 
-    <!-- Navigation Data -->
+    
+
+    <!-- Card Component Test -->
     <section>
-      <h2 class="text-xl font-semibold mb-2">Navigation Data Test</h2>
-      <ul class="list-disc pl-6 space-y-1">
-        {navigation.map((item) => (
-          <li>
-            <a href={item.href} class="text-blue-600 hover:underline">
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+      <h2 class="text-xl font-semibold mb-2">Card Component Test</h2>
+      <p class="text-gray-600 mb-4">Testing the base Card component structure.</p>
+
+      <div class="max-w-sm">
+        <Card
+          image="/placeholder.jpg"
+          title="Service Title"
+          description="Short description of the service."
+        >
+          <Button variant="primary">Learn More</Button>
+        </Card>
+      </div>
     </section>
 
-    <!-- Component Sandbox -->
-    <section>
-      <h2 class="text-xl font-semibold mb-2">Component Sandbox</h2>
-      <p class="text-gray-600">Drop any component here to test it in isolation.</p>
-    </section>
-
-    <!-- Hero Test -->
-    <section>
-      <h2 class="text-xl font-semibold mb-2">Hero Test</h2>
-      <p class="text-gray-600 mb-4">The Hero component should render below.</p>
-      <Hero />
-    </section>
+    
 
     <!-- Style Experiments -->
     <section>
