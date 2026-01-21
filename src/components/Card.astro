@@ -7,7 +7,13 @@ interface Props {
 }
 const { href = null, image = null, title, description } = Astro.props;
 ---
-<article class="rounded-lg border bg-white shadow-sm overflow-hidden">
+
+<article
+  class="rounded-lg border bg-white shadow-sm overflow-hidden
+         transition-all duration-200
+         hover:shadow-md hover:border-gray-300
+         focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+>
   {image && (
     <img
       src={image}
@@ -26,4 +32,3 @@ const { href = null, image = null, title, description } = Astro.props;
     <slot />
   </div>
 </article>
-
