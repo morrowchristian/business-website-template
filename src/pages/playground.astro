@@ -97,6 +97,33 @@ import { navigation } from "../data/navigation";
     </section>
 
     <section>
+      <h2 class="text-xl font-semibold mb-2">Button Group Test</h2>
+      <p class="text-gray-600 mb-4">Testing horizontal and vertical button groups.</p>
+
+      <div class="space-y-8">
+        <!-- Horizontal -->
+        <ButtonGroup>
+          <Button variant="primary">Save</Button>
+          <Button variant="secondary">Cancel</Button>
+          <Button variant="outline">More</Button>
+        </ButtonGroup>
+
+        <!-- Vertical -->
+        <ButtonGroup direction="vertical">
+          <Button variant="primary">Continue</Button>
+          <Button variant="secondary">Back</Button>
+        </ButtonGroup>
+
+        <!-- Full-width group -->
+        <ButtonGroup fullWidth={true}>
+          <Button fullWidth={true} variant="primary">Submit</Button>
+          <Button fullWidth={true} variant="outline">Reset</Button>
+        </ButtonGroup>
+      </div>
+    </section>
+
+
+    <section>
       <h2 class="text-xl font-semibold mb-2">Navigation Data Test</h2>
       <ul class="list-disc pl-6 space-y-1">
         {navigation.map((item) => (
