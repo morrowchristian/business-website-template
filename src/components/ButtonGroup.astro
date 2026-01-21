@@ -1,0 +1,26 @@
+---
+interface Props {
+  direction?: "horizontal" | "vertical";
+  fullWidth?: boolean;
+  gap?: string; // tailwind gap utility, e.g. "gap-2"
+}
+
+const props = Astro.props as Props;
+
+const {
+  direction = "horizontal",
+  fullWidth = false,
+  gap = "gap-2",
+} = props;
+
+const layout =
+  direction === "vertical"
+    ? "flex flex-col"
+    : "inline-flex flex-row";
+
+const widthClass = fullWidth ? "w-full" : "";
+---
+
+<div class={`${layout} ${gap} ${widthClass}`}>
+  <slot />
+</div>
