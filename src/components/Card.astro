@@ -1,34 +1,74 @@
 ---
 interface Props {
+  variant?: "base" | "horizontal" | "minimal";
   href?: string | null;
   image?: string | null;
   title: string;
   description?: string;
 }
-const { href = null, image = null, title, description } = Astro.props;
+
+const {
+  variant = "base",
+  href = null,
+  image = null,
+  title,
+  description
+} = Astro.props;
+
+// Shared interaction + transition classes
+const interactive = `
+  transition-all duration-200 
+  hover:shadow-md hover:border-gray-300 
+  focus-visible:outline focus-visible:outline-2 
+  focus-visible:outline-offset-2 focus-visible:outline-blue-500
+`.trim()
+
+// Variant class sets
+const baseClasses =
+  `rounded-lg border bg-white shadow-sm overflow-hidden ${interactive}`;
+
+const horizontalClasses =
+  `flex gap-4 rounded-lg border bg-white shadow-sm p-4 ${interactive}`;
+
+const minimalClasses =
+  "p-4 space-y-3";
 ---
-
-<article
-  class="rounded-lg border bg-white shadow-sm overflow-hidden
-         transition-all duration-200
-         hover:shadow-md hover:border-gray-300
-         focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
->
-  {image && (
-    <img
-      src={image}
-      alt=""
-      class="w-full aspect-[4/3] object-cover"
-    />
-  )}
-
-  <div class="p-4 space-y-3">
-    <h3 class="text-lg font-semibold">{title}</h3>
-
-    {description && (
-      <p class="text-gray-600">{description}</p>
+{variant === "horizontal" && (
+  <article class={horizontalClasses}>
+    {image && (
+      <img src={image} alt="" class="w-32 h-32 object-cover rounded-md" />
     )}
 
+    <div class="flex-1 space-y-2">
+      <h3 class="text-lg font-semibold">{title}</h3>
+      {description && <p class="text-gray-600">{description}</p>}
+      <slot />
+    </div>
+  </article>
+)}
+
+{variant === "minimal" && (
+  <article class={minimalClasses}>
+    <h3 class="text-lg font-semibold">{title}</h3>
+    {description && <p class="text-gray-600">{description}</p>}
     <slot />
-  </div>
-</article>
+  </article>
+)}
+
+{variant === "base" && (
+  <article class={baseClasses}>
+    {image && (
+      <img
+        src={image}
+        alt=""
+        class="w-full aspect-[4/3] object-cover"
+      />
+    )}
+
+    <div class="p-4 space-y-3">
+      <h3 class="text-lg font-semibold">{title}</h3>
+      {description && <p class="text-gray-600">{description}</p>}
+      <slot />
+    </div>
+  </article>
+)}
