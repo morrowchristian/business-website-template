@@ -72,16 +72,20 @@ const classes = `${base} ${sizes[size]} ${variants[variant]} ${widthClass}`;
     aria-busy={loading}
   >
     <span class="inline-flex items-center gap-2">
-      {loading && (
+      {loading ? (
         <span
           class="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"
           aria-hidden="true"
         />
+      ) : (
+        <slot name="icon-left" />
       )}
 
       <span aria-live="polite">
         <slot />
       </span>
+
+      {!loading && <slot name="icon-right" />}
     </span>
   </button>
 )}
