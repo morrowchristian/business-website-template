@@ -1,9 +1,11 @@
 ---
+import BackButton from "../../components/BackButton.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import HeroComponent from "../../components/Hero.astro";
 ---
 
 <BaseLayout title="Hero Playground" description="Testing the Hero component">
+  <BackButton href="/playground" />
   <h1 class="text-3xl font-bold mb-6">Hero</h1>
 
   <section class="space-y-6">

@@ -1,0 +1,17 @@
+---
+import Button from "./Button.astro";
+
+const { href = null, label = "Back" } = Astro.props;
+---
+
+{href ? (
+  <Button variant="outline" href={href}>
+    ← {label}
+  </Button>
+) : (
+  <button type="button" onclick="history.back()" class="inline-block">
+    <Button variant="outline">
+      ← {label}
+    </Button>
+  </button>
+)}
