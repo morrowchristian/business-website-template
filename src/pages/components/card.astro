@@ -1,0 +1,84 @@
+---
+/**
+ * Card Component Explorer Page
+ *
+ * Purpose:
+ * - Demonstrates all Card variants (base, horizontal, minimal).
+ * - Shows image support, slot usage, and clickable behavior.
+ * - Displays API documentation and example usage.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import CardComponent from "../../components/Card.astro";
+
+// Access internal docs safely with a type cast
+const docs = (CardComponent as any).__astro_internal?.docs ?? "No documentation available.";
+---
+
+<ComponentExplorerLayout title="Card">
+
+  <!-- API Documentation -->
+  <section class="prose max-w-none mb-12">
+    <h2>API Documentation</h2>
+    <pre class="bg-gray-100 p-4 rounded whitespace-pre-wrap text-sm">{docs}</pre>
+  </section>
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+
+    <div class="space-y-10">
+
+      <!-- Base -->
+      <CardComponent
+        variant="base"
+        href="#"
+        image="/assets/placeholders/placeholder.jpg"
+        title="Base Card"
+        description="Default image-top layout."
+      />
+
+      <!-- Horizontal -->
+      <CardComponent
+        variant="horizontal"
+        href="#"
+        image="/assets/placeholders/placeholder.jpg"
+        title="Horizontal Card"
+        description="Image left, content right."
+      />
+
+      <!-- Minimal -->
+      <CardComponent
+        variant="minimal"
+        href="#"
+        title="Minimal Card"
+        description="Text-first layout."
+      />
+
+      <!-- With Slot -->
+      <CardComponent
+        variant="base"
+        title="Card With Actions"
+        description="This card includes an internal action."
+      >
+        <a href="#" class="text-blue-600 hover:underline">Learn More →</a>
+      </CardComponent>
+
+    </div>
+  </section>
+
+  <!-- Code Example -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <pre class="bg-gray-100 p-4 rounded text-sm">
+{`<Card
+  variant="base"
+  href="#"
+  image="/assets/placeholders/placeholder.jpg"
+  title="Base Card"
+  description="Default image-top layout."
+/>`}
+    </pre>
+  </section>
+
+</ComponentExplorerLayout>

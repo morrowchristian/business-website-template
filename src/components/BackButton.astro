@@ -1,17 +1,63 @@
 ---
+/**
+ * BackButton Component
+ *
+ * Purpose:
+ * - Consistent “back” navigation using Button or history.back().
+ */
+
+const docs = `
+## BackButton Component API
+
+### Overview
+The BackButton component provides consistent navigation back to a previous page or a specified URL.  
+It wraps the core Button component and applies a standardized "back" visual style.
+
+---
+
+### Props
+
+| Prop   | Type         | Default | Description |
+|--------|--------------|---------|-------------|
+| \`href\` | string \| null | null    | When provided, navigates to the given URL instead of going back in history. |
+
+---
+
+### Behavior
+
+- If \`href\` is provided, the BackButton navigates to that URL.
+- If no \`href\` is provided, it calls \`history.back()\`.
+- Always uses the "ghost" or "secondary subtle" button style.
+- Includes a left‑aligned back arrow icon.
+
+---
+
+### Usage Examples
+
+<BackButton href="/playground" />
+
+<BackButton />
+`;
+
 import Button from "./Button.astro";
 
-const { href = null, label = "Back" } = Astro.props;
+interface Props {
+  href?: string | null;
+}
+
+const { href = null } = Astro.props;
 ---
 
 {href ? (
-  <Button variant="outline" href={href}>
-    ← {label}
+  <Button href={href} variant="ghost" icon="arrow_back">
+    Back
   </Button>
 ) : (
-  <button type="button" onclick="history.back()" class="inline-block">
-    <Button variant="outline">
-      ← {label}
-    </Button>
+  <button
+    onclick="history.back()"
+    class="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900"
+  >
+    <span class="material-icons text-base">arrow_back</span>
+    Back
   </button>
 )}
