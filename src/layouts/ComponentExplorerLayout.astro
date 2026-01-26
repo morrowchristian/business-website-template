@@ -4,9 +4,12 @@
  *
  * Purpose:
  * - Storybook-style layout with sidebar + main content.
+ * - Provides a modern, centered app shell for the design system.
  */
 
 const { title } = Astro.props;
+
+const currentPath = Astro.url.pathname;
 
 const components = [
   { name: "Button", href: "/components/button" },
@@ -19,28 +22,46 @@ const components = [
 ];
 ---
 
-<div class="flex min-h-screen">
+<!-- App Background -->
+<div class="min-h-screen bg-slate-100 flex justify-center">
 
-  <!-- Sidebar -->
-  <aside class="w-64 border-r bg-gray-50 p-6 space-y-4">
-    <h2 class="text-xl font-bold mb-4">Components</h2>
+  <!-- App Shell -->
+  <div class="flex w-full max-w-6xl bg-white shadow-md border border-slate-200 mt-10 mb-10 rounded-xl overflow-hidden">
 
-    <nav class="space-y-2">
-      {components.map((c) => (
-        <a 
-          href={c.href}
-          class="block px-3 py-2 rounded hover:bg-gray-200 transition"
-        >
-          {c.name}
-        </a>
-      ))}
-    </nav>
-  </aside>
+    <!-- Sidebar -->
+    <aside class="w-64 border-r bg-slate-50 p-6">
+      <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4">
+        Components
+      </h2>
 
-  <!-- Main Content -->
-  <main class="flex-1 p-10">
-    <h1 class="text-3xl font-bold mb-6">{title}</h1>
-    <slot />
-  </main>
+      <nav class="space-y-1">
+        {components.map((c) => {
+          const isActive = currentPath === c.href;
 
+          return (
+            <a 
+              href={c.href}
+              class={`block px-3 py-2 rounded-md text-sm transition
+                ${isActive 
+                  ? "bg-slate-900 text-white font-medium" 
+                  : "text-slate-700 hover:bg-slate-200"
+                }
+              `}
+            >
+              {c.name}
+            </a>
+          );
+        })}
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-10">
+      <h1 class="text-2xl font-semibold mb-6 text-slate-900">{title}</h1>
+      <div class="text-slate-800">
+        <slot />
+      </div>
+    </main>
+
+  </div>
 </div>
