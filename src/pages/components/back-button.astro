@@ -1,0 +1,43 @@
+---
+/**
+ * BackButton Component Explorer Page
+ *
+ * Purpose:
+ * - Demonstrates both navigation modes: href and history.back().
+ * - Displays API documentation and example usage.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import BackButtonComponent from "../../components/BackButton.astro";
+
+// Access internal docs safely with a type cast
+const docs = (BackButtonComponent as any).__astro_internal?.docs ?? "No documentation available.";
+---
+
+<ComponentExplorerLayout title="Back Button">
+
+  <!-- API Documentation -->
+  <section class="prose max-w-none mb-12">
+    <h2>API Documentation</h2>
+    <pre class="bg-gray-100 p-4 rounded whitespace-pre-wrap text-sm">{docs}</pre>
+  </section>
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+
+    <div class="space-y-6">
+      <BackButtonComponent />
+      <BackButtonComponent href="/components" />
+    </div>
+  </section>
+
+  <!-- Code Example -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <pre class="bg-gray-100 p-4 rounded text-sm">
+{`<BackButton href="/components" />`}
+    </pre>
+  </section>
+
+</ComponentExplorerLayout>

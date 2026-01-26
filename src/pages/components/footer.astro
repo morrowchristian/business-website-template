@@ -1,0 +1,40 @@
+---
+/**
+ * Footer Component Explorer Page
+ *
+ * Purpose:
+ * - Displays the global Footer component.
+ * - Shows API documentation and usage example.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import FooterComponent from "../../components/Footer.astro";
+
+// Access internal docs safely with a type cast
+const docs = (FooterComponent as any).__astro_internal?.docs ?? "No documentation available.";
+---
+
+<ComponentExplorerLayout title="Footer">
+
+  <!-- API Documentation -->
+  <section class="prose max-w-none mb-12">
+    <h2>API Documentation</h2>
+    <pre class="bg-gray-100 p-4 rounded whitespace-pre-wrap text-sm">{docs}</pre>
+  </section>
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+
+    <FooterComponent />
+  </section>
+
+  <!-- Code Example -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <pre class="bg-gray-100 p-4 rounded text-sm">
+{`<Footer />`}
+    </pre>
+  </section>
+
+</ComponentExplorerLayout>

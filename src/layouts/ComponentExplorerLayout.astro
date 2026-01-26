@@ -1,0 +1,46 @@
+---
+/**
+ * ComponentExplorerLayout
+ *
+ * Purpose:
+ * - Storybook-style layout with sidebar + main content.
+ */
+
+const { title } = Astro.props;
+
+const components = [
+  { name: "Button", href: "/components/button" },
+  { name: "Button Group", href: "/components/button-group" },
+  { name: "Back Button", href: "/components/back-button" },
+  { name: "Card", href: "/components/card" },
+  { name: "Hero", href: "/components/hero" },
+  { name: "Header", href: "/components/header" },
+  { name: "Footer", href: "/components/footer" }
+];
+---
+
+<div class="flex min-h-screen">
+
+  <!-- Sidebar -->
+  <aside class="w-64 border-r bg-gray-50 p-6 space-y-4">
+    <h2 class="text-xl font-bold mb-4">Components</h2>
+
+    <nav class="space-y-2">
+      {components.map((c) => (
+        <a 
+          href={c.href}
+          class="block px-3 py-2 rounded hover:bg-gray-200 transition"
+        >
+          {c.name}
+        </a>
+      ))}
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-10">
+    <h1 class="text-3xl font-bold mb-6">{title}</h1>
+    <slot />
+  </main>
+
+</div>

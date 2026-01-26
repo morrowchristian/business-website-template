@@ -1,91 +1,117 @@
 ---
+/**
+ * Button Component
+ *
+ * Purpose:
+ * - Reusable, accessible button with variants, sizes, icons, loading, full-width.
+ */
+
+const docs = `
+## Button Component API
+
+### Overview
+The Button component is a reusable, variant‑driven UI element used for primary and secondary actions across the site.  
+It supports multiple visual styles, sizes, full‑width mode, loading state, and optional icons.
+
+---
+
+### Props
+
+| Prop        | Type                                   | Default     | Description |
+|-------------|----------------------------------------|-------------|-------------|
+| \`variant\`   | "primary" \| "secondary" \| "ghost"      | "primary"   | Controls the visual style. |
+| \`size\`      | "sm" \| "md" \| "lg"                     | "md"        | Controls padding and font size. |
+| \`href\`      | string \| null                           | null        | When provided, the button renders as a link. |
+| \`loading\`   | boolean                                  | false       | Shows a loading spinner and disables interaction. |
+| \`fullWidth\` | boolean                                  | false       | Expands the button to 100% width. |
+| \`icon\`      | string \| null                           | null        | Optional icon name for left‑aligned icon. |
+
+---
+
+### Slots
+
+| Slot     | Description |
+|----------|-------------|
+| default  | Button label or content. |
+
+---
+
+### Behavior
+
+- Renders as \`<button>\` by default, or \`<a>\` when \`href\` is provided.
+- Automatically disables interaction when \`loading\` is true.
+- Supports keyboard focus and accessible states.
+- Icons are optional and appear before the label.
+- Full‑width mode stretches the button to fill its container.
+
+---
+
+### Usage Examples
+
+<Button variant="primary">Save Changes</Button>
+
+<Button href="/contact" variant="secondary">Contact Us</Button>
+
+<Button loading>Submitting…</Button>
+`;
+
+
 interface Props {
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
   href?: string | null;
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
-  fullWidth?: boolean;
   loading?: boolean;
+  fullWidth?: boolean;
+  icon?: string | null;
 }
-
-const props = Astro.props as Props;
 
 const {
   variant = "primary",
   size = "md",
   href = null,
-  type = "button",
-  disabled = false,
-  fullWidth = false,
   loading = false,
-} = props;
+  fullWidth = false,
+  icon = null
+} = Astro.props;
 
-const base =
-  "inline-flex items-center justify-center rounded-md font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+const isLink = Boolean(href);
 
-const sizes: Record<NonNullable<Props["size"]>, string> = {
+// Variant classes
+const variants = {
+  primary: "bg-blue-600 text-white hover:bg-blue-700",
+  secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300",
+  ghost: "bg-transparent text-gray-700 hover:bg-gray-100"
+};
+
+// Size classes
+const sizes = {
   sm: "px-3 py-1.5 text-sm",
   md: "px-4 py-2 text-base",
-  lg: "px-6 py-3 text-lg",
+  lg: "px-5 py-3 text-lg"
 };
 
-const variants: Record<NonNullable<Props["variant"]>, string> = {
-  primary:
-    "bg-blue-600 text-white hover:bg-blue-700 focus-visible:outline-blue-600",
-  secondary:
-    "bg-gray-100 text-gray-900 hover:bg-gray-200 focus-visible:outline-gray-400",
-  outline:
-    "border border-gray-300 text-gray-900 hover:bg-gray-50 focus-visible:outline-gray-400",
-};
+// Base styles
+const base = `
+  inline-flex items-center justify-center gap-2
+  rounded-md font-medium transition-colors duration-200
+  focus-visible:outline focus-visible:outline-2
+  focus-visible:outline-offset-2 focus-visible:outline-blue-500
+`;
 
 const widthClass = fullWidth ? "w-full" : "";
+const loadingClass = loading ? "opacity-70 pointer-events-none" : "";
 
-const classes = `${base} ${sizes[size]} ${variants[variant]} ${widthClass}`;
+const Wrapper = isLink ? "a" : "button";
+const wrapperAttrs = isLink ? { href } : { disabled: loading };
 ---
 
-{href ? (
-  <a
-    href={!disabled && !loading ? href : undefined}
-    class={classes}
-    aria-disabled={disabled || loading}
-    tabindex={disabled || loading ? -1 : 0}
-  >
-    <span class="inline-flex items-center gap-2">
-      {loading && (
-        <span
-          class="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"
-          aria-hidden="true"
-        />
-      )}
-
-      <span aria-live="polite">
-        <slot />
-      </span>
-    </span>
-  </a>
-) : (
-  <button
-    type={type}
-    class={classes}
-    disabled={disabled || loading}
-    aria-busy={loading}
-  >
-    <span class="inline-flex items-center gap-2">
-      {loading ? (
-        <span
-          class="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"
-          aria-hidden="true"
-        />
-      ) : (
-        <slot name="icon-left" />
-      )}
-
-      <span aria-live="polite">
-        <slot />
-      </span>
-
-      {!loading && <slot name="icon-right" />}
-    </span>
-  </button>
-)}
+<Wrapper
+  {...wrapperAttrs}
+  class={`${base} ${variants[variant]} ${sizes[size]} ${widthClass} ${loadingClass}`}
+>
+  {loading && (
+    <span class="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+  )}
+  {icon && <span class="material-icons text-base">{icon}</span>}
+  <slot />
+</Wrapper>

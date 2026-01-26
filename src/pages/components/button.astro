@@ -1,0 +1,49 @@
+---
+/**
+ * Button Component Explorer Page
+ *
+ * Purpose:
+ * - Displays the Button component’s API documentation.
+ * - Provides live previews of all variants, sizes, and states.
+ * - Shows example usage code for reference.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import ButtonComponent from "../../components/Button.astro";
+
+// Access internal docs safely with a type cast
+const docs = (ButtonComponent as any).__astro_internal?.docs ?? "No documentation available.";
+---
+
+<ComponentExplorerLayout title="Button">
+
+  <!-- API Documentation -->
+  <section class="prose max-w-none mb-12">
+    <h2>API Documentation</h2>
+    <pre class="bg-gray-100 p-4 rounded whitespace-pre-wrap text-sm">{docs}</pre>
+  </section>
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+
+    <div class="space-y-6">
+      <ButtonComponent variant="primary">Primary Button</ButtonComponent>
+      <ButtonComponent variant="secondary">Secondary Button</ButtonComponent>
+      <ButtonComponent variant="ghost">Ghost Button</ButtonComponent>
+      <ButtonComponent loading>Loading Button</ButtonComponent>
+      <ButtonComponent icon="star">With Icon</ButtonComponent>
+      <ButtonComponent fullWidth>Full Width Button</ButtonComponent>
+      <ButtonComponent href="/contact">Link Button</ButtonComponent>
+    </div>
+  </section>
+
+  <!-- Code Example -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <pre class="bg-gray-100 p-4 rounded text-sm">
+{`<Button variant="primary">Primary Button</Button>`}
+    </pre>
+  </section>
+
+</ComponentExplorerLayout>

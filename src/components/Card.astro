@@ -1,0 +1,125 @@
+---
+/**
+ * Card Component
+ *
+ * Purpose:
+ * - Flexible card with variants, optional image, clickable behavior, and slot content.
+ */
+
+const docs = `
+## Card Component API
+
+### Overview
+The Card component is a flexible, multi‑variant UI element used for navigation tiles, content previews, and structured information blocks.  
+Cards become fully clickable when an \`href\` is provided.
+
+---
+
+### Props
+
+| Prop          | Type                                           | Default     | Description |
+|---------------|------------------------------------------------|-------------|-------------|
+| \`variant\`     | "base" \| "horizontal" \| "minimal"            | "base"      | Controls layout and visual style. |
+| \`href\`        | string \| null                                 | null        | When provided, the entire card becomes a clickable link. |
+| \`image\`       | string \| null                                 | null        | Optional image displayed according to the variant. |
+| \`title\`       | string                                         | —           | Required card heading. |
+| \`description\` | string \| undefined                            | undefined   | Optional supporting text. |
+
+---
+
+### Slots
+
+| Slot       | Description |
+|------------|-------------|
+| default    | Optional content area for actions, tags, or additional elements. |
+
+---
+
+### Behavior
+
+- Cards with \`href\` become fully clickable and receive pointer cursor, hover shadow, and focus-visible ring.
+- Cards without \`href\` behave as static content containers.
+- Images are optional and adapt to the chosen variant.
+- The slot is intentionally generic and not CTA‑specific.
+
+---
+
+### Usage Examples
+
+<Card
+  href="/services/design"
+  title="Design Services"
+  description="Branding, UI/UX, and more."
+  image="/placeholder.jpg"
+/>
+
+<Card
+  title="Card With Actions"
+  description="This card includes an internal action."
+>
+  <a href="#" class="text-blue-600 hover:underline">Learn More →</a>
+</Card>
+`;
+
+interface Props {
+  variant?: "base" | "horizontal" | "minimal";
+  href?: string | null;
+  image?: string | null;
+  title: string;
+  description?: string;
+}
+
+const {
+  variant = "base",
+  href = null,
+  image = null,
+  title,
+  description
+} = Astro.props;
+
+const isClickable = Boolean(href);
+
+// Shared interaction classes
+const interactive = `
+  transition-all duration-200 
+  hover:shadow-md hover:border-gray-300 
+  focus-visible:outline focus-visible:outline-2 
+  focus-visible:outline-offset-2 focus-visible:outline-blue-500
+`.trim();
+
+// Variant classes
+const baseClasses =
+  `rounded-lg border bg-white shadow-sm overflow-hidden ${interactive}`;
+
+const horizontalClasses =
+  `flex gap-4 rounded-lg border bg-white shadow-sm p-4 ${interactive}`;
+
+const minimalClasses = "p-4 space-y-3";
+
+const Wrapper = href ? "a" : "article";
+const wrapperAttrs = href ? { href } : {};
+---
+
+<Wrapper
+  {...wrapperAttrs}
+  class={`
+    ${variant === "base" ? baseClasses : ""}
+    ${variant === "horizontal" ? horizontalClasses : ""}
+    ${variant === "minimal" ? minimalClasses : ""}
+    ${isClickable ? "cursor-pointer" : ""}
+  `}
+>
+  {variant === "horizontal" && image && (
+    <img src={image} alt="" class="w-32 h-32 object-cover rounded-md" />
+  )}
+
+  {variant === "base" && image && (
+    <img src={image} alt="" class="w-full aspect-[4/3] object-cover" />
+  )}
+
+  <div class={variant === "horizontal" ? "flex-1 space-y-2" : "space-y-3 p-4"}>
+    <h3 class="text-lg font-semibold">{title}</h3>
+    {description && <p class="text-gray-600">{description}</p>}
+    <slot />
+  </div>
+</Wrapper>

@@ -1,17 +1,64 @@
 ---
+/**
+ * ButtonGroup Component
+ *
+ * Purpose:
+ * - Layout wrapper for grouping buttons horizontally or vertically.
+ */
+
+const docs = `
+## ButtonGroup Component API
+
+### Overview
+ButtonGroup arranges multiple Button components in a horizontal or vertical layout, with optional full‑width behavior and customizable spacing.
+
+---
+
+### Props
+
+| Prop        | Type                           | Default       | Description |
+|-------------|--------------------------------|---------------|-------------|
+| \`direction\` | "horizontal" \| "vertical"       | "horizontal"  | Controls layout direction. |
+| \`fullWidth\` | boolean                         | false         | Makes the group stretch to full width. |
+| \`gap\`       | string                          | "gap-2"       | Tailwind gap utility applied between children. |
+
+---
+
+### Slots
+
+| Slot     | Description |
+|----------|-------------|
+| default  | Buttons or other interactive elements. |
+
+---
+
+### Behavior
+
+- Automatically arranges children in a row or column.
+- Supports full‑width mode for responsive layouts.
+- Gap is fully customizable using Tailwind utilities.
+
+---
+
+### Usage Example
+
+<ButtonGroup direction="horizontal" gap="gap-4">
+  <Button>Save</Button>
+  <Button variant="secondary">Cancel</Button>
+</ButtonGroup>
+`;
+
 interface Props {
   direction?: "horizontal" | "vertical";
   fullWidth?: boolean;
-  gap?: string; // tailwind gap utility, e.g. "gap-2"
+  gap?: string;
 }
-
-const props = Astro.props as Props;
 
 const {
   direction = "horizontal",
   fullWidth = false,
   gap = "gap-2",
-} = props;
+} = Astro.props;
 
 const layout =
   direction === "vertical"

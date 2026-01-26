@@ -1,4 +1,44 @@
 ---
+/**
+ * Hero Component
+ *
+ * Purpose:
+ * - Large headline + subtitle + default CTAs.
+ */
+
+const docs = `
+## Hero Component API
+
+### Overview
+The Hero component displays a large, centered headline with supporting text and optional call‑to‑action buttons.
+
+---
+
+### Props
+
+| Prop       | Type     | Default | Description |
+|------------|----------|---------|-------------|
+| \`title\`     | string   | "Build Your Business Presence" | Main headline text. |
+| \`subtitle\`  | string   | A default marketing subtitle.  | Supporting description text. |
+
+---
+
+### Behavior
+
+- Centers content with responsive typography.
+- Includes two default CTA buttons.
+- Fully customizable via props and slots (future‑friendly).
+
+---
+
+### Usage Example
+
+<Hero 
+  title="Grow Your Brand"
+  subtitle="Modern tools to help your business thrive."
+/>
+`;
+
 const {
   title = "Build Your Business Presence",
   subtitle = "A clean, modern template designed to help you launch fast and look professional."
