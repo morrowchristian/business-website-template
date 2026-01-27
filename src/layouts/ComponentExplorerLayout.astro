@@ -8,21 +8,35 @@
  */
 
 const { title } = Astro.props;
-
 const currentPath = Astro.url.pathname;
 
-const components = [
-  { name: "Button", href: "/components/button" },
-  { name: "Button Group", href: "/components/button-group" },
-  { name: "Back Button", href: "/components/back-button" },
-  { name: "Copy Button", href: "/components/copy-button" },
-  { name: "Card", href: "/components/card" },
-  { name: "Hero", href: "/components/hero" },
-  { name: "Header", href: "/components/header" },
-  { name: "Footer", href: "/components/footer" }
+// Category-based navigation structure
+const categories = [
+  {
+    label: "Buttons",
+    items: [
+      { name: "Button", href: "/components/button" },
+      { name: "Button Group", href: "/components/button-group" },
+      { name: "Back Button", href: "/components/back-button" },
+      { name: "Copy Button", href: "/components/copy-button" }
+    ]
+  },
+  {
+    label: "Cards",
+    items: [
+      { name: "Card", href: "/components/card" }
+    ]
+  },
+  {
+    label: "Layout",
+    items: [
+      { name: "Header", href: "/components/header" },
+      { name: "Hero", href: "/components/hero" },
+      { name: "Footer", href: "/components/footer" }
+    ]
+  }
 ];
 ---
-
 <!-- App Background -->
 <div class="min-h-screen bg-slate-100 flex justify-center">
 
@@ -35,24 +49,36 @@ const components = [
         Components
       </h2>
 
-      <nav class="space-y-1">
-        {components.map((c) => {
-          const isActive = currentPath === c.href;
+      <nav class="space-y-6">
+        {categories.map((category) => (
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
+              {category.label}
+            </h3>
 
-          return (
-            <a 
-              href={c.href}
-              class={`block px-3 py-2 rounded-md text-sm transition
-                ${isActive 
-                  ? "bg-slate-900 text-white font-medium" 
-                  : "text-slate-700 hover:bg-slate-200"
-                }
-              `}
-            >
-              {c.name}
-            </a>
-          );
-        })}
+            <ul class="space-y-1">
+              {category.items.map((item) => {
+                const isActive = currentPath === item.href;
+
+                return (
+                  <li>
+                    <a
+                      href={item.href}
+                      class={`block px-3 py-2 rounded-md text-sm transition
+                        ${isActive
+                          ? "bg-slate-900 text-white font-medium"
+                          : "text-slate-700 hover:bg-slate-200"
+                        }
+                      `}
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
       </nav>
     </aside>
 
