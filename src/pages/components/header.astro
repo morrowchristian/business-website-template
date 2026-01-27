@@ -33,8 +33,17 @@ const docs = (HeaderComponent as any).__astro_internal?.docs ?? "No documentatio
   <section>
     <h2 class="text-xl font-semibold mb-4">Code Example</h2>
     <pre class="bg-gray-100 p-4 rounded text-sm">
-{`<Header />`}
+    {`<Header />`}
     </pre>
+  </section>
+
+  <!-- Related Components -->
+  <section class="mt-16 pt-8 border-t border-slate-200">
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="space-y-2 text-blue-600">
+      <li><a href="/components/hero" class="hover:underline">Hero →</a></li>
+      <li><a href="/components/footer" class="hover:underline">Footer →</a></li>
+    </ul>
   </section>
 
 </ComponentExplorerLayout>
