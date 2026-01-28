@@ -10,7 +10,6 @@
 const { title } = Astro.props;
 const currentPath = Astro.url.pathname;
 
-// Category-based navigation structure
 const categories = [
   {
     label: "Buttons",
@@ -37,14 +36,40 @@ const categories = [
   }
 ];
 ---
-<!-- App Background -->
-<div class="min-h-screen bg-slate-100 flex justify-center">
 
-  <!-- App Shell -->
+<!-- Alpine.js -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Alpine global data -->
+<script is:inline define:vars={{ currentPath, categories }}>
+  window.__EXPLORER_DATA__ = {
+    currentPath,
+    categories
+  };
+</script>
+
+<div class="min-h-screen bg-slate-100 flex justify-center">
   <div class="flex w-full max-w-6xl bg-white shadow-md border border-slate-200 mt-10 mb-10 rounded-xl overflow-hidden">
 
     <!-- Sidebar -->
-    <aside class="w-64 shrink-0 border-r bg-slate-50 p-6">
+    <aside
+      class="w-64 shrink-0 border-r bg-slate-50 p-6"
+      x-data="{
+        query: '',
+        currentPath: window.__EXPLORER_DATA__.currentPath,
+        categories: window.__EXPLORER_DATA__.categories,
+
+        matches(item) {
+          return item.name
+            .toLowerCase()
+            .includes(this.query.toLowerCase())
+        },
+
+        isActive(item) {
+          return item.href === this.currentPath
+        }
+      }"
+    >
       <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4">
         Components
       </h2>
@@ -56,43 +81,44 @@ const categories = [
         Home
       </a>
 
+      <input
+        type="search"
+        placeholder="Search components..."
+        x-model="query"
+        class="w-full mb-4 px-3 py-2 rounded-md bg-white border border-slate-300 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
       <nav class="space-y-6">
-        {categories.map((category) => (
+        <template x-for="category in categories" :key="category.label">
           <div>
-            <!-- Category Header (Option 1 styling) -->
-            <h3 class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
-              {category.label}
-            </h3>
+            <h3
+              class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2"
+              x-text="category.label"
+            ></h3>
 
             <ul class="space-y-1">
-              {category.items.map((item) => {
-                const isActive = currentPath === item.href;
-
-                return (
-                  <li>
-                    <a
-                      href={item.href}
-                      class={`block px-3 py-2 rounded-md text-sm transition
-                        ${isActive
-                          ? "bg-slate-900 text-white font-medium"
-                          : "text-slate-700 hover:bg-slate-200"
-                        }
-                      `}
-                    >
-                      {item.name}
-                    </a>
-                  </li>
-                );
-              })}
+              <template x-for="item in category.items" :key="item.href">
+                <li x-show="matches(item)">
+                  <a
+                    :href="item.href"
+                    class="block px-3 py-2 rounded-md text-sm transition"
+                    :class="isActive(item) ? 'bg-slate-900 text-white font-medium' : 'text-slate-700 hover:bg-slate-200'"
+                    x-text="item.name"
+                  ></a>
+                </li>
+              </template>
             </ul>
           </div>
-        ))}
+        </template>
       </nav>
     </aside>
 
     <!-- Main Content -->
     <main class="flex-1 p-10">
-      <h1 class="text-2xl font-semibold mb-6 text-slate-900">{title}</h1>
+      <h1 class="text-2xl font-semibold mb-6 text-slate-900">
+        {title}
+      </h1>
+
       <div class="text-slate-800">
         <slot />
       </div>
