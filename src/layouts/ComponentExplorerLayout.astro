@@ -60,13 +60,17 @@ const categories = [
         categories: window.__EXPLORER_DATA__.categories,
 
         matches(item) {
-          return item.name
-            .toLowerCase()
-            .includes(this.query.toLowerCase())
+          return item.name.toLowerCase().includes(this.query.toLowerCase())
         },
 
         isActive(item) {
           return item.href === this.currentPath
+        },
+
+        hasMatches() {
+          return this.categories.some(category =>
+            category.items.some(item => this.matches(item))
+          )
         }
       }"
     >
@@ -90,11 +94,9 @@ const categories = [
 
       <nav class="space-y-6">
         <template x-for="category in categories" :key="category.label">
-          <div>
-            <h3
-              class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2"
-              x-text="category.label"
-            ></h3>
+          <div x-show="category.items.some(item => matches(item))">
+            <h3 class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2"
+                x-text="category.label"></h3>
 
             <ul class="space-y-1">
               <template x-for="item in category.items" :key="item.href">
@@ -110,6 +112,12 @@ const categories = [
             </ul>
           </div>
         </template>
+        <p
+          x-show="!hasMatches()"
+          class="text-sm text-slate-500 italic px-3 py-2"
+        >
+        No components match your search
+        </p>
       </nav>
     </aside>
 
