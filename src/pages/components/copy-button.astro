@@ -1,24 +1,25 @@
 ---
 /**
  * CopyButton Component Explorer Page
- *
- * Purpose:
- * - Demonstrates the CopyButton component in isolation.
- * - Shows how the component hydrates and interacts with a code block.
- * - Displays API documentation extracted from the component file.
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
 import CopyButtonComponent from "../../components/CopyButton.tsx";
 
-// Access internal docs safely with a type cast
 const docs = (CopyButtonComponent as any).__astro_internal?.docs ?? "No documentation available.";
 
-// Unique ID for the <pre> block so CopyButton knows what to copy
 const exampleId = "copy-button-example";
+
+export const title = "Copy Button";
+
+export const related = [
+  { name: "Button", href: "/components/button" },
+  { name: "Button Group", href: "/components/button-group" },
+  { name: "Back Button", href: "/components/back-button" }
+];
 ---
 
-<ComponentExplorerLayout title="CopyButton">
+<ComponentExplorerLayout title={title} related={related}>
 
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
@@ -44,16 +45,6 @@ const exampleId = "copy-button-example";
         console.log("Pre element:", document.getElementById("copy-button-example"));
       </script>
     </div>
-  </section>
-
-  <!-- Related Components -->
-  <section class="mt-16 pt-8 border-t border-slate-200">
-    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
-    <ul class="space-y-2 text-blue-600">
-      <li><a href="/components/button" class="hover:underline">Button &rarr;</a></li>
-      <li><a href="/components/button-group" class="hover:underline">Button Group &rarr;</a></li>
-      <li><a href="/components/back-button" class="hover:underline">Back Button &rarr;</a></li>
-    </ul>
   </section>
 
 </ComponentExplorerLayout>

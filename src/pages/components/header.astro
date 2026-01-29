@@ -1,20 +1,22 @@
 ---
 /**
  * Header Component Explorer Page
- *
- * Purpose:
- * - Displays the global Header component.
- * - Shows API documentation and usage example.
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
 import HeaderComponent from "../../components/Header.astro";
 
-// Access internal docs safely with a type cast
 const docs = (HeaderComponent as any).__astro_internal?.docs ?? "No documentation available.";
+
+export const title = "Header";
+
+export const related = [
+  { name: "Hero", href: "/components/hero" },
+  { name: "Footer", href: "/components/footer" }
+];
 ---
 
-<ComponentExplorerLayout title="Header">
+<ComponentExplorerLayout title={title} related={related}>
 
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
@@ -35,15 +37,6 @@ const docs = (HeaderComponent as any).__astro_internal?.docs ?? "No documentatio
     <pre class="bg-gray-100 p-4 rounded text-sm">
     {`<Header />`}
     </pre>
-  </section>
-
-  <!-- Related Components -->
-  <section class="mt-16 pt-8 border-t border-slate-200">
-    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
-    <ul class="space-y-2 text-blue-600">
-      <li><a href="/components/hero" class="hover:underline">Hero &rarr;</a></li>
-      <li><a href="/components/footer" class="hover:underline">Footer &rarr;</a></li>
-    </ul>
   </section>
 
 </ComponentExplorerLayout>

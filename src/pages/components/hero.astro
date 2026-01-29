@@ -1,20 +1,22 @@
 ---
 /**
  * Hero Component Explorer Page
- *
- * Purpose:
- * - Demonstrates the Hero component with default and custom props.
- * - Displays API documentation and usage example.
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
 import HeroComponent from "../../components/Hero.astro";
 
-// Access internal docs safely with a type cast
 const docs = (HeroComponent as any).__astro_internal?.docs ?? "No documentation available.";
+
+export const title = "Hero"
+
+export const related = [
+  { name: "Header", href: "/components/header" },
+  { name: "Button", href: "/components/button" }
+];
 ---
 
-<ComponentExplorerLayout title="Hero">
+<ComponentExplorerLayout title={title} related={related}>
 
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
@@ -43,15 +45,6 @@ const docs = (HeroComponent as any).__astro_internal?.docs ?? "No documentation 
       subtitle="Modern tools to help your business thrive."
     />`}
     </pre>
-  </section>
-
-  <!-- Related Components -->
-  <section class="mt-16 pt-8 border-t border-slate-200">
-    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
-    <ul class="space-y-2 text-blue-600">
-      <li><a href="/components/header" class="hover:underline">Header &rarr;</a></li>
-      <li><a href="/components/button" class="hover:underline">Button &rarr;</a></li>
-    </ul>
   </section>
 
 </ComponentExplorerLayout>

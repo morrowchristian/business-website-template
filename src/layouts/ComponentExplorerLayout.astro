@@ -7,7 +7,7 @@
  * - Provides a modern, centered app shell for the design system.
  */
 
-const { title } = Astro.props;
+const { title, related } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const categories = [
@@ -36,6 +36,7 @@ const categories = [
   }
 ];
 ---
+
 
 <!-- Alpine.js -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -130,7 +131,25 @@ const categories = [
       <div class="text-slate-800">
         <slot />
       </div>
-    </main>
 
+      {related && related.length > 0 && (
+        <section class="mt-16 pt-8 border-t border-slate-200">
+          <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+
+          <ul class="space-y-2">
+            {related.map((item: { name: string; href: string }) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-blue-600 hover:text-blue-700 hover:underline"
+                >
+                  {item.name} &rarr;
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </main>
   </div>
 </div>

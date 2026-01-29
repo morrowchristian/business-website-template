@@ -1,21 +1,23 @@
 ---
 /**
  * Card Component Explorer Page
- *
- * Purpose:
- * - Demonstrates all Card variants (base, horizontal, minimal).
- * - Shows image support, slot usage, and clickable behavior.
- * - Displays API documentation and example usage.
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
 import CardComponent from "../../components/Card.astro";
 
-// Access internal docs safely with a type cast
 const docs = (CardComponent as any).__astro_internal?.docs ?? "No documentation available.";
+
+export const title = "Card";
+
+export const related = [
+  { name: "Button", href: "/components/button" },
+  { name: "Button Group", href: "/components/button-group" },
+  { name: "Copy Button", href: "/components/copy-button" }
+];
 ---
 
-<ComponentExplorerLayout title="Card">
+<ComponentExplorerLayout title={title} related={related}>
 
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
@@ -79,16 +81,6 @@ const docs = (CardComponent as any).__astro_internal?.docs ?? "No documentation 
   description="Default image-top layout."
 />`}
     </pre>
-  </section>
-
-  <!-- Related Components -->
-  <section class="mt-16 pt-8 border-t border-slate-200">
-    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
-    <ul class="space-y-2 text-blue-600">
-      <li><a href="/components/button" class="hover:underline">Button &rarr;</a></li>
-      <li><a href="/components/header" class="hover:underline">Header &rarr;</a></li>
-      <li><a href="/components/hero" class="hover:underline">Hero &rarr;</a></li>
-    </ul>
   </section>
 
 </ComponentExplorerLayout>

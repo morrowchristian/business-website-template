@@ -1,20 +1,22 @@
 ---
 /**
  * Footer Component Explorer Page
- *
- * Purpose:
- * - Displays the global Footer component.
- * - Shows API documentation and usage example.
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
 import FooterComponent from "../../components/Footer.astro";
 
-// Access internal docs safely with a type cast
 const docs = (FooterComponent as any).__astro_internal?.docs ?? "No documentation available.";
+
+export const title = "Footer";
+
+export const related = [
+  { name: "Header", href: "/components/header" },
+  { name: "Card", href: "/components/card" }
+];
 ---
 
-<ComponentExplorerLayout title="Footer">
+<ComponentExplorerLayout title={title} related={related}>
 
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
@@ -35,15 +37,6 @@ const docs = (FooterComponent as any).__astro_internal?.docs ?? "No documentatio
     <pre class="bg-gray-100 p-4 rounded text-sm">
 {`<Footer />`}
     </pre>
-  </section>
-
-  <!-- Related Components -->
-  <section class="mt-16 pt-8 border-t border-slate-200">
-    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
-    <ul class="space-y-2 text-blue-600">
-      <li><a href="/components/header" class="hover:underline">Header &rarr;</a></li>
-      <li><a href="/components/card" class="hover:underline">Card &rarr;</a></li>
-    </ul>
   </section>
 
 </ComponentExplorerLayout>
