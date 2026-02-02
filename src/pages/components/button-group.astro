@@ -1,22 +1,25 @@
 ---
 /**
  * ButtonGroup Component Explorer Page
- *
- * Purpose:
- * - Shows how ButtonGroup arranges Button components.
- * - Demonstrates horizontal, vertical, and full-width layouts.
- * - Displays API documentation and example usage.
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
 import ButtonGroupComponent from "../../components/ButtonGroup.astro";
 import Button from "../../components/Button.astro";
 
-// Access internal docs safely with a type cast
 const docs = (ButtonGroupComponent as any).__astro_internal?.docs ?? "No documentation available.";
+
+export const title = "Button Group";
+
+export const related = [
+  { name: "Button", href: "/components/button" },
+  { name: "Back Button", href: "/components/back-button" },
+  { name: "Copy Button", href: "/components/copy-button" }
+];
+
 ---
 
-<ComponentExplorerLayout title="Button Group">
+<ComponentExplorerLayout title={title} related={related}>
 
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
@@ -56,10 +59,10 @@ const docs = (ButtonGroupComponent as any).__astro_internal?.docs ?? "No documen
   <section>
     <h2 class="text-xl font-semibold mb-4">Code Example</h2>
     <pre class="bg-gray-100 p-4 rounded text-sm">
-{`<ButtonGroup direction="horizontal" gap="gap-4">
-  <Button>Save</Button>
-  <Button variant="secondary">Cancel</Button>
-</ButtonGroup>`}
+    {`<ButtonGroup direction="horizontal" gap="gap-4">
+      <Button>Save</Button>
+      <Button variant="secondary">Cancel</Button>
+    </ButtonGroup>`}
     </pre>
   </section>
 

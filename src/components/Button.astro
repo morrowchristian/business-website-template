@@ -3,7 +3,7 @@
  * Button Component
  *
  * Purpose:
- * - Reusable, accessible button with variants, sizes, icons, loading, full-width.
+ * - Reusable, accessible button with variants, sizes, icons, loading, and full-width support.
  */
 
 const docs = `
@@ -25,6 +25,7 @@ It supports multiple visual styles, sizes, full‑width mode, loading state, and
 | \`loading\`   | boolean                                  | false       | Shows a loading spinner and disables interaction. |
 | \`fullWidth\` | boolean                                  | false       | Expands the button to 100% width. |
 | \`icon\`      | string \| null                           | null        | Optional icon name for left‑aligned icon. |
+| \`disabled\`  | boolean                                  | false       | Disables interaction and dims the button. |
 
 ---
 
@@ -43,6 +44,7 @@ It supports multiple visual styles, sizes, full‑width mode, loading state, and
 - Supports keyboard focus and accessible states.
 - Icons are optional and appear before the label.
 - Full‑width mode stretches the button to fill its container.
+- Disabled state dims the button and prevents interaction.
 
 ---
 
@@ -55,7 +57,6 @@ It supports multiple visual styles, sizes, full‑width mode, loading state, and
 <Button loading>Submitting…</Button>
 `;
 
-
 interface Props {
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
@@ -63,6 +64,7 @@ interface Props {
   loading?: boolean;
   fullWidth?: boolean;
   icon?: string | null;
+  disabled?: boolean;
 }
 
 const {
@@ -71,7 +73,8 @@ const {
   href = null,
   loading = false,
   fullWidth = false,
-  icon = null
+  icon = null,
+  disabled = false,   // ← You were missing this comma
 } = Astro.props;
 
 const isLink = Boolean(href);
@@ -100,14 +103,15 @@ const base = `
 
 const widthClass = fullWidth ? "w-full" : "";
 const loadingClass = loading ? "opacity-70 pointer-events-none" : "";
+const disabledClass = disabled ? "opacity-50 pointer-events-none" : "";
 
 const Wrapper = isLink ? "a" : "button";
-const wrapperAttrs = isLink ? { href } : { disabled: loading };
+const wrapperAttrs = isLink ? { href } : { disabled: disabled || loading };
 ---
 
 <Wrapper
   {...wrapperAttrs}
-  class={`${base} ${variants[variant]} ${sizes[size]} ${widthClass} ${loadingClass}`}
+  class={`${base} ${variants[variant]} ${sizes[size]} ${widthClass} ${loadingClass} ${disabledClass}`}
 >
   {loading && (
     <span class="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>

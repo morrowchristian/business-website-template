@@ -1,21 +1,23 @@
 ---
 /**
  * Button Component Explorer Page
- *
- * Purpose:
- * - Displays the Button component’s API documentation.
- * - Provides live previews of all variants, sizes, and states.
- * - Shows example usage code for reference.
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
 import ButtonComponent from "../../components/Button.astro";
 
-// Access internal docs safely with a type cast
 const docs = (ButtonComponent as any).__astro_internal?.docs ?? "No documentation available.";
+
+export const title = "Button";
+
+export const related = [
+  { name: "Button Group", href: "/components/button-group" },
+  { name: "Copy Button", href: "/components/copy-button" },
+  { name: "Back Button", href: "/components/back-button" }
+];
 ---
 
-<ComponentExplorerLayout title="Button">
+<ComponentExplorerLayout title={title} related={related}>
 
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
@@ -28,13 +30,30 @@ const docs = (ButtonComponent as any).__astro_internal?.docs ?? "No documentatio
     <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
 
     <div class="space-y-6">
+
+      <!-- Variants -->
       <ButtonComponent variant="primary">Primary Button</ButtonComponent>
       <ButtonComponent variant="secondary">Secondary Button</ButtonComponent>
       <ButtonComponent variant="ghost">Ghost Button</ButtonComponent>
+
+      <!-- Sizes -->
+      <ButtonComponent size="sm">Small Button</ButtonComponent>
+      <ButtonComponent size="md">Medium Button</ButtonComponent>
+      <ButtonComponent size="lg">Large Button</ButtonComponent>
+
+      <!-- States -->
       <ButtonComponent loading>Loading Button</ButtonComponent>
+      <ButtonComponent disabled>Disabled Button</ButtonComponent>
+
+      <!-- Icon -->
       <ButtonComponent icon="star">With Icon</ButtonComponent>
+
+      <!-- Full Width -->
       <ButtonComponent fullWidth>Full Width Button</ButtonComponent>
+
+      <!-- Link Mode -->
       <ButtonComponent href="/contact">Link Button</ButtonComponent>
+
     </div>
   </section>
 
@@ -42,7 +61,7 @@ const docs = (ButtonComponent as any).__astro_internal?.docs ?? "No documentatio
   <section>
     <h2 class="text-xl font-semibold mb-4">Code Example</h2>
     <pre class="bg-gray-100 p-4 rounded text-sm">
-{`<Button variant="primary">Primary Button</Button>`}
+    {`<Button variant="primary" size="md">Primary Button</Button>`}
     </pre>
   </section>
 

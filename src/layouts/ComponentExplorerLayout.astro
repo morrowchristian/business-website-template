@@ -4,43 +4,152 @@
  *
  * Purpose:
  * - Storybook-style layout with sidebar + main content.
+ * - Provides a modern, centered app shell for the design system.
  */
 
-const { title } = Astro.props;
+const { title, related } = Astro.props;
+const currentPath = Astro.url.pathname;
 
-const components = [
-  { name: "Button", href: "/components/button" },
-  { name: "Button Group", href: "/components/button-group" },
-  { name: "Back Button", href: "/components/back-button" },
-  { name: "Card", href: "/components/card" },
-  { name: "Hero", href: "/components/hero" },
-  { name: "Header", href: "/components/header" },
-  { name: "Footer", href: "/components/footer" }
+const categories = [
+  {
+    label: "Buttons",
+    items: [
+      { name: "Button", href: "/components/button" },
+      { name: "Button Group", href: "/components/button-group" },
+      { name: "Back Button", href: "/components/back-button" },
+      { name: "Copy Button", href: "/components/copy-button" }
+    ]
+  },
+  {
+    label: "Cards",
+    items: [
+      { name: "Card", href: "/components/card" }
+    ]
+  },
+  {
+    label: "Layout",
+    items: [
+      { name: "Header", href: "/components/header" },
+      { name: "Hero", href: "/components/hero" },
+      { name: "Footer", href: "/components/footer" }
+    ]
+  }
 ];
 ---
 
-<div class="flex min-h-screen">
 
-  <!-- Sidebar -->
-  <aside class="w-64 border-r bg-gray-50 p-6 space-y-4">
-    <h2 class="text-xl font-bold mb-4">Components</h2>
+<!-- Alpine.js -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <nav class="space-y-2">
-      {components.map((c) => (
-        <a 
-          href={c.href}
-          class="block px-3 py-2 rounded hover:bg-gray-200 transition"
+<!-- Alpine global data -->
+<script is:inline define:vars={{ currentPath, categories }}>
+  window.__EXPLORER_DATA__ = {
+    currentPath,
+    categories
+  };
+</script>
+
+<div class="min-h-screen bg-slate-100 flex justify-center">
+  <div class="flex w-full max-w-6xl bg-white shadow-md border border-slate-200 mt-10 mb-10 rounded-xl overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside
+      class="w-64 shrink-0 border-r bg-slate-50 p-6"
+      x-data="{
+        query: '',
+        currentPath: window.__EXPLORER_DATA__.currentPath,
+        categories: window.__EXPLORER_DATA__.categories,
+
+        matches(item) {
+          return item.name.toLowerCase().includes(this.query.toLowerCase())
+        },
+
+        isActive(item) {
+          return item.href === this.currentPath
+        },
+
+        hasMatches() {
+          return this.categories.some(category =>
+            category.items.some(item => this.matches(item))
+          )
+        }
+      }"
+    >
+      <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4">
+        Components
+      </h2>
+
+      <a
+        href="/components"
+        class="block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-200 mb-4"
+      >
+        Home
+      </a>
+
+      <input
+        type="search"
+        placeholder="Search components..."
+        x-model="query"
+        class="w-full mb-4 px-3 py-2 rounded-md bg-white border border-slate-300 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <nav class="space-y-6">
+        <template x-for="category in categories" :key="category.label">
+          <div x-show="category.items.some(item => matches(item))">
+            <h3 class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2"
+                x-text="category.label"></h3>
+
+            <ul class="space-y-1">
+              <template x-for="item in category.items" :key="item.href">
+                <li x-show="matches(item)">
+                  <a
+                    :href="item.href"
+                    class="block px-3 py-2 rounded-md text-sm transition"
+                    :class="isActive(item) ? 'bg-slate-900 text-white font-medium' : 'text-slate-700 hover:bg-slate-200'"
+                    x-text="item.name"
+                  ></a>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </template>
+        <p
+          x-show="!hasMatches()"
+          class="text-sm text-slate-500 italic px-3 py-2"
         >
-          {c.name}
-        </a>
-      ))}
-    </nav>
-  </aside>
+        No components match your search
+        </p>
+      </nav>
+    </aside>
 
-  <!-- Main Content -->
-  <main class="flex-1 p-10">
-    <h1 class="text-3xl font-bold mb-6">{title}</h1>
-    <slot />
-  </main>
+    <!-- Main Content -->
+    <main class="flex-1 p-10">
+      <h1 class="text-2xl font-semibold mb-6 text-slate-900">
+        {title}
+      </h1>
 
+      <div class="text-slate-800">
+        <slot />
+      </div>
+
+      {related && related.length > 0 && (
+        <section class="mt-16 pt-8 border-t border-slate-200">
+          <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+
+          <ul class="space-y-2">
+            {related.map((item: { name: string; href: string }) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-blue-600 hover:text-blue-700 hover:underline"
+                >
+                  {item.name} &rarr;
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </main>
+  </div>
 </div>

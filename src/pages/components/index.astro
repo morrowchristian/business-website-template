@@ -11,7 +11,57 @@ import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro
 ---
 
 <ComponentExplorerLayout title="Component Explorer">
-  <p class="text-gray-600">
-    Select a component from the sidebar to view its documentation and live preview.
-  </p>
+
+  <section class="prose max-w-none">
+    <h2 class="text-3xl font-bold mb-4 tracking-tight text-gray-900">
+      Welcome to the Design System
+    </h2>
+
+    <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+      This explorer showcases every core component in your system &mdash; fully documented,
+      previewed, and ready for reuse.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Browse Components -->
+      <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-all">
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Browse Components</h3>
+        <p class="text-sm text-gray-600 mb-3">
+          Use the sidebar to explore live previews, props, and usage examples.
+        </p>
+        <a
+          href="/components/button"
+          class="inline-block text-sm text-blue-600 hover:text-blue-700 hover:underline font-medium"
+        >
+          Start with Button &rarr;
+        </a>
+      </div>
+
+      <!-- Design Tokens -->
+      <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-all">
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Design Tokens</h3>
+        <p class="text-sm text-gray-600 mb-3">
+          Colors, spacing, typography, and radii &mdash; all documented in one place.
+        </p>
+        <span class="text-gray-400 text-sm italic">Coming soon</span>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-all">
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Roadmap</h3>
+        <p class="text-sm text-gray-600 mb-3">
+          Track progress on component development and DX enhancements.
+        </p>
+        <a
+          href="https://github.com/morrowchristian/business-website-template/issues/19"
+          class="inline-block text-sm text-blue-600 hover:text-blue-700 hover:underline font-medium"
+        >
+          View roadmap &rarr;
+        </a>
+      </div>
+
+    </div>
+  </section>
+
 </ComponentExplorerLayout>

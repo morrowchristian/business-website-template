@@ -1,0 +1,50 @@
+---
+/**
+ * CopyButton Component Explorer Page
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import CopyButtonComponent from "../../components/CopyButton.tsx";
+
+const docs = (CopyButtonComponent as any).__astro_internal?.docs ?? "No documentation available.";
+
+const exampleId = "copy-button-example";
+
+export const title = "Copy Button";
+
+export const related = [
+  { name: "Button", href: "/components/button" },
+  { name: "Button Group", href: "/components/button-group" },
+  { name: "Back Button", href: "/components/back-button" }
+];
+---
+
+<ComponentExplorerLayout title={title} related={related}>
+
+  <!-- API Documentation -->
+  <section class="prose max-w-none mb-12">
+    <h2>API Documentation</h2>
+    <pre class="bg-gray-100 p-4 rounded whitespace-pre-wrap text-sm">{docs}</pre>
+  </section>
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+
+    <div class="relative">
+      <!-- Hydrated CopyButton -->
+      <CopyButtonComponent targetId={exampleId} client:load />
+
+      <!-- Target code block -->
+      <pre id={exampleId} class="bg-gray-100 p-4 rounded text-sm">
+      {`<div>Hello world</div>`}
+      </pre>
+
+      <script>
+        console.log("Explorer page loaded");
+        console.log("Pre element:", document.getElementById("copy-button-example"));
+      </script>
+    </div>
+  </section>
+
+</ComponentExplorerLayout>
