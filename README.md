@@ -21,7 +21,7 @@ The template emphasizes clarity, modularity, and long‑term maintainability.
 
 ## 📁 Project Structure
 
-'''
+```
 src/
 ├── components/        # Reusable UI components
 ├── layouts/           # Shared page layouts
@@ -35,7 +35,7 @@ docs/
 ├── components.md      # Component documentation
 ├── pages.md           # Page templates and routing
 └── decisions.md       # Architectural decision records (ADR)
-'''
+```
 
 ---
 
@@ -52,21 +52,21 @@ docs/
 
 ### 1. Install dependencies
 
-'''
+```
 npm install
-'''
+```
 
 ### 2. Start the development server
 
-'''
+```
 npm run dev
-'''
+```
 
 ### 3. Build for production
 
-'''
+```
 npm run build
-'''
+```
 
 ---
 
