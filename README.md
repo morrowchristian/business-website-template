@@ -5,6 +5,8 @@ This project is designed as a reusable foundation for small business sites, port
 
 The template emphasizes clarity, modularity, and long‑term maintainability.
 
+**Live Demo:** [business-website-template-three.vercel.app](https://business-website-template-three.vercel.app)
+
 ---
 
 ## 🚀 Features
