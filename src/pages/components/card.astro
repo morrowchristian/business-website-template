@@ -3,7 +3,7 @@
  * Card Component Explorer Page
  *
  * Purpose:
- * - Demonstrates all Card variants (base, horizontal, minimal).
+ * - Demonstrates all Card variants (base, horizontal, minimal, featured).
  * - Shows image support, slot usage, and clickable behavior.
  * - Displays API documentation and example usage.
  */
@@ -16,66 +16,170 @@ import CodeBlock from "../../components/CodeBlock.astro";
 
 <ComponentExplorerLayout title="Card">
 
-  <!-- API Documentation -->
-  <section class="prose max-w-none mb-12">
-    <h2>API Documentation</h2>
-    <CodeBlock code={docs} language="markdown" />
-  </section>
-
   <!-- Live Preview -->
   <section class="mb-12">
     <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <p class="text-gray-600 mb-6">
+      The default base card: image on top, title and description below, fully clickable.
+    </p>
 
-    <div class="space-y-10">
-
-      <!-- Base -->
-      <CardComponent
-        variant="base"
-        href="#"
-        image="/assets/placeholders/placeholder.jpg"
-        title="Base Card"
-        description="Default image-top layout."
-      />
-
-      <!-- Horizontal -->
-      <CardComponent
-        variant="horizontal"
-        href="#"
-        image="/assets/placeholders/placeholder.jpg"
-        title="Horizontal Card"
-        description="Image left, content right."
-      />
-
-      <!-- Minimal -->
-      <CardComponent
-        variant="minimal"
-        href="#"
-        title="Minimal Card"
-        description="Text-first layout."
-      />
-
-      <!-- With Slot -->
-      <CardComponent
-        variant="base"
-        title="Card With Actions"
-        description="This card includes an internal action."
-      >
-        <a href="#" class="text-blue-600 hover:underline">Learn More →</a>
-      </CardComponent>
-
-    </div>
+    <CardComponent
+      variant="base"
+      href="#"
+      image="/assets/placeholders/placeholder.jpg"
+      title="Base Card"
+      description="Default image-top layout."
+    />
   </section>
 
-  <!-- Code Example -->
-  <section>
-    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <CodeBlock code={`<Card
+  <!-- Variants -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Variants</h2>
+
+    <!-- Base -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Base</h3>
+      <p class="text-gray-600 mb-4">The default image-top layout with a white background and subtle shadow.</p>
+      <div class="mb-4">
+        <CardComponent
+          variant="base"
+          href="#"
+          image="/assets/placeholders/placeholder.jpg"
+          title="Base Card"
+          description="Default image-top layout."
+        />
+      </div>
+      <CodeBlock code={`<Card
   variant="base"
   href="#"
   image="/assets/placeholders/placeholder.jpg"
   title="Base Card"
   description="Default image-top layout."
 />`} language="astro" />
+    </div>
+
+    <!-- Horizontal -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Horizontal</h3>
+      <p class="text-gray-600 mb-4">Image left, content right — for denser lists and search results.</p>
+      <div class="mb-4">
+        <CardComponent
+          variant="horizontal"
+          href="#"
+          image="/assets/placeholders/placeholder.jpg"
+          title="Horizontal Card"
+          description="Image left, content right."
+        />
+      </div>
+      <CodeBlock code={`<Card
+  variant="horizontal"
+  href="#"
+  image="/assets/placeholders/placeholder.jpg"
+  title="Horizontal Card"
+  description="Image left, content right."
+/>`} language="astro" />
+    </div>
+
+    <!-- Minimal -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Minimal</h3>
+      <p class="text-gray-600 mb-4">Text-first layout with no border, background, or shadow.</p>
+      <div class="mb-4">
+        <CardComponent
+          variant="minimal"
+          href="#"
+          title="Minimal Card"
+          description="Text-first layout."
+        />
+      </div>
+      <CodeBlock code={`<Card
+  variant="minimal"
+  href="#"
+  title="Minimal Card"
+  description="Text-first layout."
+/>`} language="astro" />
+    </div>
+
+    <!-- Featured -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Featured</h3>
+      <p class="text-gray-600 mb-4">Highlighted card with a blue border, light blue background, and stronger shadow — for the item you want visitors to notice first.</p>
+      <div class="mb-4">
+        <CardComponent
+          variant="featured"
+          href="#"
+          image="/assets/placeholders/placeholder.jpg"
+          title="Featured Card"
+          description="Highlighted with a blue border and light blue background."
+        />
+      </div>
+      <CodeBlock code={`<Card
+  variant="featured"
+  href="#"
+  image="/assets/placeholders/placeholder.jpg"
+  title="Featured Card"
+  description="Highlighted with a blue border and light blue background."
+/>`} language="astro" />
+    </div>
+
+    <!-- With Slot -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">With Slot Content</h3>
+      <p class="text-gray-600 mb-4">Any variant can hold extra content — actions, tags, or links — via the default slot.</p>
+      <div class="mb-4">
+        <CardComponent
+          variant="base"
+          title="Card With Actions"
+          description="This card includes an internal action."
+        >
+          <a href="#" class="text-blue-600 hover:underline">Learn More →</a>
+        </CardComponent>
+      </div>
+      <CodeBlock code={`<Card
+  variant="base"
+  title="Card With Actions"
+  description="This card includes an internal action."
+>
+  <a href="#" class="text-blue-600 hover:underline">Learn More →</a>
+</Card>`} language="astro" />
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<Card
+  variant="featured"
+  href="/services/design"
+  image="/assets/placeholders/placeholder.jpg"
+  title="Design Services"
+  description="Branding, UI/UX, and more — our most popular offering."
+/>`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/button" class="text-blue-600 hover:underline">Button</a>
+        {" "}— the action element often placed in a card's slot.
+      </li>
+      <li>
+        <a href="/components/pricing-table" class="text-blue-600 hover:underline">Pricing Table</a>
+        {" "}— another way to present grouped, comparable options.
+      </li>
+      <li>
+        <a href="/components/team-grid" class="text-blue-600 hover:underline">Team Grid</a>
+        {" "}— a grid of profile cards for people.
+      </li>
+    </ul>
   </section>
 
 </ComponentExplorerLayout>

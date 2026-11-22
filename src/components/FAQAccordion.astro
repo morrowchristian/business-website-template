@@ -7,6 +7,7 @@
  * - Supports single-open and multi-open behavior.
  * - Keyboard accessible (arrow keys to move, Enter/Space to toggle).
  * - Smooth expand/collapse with no layout jump.
+ * - Three visual variants: default (bordered rows), card, minimal.
  */
 
 export const docs = `
@@ -19,11 +20,22 @@ The FAQAccordion component displays a list of questions that expand to reveal an
 
 ### Props
 
-| Prop            | Type                                | Default | Description |
-|-----------------|-------------------------------------|---------|-------------|
-| \`items\`         | { question: string, answer: string }[] | —       | The FAQ entries to display. |
-| \`allowMultiple\` | boolean                             | false   | When true, more than one answer can be open at a time. When false, opening one closes the others. |
-| \`defaultOpen\`   | number \| null                      | null    | Index of the item open on load. \`null\` means all closed. |
+| Prop            | Type                                | Default   | Description |
+|-----------------|-------------------------------------|-----------|-------------|
+| \`items\`         | { question: string, answer: string }[] | —         | The FAQ entries to display. |
+| \`allowMultiple\` | boolean                             | false     | When true, more than one answer can be open at a time. When false, opening one closes the others. |
+| \`defaultOpen\`   | number \| null                      | null      | Index of the item open on load. \`null\` means all closed. |
+| \`variant\`       | "default" \| "card" \| "minimal"     | "default" | Visual style of the accordion. See Variants. |
+
+---
+
+### Variants
+
+| Variant   | Description |
+|-----------|-------------|
+| \`default\` | Bordered rows in a single bordered container — the classic FAQ look. |
+| \`card\`    | Each question/answer lives in its own white card with a soft shadow. |
+| \`minimal\` | Dividers only — no outer border or background, for quieter pages. |
 
 ---
 
@@ -54,6 +66,8 @@ The FAQAccordion component displays a list of questions that expand to reveal an
 ]} />
 
 <FAQAccordion allowMultiple defaultOpen={0} items={[...]} />
+
+<FAQAccordion variant="card" items={[...]} />
 `;
 
 interface FAQItem {
@@ -65,22 +79,35 @@ interface Props {
   items: FAQItem[];
   allowMultiple?: boolean;
   defaultOpen?: number | null;
+  variant?: "default" | "card" | "minimal";
 }
 
-const { items, allowMultiple = false, defaultOpen = null } = Astro.props;
+const { items, allowMultiple = false, defaultOpen = null, variant = "default" } = Astro.props;
 const accordionId = `faq-${Math.random().toString(36).slice(2, 9)}`;
+
+const containerClass =
+  variant === "card"
+    ? "space-y-3"
+    : variant === "minimal"
+      ? "divide-y divide-gray-200"
+      : "divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white overflow-hidden";
+
+const itemClass =
+  variant === "card"
+    ? "faq-item overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
+    : "faq-item";
 ---
 
 <div
   id={accordionId}
-  class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white overflow-hidden"
+  class={containerClass}
 >
   {items.map((item, index) => {
     const isOpen = defaultOpen === index;
     const buttonId = `${accordionId}-button-${index}`;
     const panelId = `${accordionId}-panel-${index}`;
     return (
-      <div class="faq-item" data-open={isOpen ? "true" : "false"}>
+      <div class={itemClass} data-open={isOpen ? "true" : "false"}>
         <h3 class="m-0">
           <button
             id={buttonId}

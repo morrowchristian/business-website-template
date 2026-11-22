@@ -4,6 +4,7 @@
  *
  * Purpose:
  * - Displays the global Header component.
+ * - Shows the default, centered, and minimal layouts.
  * - Shows API documentation and usage example.
  */
 
@@ -15,23 +16,82 @@ import CodeBlock from "../../components/CodeBlock.astro";
 
 <ComponentExplorerLayout title="Header">
 
-  <!-- API Documentation -->
-  <section class="prose max-w-none mb-12">
-    <h2>API Documentation</h2>
-    <CodeBlock code={docs} language="markdown" />
-  </section>
-
   <!-- Live Preview -->
   <section class="mb-12">
     <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <p class="text-gray-600 mb-6">
+      The default header: logo left, navigation right, with the Message Me button. This is the same header used site-wide.
+    </p>
 
-    <HeaderComponent />
+    <div class="border rounded-lg overflow-hidden">
+      <HeaderComponent />
+    </div>
+  </section>
+
+  <!-- Variants -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Variants</h2>
+
+    <!-- Default -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Default</h3>
+      <p class="text-gray-600 mb-4">Logo left, navigation right — the standard site header.</p>
+      <div class="mb-4 border rounded-lg overflow-hidden">
+        <HeaderComponent />
+      </div>
+      <CodeBlock code={`<Header />`} language="astro" />
+    </div>
+
+    <!-- Centered -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Centered</h3>
+      <p class="text-gray-600 mb-4">Logo centered on its own row, with navigation and the Message Me button below it.</p>
+      <div class="mb-4 border rounded-lg overflow-hidden">
+        <HeaderComponent layout="centered" />
+      </div>
+      <CodeBlock code={`<Header layout="centered" />`} language="astro" />
+    </div>
+
+    <!-- Minimal -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Minimal</h3>
+      <p class="text-gray-600 mb-4">Logo only — no navigation links, Message Me button, or mobile menu button.</p>
+      <div class="mb-4 border rounded-lg overflow-hidden">
+        <HeaderComponent layout="minimal" />
+      </div>
+      <CodeBlock code={`<Header layout="minimal" />`} language="astro" />
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
   </section>
 
   <!-- Code Example -->
-  <section>
+  <section class="mb-12">
     <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <CodeBlock code={`<Header />`} language="astro" />
+    <CodeBlock code={`<Header layout="centered" />`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/footer" class="text-blue-600 hover:underline">Footer</a>
+        {" "}— the matching site-wide footer, with its own layout variants.
+      </li>
+      <li>
+        <a href="/components/hero" class="text-blue-600 hover:underline">Hero</a>
+        {" "}— the headline section that sits below the header on the homepage.
+      </li>
+      <li>
+        <a href="/components/button" class="text-blue-600 hover:underline">Button</a>
+        {" "}— the Message Me button in the header uses the same blue button styling.
+      </li>
+    </ul>
   </section>
 
 </ComponentExplorerLayout>

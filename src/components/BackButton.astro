@@ -17,9 +17,19 @@ It wraps the core Button component and applies a standardized "back" visual styl
 
 ### Props
 
-| Prop   | Type         | Default | Description |
-|--------|--------------|---------|-------------|
-| \`href\` | string \| null | null    | When provided, navigates to the given URL instead of going back in history. |
+| Prop      | Type                | Default | Description |
+|-----------|---------------------|---------|-------------|
+| \`href\`    | string \| null      | null    | When provided, navigates to the given URL instead of going back in history. |
+| \`variant\` | "text" \| "button"  | "text"  | "text" renders a plain link with an arrow; "button" renders an outlined button. |
+
+---
+
+### Variants
+
+| Variant  | Style |
+|----------|-------|
+| \`text\`   | Plain link with a back arrow, as before. |
+| \`button\` | Outlined button style (white background, blue border, blue text) with a back arrow. |
 
 ---
 
@@ -27,7 +37,8 @@ It wraps the core Button component and applies a standardized "back" visual styl
 
 - If \`href\` is provided, the BackButton navigates to that URL.
 - If no \`href\` is provided, it calls \`history.back()\`.
-- Always uses the "ghost" or "secondary subtle" button style.
+- The "text" variant uses the "ghost" button style when \`href\` is provided, and a plain text link otherwise.
+- The "button" variant uses the "outline" button style when \`href\` is provided, and an outlined button otherwise.
 - Includes a left‑aligned back arrow icon.
 
 ---
@@ -37,21 +48,36 @@ It wraps the core Button component and applies a standardized "back" visual styl
 <BackButton href="/playground" />
 
 <BackButton />
+
+<BackButton href="/components" variant="button" />
+
+<BackButton variant="button" />
 `;
 
 import Button from "./Button.astro";
 
 interface Props {
   href?: string | null;
+  variant?: "text" | "button";
 }
 
-const { href = null } = Astro.props;
+const { href = null, variant = "text" } = Astro.props;
+
+const isButton = variant === "button";
 ---
 
 {href ? (
-  <Button href={href} variant="ghost" icon="arrow_back">
+  <Button href={href} variant={isButton ? "outline" : "ghost"} icon="arrow_back">
     Back
   </Button>
+) : isButton ? (
+  <button
+    onclick="history.back()"
+    class="inline-flex items-center justify-center gap-2 px-4 py-2 text-base font-medium text-blue-600 bg-white border border-blue-600 rounded-md hover:bg-blue-50 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+  >
+    <span class="material-icons text-base">arrow_back</span>
+    Back
+  </button>
 ) : (
   <button
     onclick="history.back()"

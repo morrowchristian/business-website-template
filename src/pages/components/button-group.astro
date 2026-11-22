@@ -4,7 +4,7 @@
  *
  * Purpose:
  * - Shows how ButtonGroup arranges Button components.
- * - Demonstrates horizontal, vertical, and full-width layouts.
+ * - Demonstrates horizontal, vertical, full-width, segmented, and aligned layouts.
  * - Displays API documentation and example usage.
  */
 
@@ -17,47 +17,144 @@ import CodeBlock from "../../components/CodeBlock.astro";
 
 <ComponentExplorerLayout title="Button Group">
 
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <ButtonGroupComponent>
+      <Button>Save</Button>
+      <Button variant="secondary">Cancel</Button>
+    </ButtonGroupComponent>
+  </section>
+
+  <!-- Variants -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Variants</h2>
+
+    <div class="space-y-8">
+      <div>
+        <h3 class="text-lg font-medium mb-2">Default — buttons spaced apart</h3>
+        <div class="mb-3">
+          <ButtonGroupComponent>
+            <Button>Save</Button>
+            <Button variant="secondary">Cancel</Button>
+          </ButtonGroupComponent>
+        </div>
+        <CodeBlock code={`<ButtonGroup>
+  <Button>Save</Button>
+  <Button variant="secondary">Cancel</Button>
+</ButtonGroup>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Segmented — buttons attached with shared borders</h3>
+        <div class="mb-3">
+          <ButtonGroupComponent variant="segmented">
+            <Button>Day</Button>
+            <Button variant="secondary">Week</Button>
+            <Button variant="secondary">Month</Button>
+          </ButtonGroupComponent>
+        </div>
+        <CodeBlock code={`<ButtonGroup variant="segmented">
+  <Button>Day</Button>
+  <Button variant="secondary">Week</Button>
+  <Button variant="secondary">Month</Button>
+</ButtonGroup>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Align center — group centered in its container</h3>
+        <div class="border border-dashed border-gray-300 rounded-md p-4 mb-3">
+          <ButtonGroupComponent align="center">
+            <Button>Save</Button>
+            <Button variant="secondary">Cancel</Button>
+          </ButtonGroupComponent>
+        </div>
+        <CodeBlock code={`<ButtonGroup align="center">
+  <Button>Save</Button>
+  <Button variant="secondary">Cancel</Button>
+</ButtonGroup>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Align right — group pushed to the right</h3>
+        <div class="border border-dashed border-gray-300 rounded-md p-4 mb-3">
+          <ButtonGroupComponent align="right">
+            <Button>Save</Button>
+            <Button variant="secondary">Cancel</Button>
+          </ButtonGroupComponent>
+        </div>
+        <CodeBlock code={`<ButtonGroup align="right">
+  <Button>Save</Button>
+  <Button variant="secondary">Cancel</Button>
+</ButtonGroup>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Vertical — buttons stacked</h3>
+        <div class="mb-3">
+          <ButtonGroupComponent direction="vertical">
+            <Button>Top</Button>
+            <Button>Middle</Button>
+            <Button>Bottom</Button>
+          </ButtonGroupComponent>
+        </div>
+        <CodeBlock code={`<ButtonGroup direction="vertical">
+  <Button>Top</Button>
+  <Button>Middle</Button>
+  <Button>Bottom</Button>
+</ButtonGroup>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Full width — group and buttons stretch</h3>
+        <div class="mb-3">
+          <ButtonGroupComponent fullWidth gap="gap-4">
+            <Button fullWidth>Full Width A</Button>
+            <Button fullWidth>Full Width B</Button>
+          </ButtonGroupComponent>
+        </div>
+        <CodeBlock code={`<ButtonGroup fullWidth gap="gap-4">
+  <Button fullWidth>Full Width A</Button>
+  <Button fullWidth>Full Width B</Button>
+</ButtonGroup>`} language="astro" />
+      </div>
+    </div>
+  </section>
+
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
     <h2>API Documentation</h2>
     <CodeBlock code={docs} language="markdown" />
   </section>
 
-  <!-- Live Preview -->
-  <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
-
-    <div class="space-y-8">
-
-      <!-- Horizontal -->
-      <ButtonGroupComponent>
-        <Button>Save</Button>
-        <Button variant="secondary">Cancel</Button>
-      </ButtonGroupComponent>
-
-      <!-- Vertical -->
-      <ButtonGroupComponent direction="vertical">
-        <Button>Top</Button>
-        <Button>Middle</Button>
-        <Button>Bottom</Button>
-      </ButtonGroupComponent>
-
-      <!-- Full Width -->
-      <ButtonGroupComponent fullWidth gap="gap-4">
-        <Button fullWidth>Full Width A</Button>
-        <Button fullWidth>Full Width B</Button>
-      </ButtonGroupComponent>
-
-    </div>
-  </section>
-
   <!-- Code Example -->
-  <section>
+  <section class="mb-12">
     <h2 class="text-xl font-semibold mb-4">Code Example</h2>
     <CodeBlock code={`<ButtonGroup direction="horizontal" gap="gap-4">
   <Button>Save</Button>
   <Button variant="secondary">Cancel</Button>
+</ButtonGroup>
+
+<ButtonGroup variant="segmented">
+  <Button>Day</Button>
+  <Button variant="secondary">Week</Button>
+  <Button variant="secondary">Month</Button>
 </ButtonGroup>`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/button" class="text-blue-600 hover:underline">Button</a>
+        {" "}— the buttons this group arranges.
+      </li>
+      <li>
+        <a href="/components/back-button" class="text-blue-600 hover:underline">BackButton</a>
+        {" "}— a back-navigation button built on top of Button.
+      </li>
+    </ul>
   </section>
 
 </ComponentExplorerLayout>

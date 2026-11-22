@@ -4,6 +4,7 @@
  *
  * Purpose:
  * - Global site header with navigation.
+ * - Layout variants: default (logo left, nav right), centered (logo centered, nav below), minimal (logo only).
  */
 
 export const docs = `
@@ -17,7 +18,19 @@ It loads navigation links from \`src/data/navigation.ts\`.
 
 ### Props
 
-This component does not accept props.
+| Prop     | Type                                 | Default    | Description |
+|----------|--------------------------------------|------------|-------------|
+| \`layout\` | "default" \| "centered" \| "minimal" | "default" | Controls the header arrangement. |
+
+---
+
+### Variants
+
+| Variant | Description |
+|---------|-------------|
+| \`default\` | Logo left, navigation right, with the Message Me button and mobile menu button — the standard site header. |
+| \`centered\` | Logo centered on its own row, with navigation and the Message Me button below it. |
+| \`minimal\` | Logo only — no navigation links, Message Me button, or mobile menu button. |
 
 ---
 
@@ -33,44 +46,100 @@ This component does not accept props.
 ### Usage Example
 
 <Header />
+
+<Header layout="centered" />
+
+<Header layout="minimal" />
 `;
 
 
 import { navigation } from "../data/navigation";
+
+interface Props {
+  layout?: "default" | "centered" | "minimal";
+}
+
+const { layout = "default" } = Astro.props;
 ---
 
-<header class="w-full border-b bg-white">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+{layout === "minimal" ? (
+  <header class="w-full border-b bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-center">
+      <a href="/" class="text-xl font-bold tracking-tight">
+        Business Website
+      </a>
+    </div>
+  </header>
+) : layout === "centered" ? (
+  <header class="w-full border-b bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col items-center gap-4">
+      <a href="/" class="text-xl font-bold tracking-tight">
+        Business Website
+      </a>
 
-    <a href="/" class="text-xl font-bold tracking-tight">
-      Business Website
-    </a>
+      <div class="flex items-center gap-6">
+        <nav class="hidden md:flex space-x-6">
+          {navigation.map((item) => (
+            <a
+              href={item.href}
+              class="text-gray-700 hover:text-blue-600 transition"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-    <nav class="hidden md:flex space-x-6">
-      {navigation.map((item) => (
-        <a 
-          href={item.href} 
-          class="text-gray-700 hover:text-blue-600 transition"
+        <button
+          type="button"
+          data-open-contact-chat
+          class="inline-flex items-center px-3 py-2 text-sm md:px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition whitespace-nowrap"
         >
-          {item.label}
-        </a>
-      ))}
-    </nav>
+          Message Me
+        </button>
 
-    <button
-      type="button"
-      data-open-contact-chat
-      class="inline-flex items-center px-3 py-2 text-sm md:px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition whitespace-nowrap"
-    >
-      Message Me
-    </button>
+        <button
+          class="md:hidden p-2 rounded border text-gray-700 hover:bg-gray-100"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+) : (
+  <header class="w-full border-b bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
 
-    <button 
-      class="md:hidden p-2 rounded border text-gray-700 hover:bg-gray-100"
-      aria-label="Open menu"
-    >
-      ☰
-    </button>
+      <a href="/" class="text-xl font-bold tracking-tight">
+        Business Website
+      </a>
 
-  </div>
-</header>
+      <nav class="hidden md:flex space-x-6">
+        {navigation.map((item) => (
+          <a
+            href={item.href}
+            class="text-gray-700 hover:text-blue-600 transition"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <button
+        type="button"
+        data-open-contact-chat
+        class="inline-flex items-center px-3 py-2 text-sm md:px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition whitespace-nowrap"
+      >
+        Message Me
+      </button>
+
+      <button
+        class="md:hidden p-2 rounded border text-gray-700 hover:bg-gray-100"
+        aria-label="Open menu"
+      >
+        ☰
+      </button>
+
+    </div>
+  </header>
+)}

@@ -4,6 +4,7 @@
  *
  * Purpose:
  * - Demonstrates both navigation modes: href and history.back().
+ * - Demonstrates the text and button variants.
  * - Displays API documentation and example usage.
  */
 
@@ -15,26 +16,70 @@ import CodeBlock from "../../components/CodeBlock.astro";
 
 <ComponentExplorerLayout title="Back Button">
 
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <BackButtonComponent href="/components" />
+  </section>
+
+  <!-- Variants -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Variants</h2>
+
+    <div class="space-y-8">
+      <div>
+        <h3 class="text-lg font-medium mb-2">Text — plain link with an arrow (default)</h3>
+        <p class="text-gray-600 mb-3">Navigates to the given URL, or goes back in history when no <code class="font-mono text-sm bg-gray-100 px-1 rounded">href</code> is provided.</p>
+        <div class="space-y-4 mb-3">
+          <BackButtonComponent href="/components" />
+          <div><BackButtonComponent /></div>
+        </div>
+        <CodeBlock code={`<BackButton href="/components" />
+
+<BackButton />`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Button — outlined button style</h3>
+        <p class="text-gray-600 mb-3">The same navigation, rendered as an outlined button instead of a plain link.</p>
+        <div class="space-y-4 mb-3">
+          <BackButtonComponent href="/components" variant="button" />
+          <div><BackButtonComponent variant="button" /></div>
+        </div>
+        <CodeBlock code={`<BackButton href="/components" variant="button" />
+
+<BackButton variant="button" />`} language="astro" />
+      </div>
+    </div>
+  </section>
+
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
     <h2>API Documentation</h2>
     <CodeBlock code={docs} language="markdown" />
   </section>
 
-  <!-- Live Preview -->
+  <!-- Code Example -->
   <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<BackButton href="/components" />
 
-    <div class="space-y-6">
-      <BackButtonComponent />
-      <BackButtonComponent href="/components" />
-    </div>
+<BackButton href="/components" variant="button" />`} language="astro" />
   </section>
 
-  <!-- Code Example -->
+  <!-- Related Components -->
   <section>
-    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <CodeBlock code={`<BackButton href="/components" />`} language="astro" />
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/button" class="text-blue-600 hover:underline">Button</a>
+        {" "}— the component BackButton wraps, including its outline variant.
+      </li>
+      <li>
+        <a href="/components/button-group" class="text-blue-600 hover:underline">ButtonGroup</a>
+        {" "}— arranges multiple Buttons in a row, column, or segmented control.
+      </li>
+    </ul>
   </section>
 
 </ComponentExplorerLayout>

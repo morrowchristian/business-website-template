@@ -5,6 +5,7 @@
  * Purpose:
  * - Displays the TestimonialCarousel component's API documentation.
  * - Provides a live preview with sample testimonials.
+ * - Shows the card, minimal, and split layouts.
  * - Shows example usage code for reference.
  *
  * Note: the testimonials below are sample/placeholder content used to
@@ -43,12 +44,6 @@ const sampleTestimonials = [
 
 <ComponentExplorerLayout title="Testimonial Carousel">
 
-  <!-- API Documentation -->
-  <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
-    <CodeBlock code={docs} language="markdown" />
-  </section>
-
   <!-- Live Preview -->
   <section class="mb-12">
     <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
@@ -58,13 +53,51 @@ const sampleTestimonials = [
     <TestimonialCarouselComponent testimonials={sampleTestimonials} />
   </section>
 
-  <!-- Live Preview: autoplay off -->
+  <!-- Variants -->
   <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Live Preview — Autoplay Off</h2>
+    <h2 class="text-xl font-semibold mb-6">Variants</h2>
     <p class="text-gray-600 mb-6">
-      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">autoplay={false}</code>, the carousel only moves when the visitor navigates.
+      The card layout is shown in the Live Preview above. The variant previews below use <code class="font-mono text-sm bg-gray-100 px-1 rounded">autoplay={false}</code> so each layout stays still while you read.
     </p>
-    <TestimonialCarouselComponent testimonials={sampleTestimonials} autoplay={false} />
+
+    <h3 class="text-lg font-medium mb-2">Minimal</h3>
+    <p class="text-gray-600 mb-4">
+      A large centered quote with no card — just the words, the stars, and the reviewer.
+    </p>
+    <div class="mb-4">
+      <TestimonialCarouselComponent layout="minimal" testimonials={sampleTestimonials} autoplay={false} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<TestimonialCarousel layout="minimal" testimonials={testimonials} />`} language="astro" />
+    </div>
+
+    <h3 class="text-lg font-medium mb-2">Split</h3>
+    <p class="text-gray-600 mb-4">
+      Avatar on the left, quote and reviewer on the right, inside a card.
+    </p>
+    <div class="mb-4">
+      <TestimonialCarouselComponent layout="split" testimonials={sampleTestimonials} autoplay={false} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<TestimonialCarousel layout="split" testimonials={testimonials} />`} language="astro" />
+    </div>
+
+    <h3 class="text-lg font-medium mb-2">Autoplay Off</h3>
+    <p class="text-gray-600 mb-4">
+      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">autoplay={false}</code>, the carousel only moves when the visitor navigates. Works with any layout.
+    </p>
+    <div class="mb-4">
+      <TestimonialCarouselComponent testimonials={sampleTestimonials} autoplay={false} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<TestimonialCarousel autoplay={false} testimonials={testimonials} />`} language="astro" />
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
   </section>
 
   <!-- Code Example -->

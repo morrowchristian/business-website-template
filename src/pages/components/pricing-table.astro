@@ -5,6 +5,7 @@
  * Purpose:
  * - Displays the PricingTable component's API documentation.
  * - Provides a live preview with 3 sample tiers.
+ * - Shows the 2-column layout and billing toggle variants.
  * - Shows example usage code for reference.
  */
 
@@ -16,6 +17,7 @@ const samplePlans = [
   {
     name: "Starter",
     price: "$29",
+    yearlyPrice: "$290",
     period: "/month",
     description: "For new businesses getting online.",
     features: [
@@ -30,6 +32,7 @@ const samplePlans = [
   {
     name: "Growth",
     price: "$79",
+    yearlyPrice: "$790",
     period: "/month",
     description: "For growing businesses that need more.",
     features: [
@@ -45,6 +48,7 @@ const samplePlans = [
   {
     name: "Pro",
     price: "$149",
+    yearlyPrice: "$1490",
     period: "/month",
     description: "For established businesses that want it all.",
     features: [
@@ -57,15 +61,11 @@ const samplePlans = [
     cta: { label: "Choose Pro", href: "/contact" }
   }
 ];
+
+const twoPlans = [samplePlans[0], samplePlans[1]];
 ---
 
 <ComponentExplorerLayout title="Pricing Table">
-
-  <!-- API Documentation -->
-  <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
-    <CodeBlock code={docs} language="markdown" />
-  </section>
 
   <!-- Live Preview -->
   <section class="mb-12">
@@ -76,14 +76,83 @@ const samplePlans = [
     <PricingTableComponent plans={samplePlans} />
   </section>
 
-  <!-- Code Example -->
+  <!-- Variants -->
   <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <CodeBlock code={`<PricingTable
+    <h2 class="text-xl font-semibold mb-6">Variants</h2>
+
+    <h3 class="text-lg font-medium mb-2">3 Columns (Default)</h3>
+    <p class="text-gray-600 mb-4">
+      Up to three tiers side by side on desktop, with the featured tier highlighted.
+    </p>
+    <div class="mb-4">
+      <PricingTableComponent plans={samplePlans} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<PricingTable plans={plans} />`} language="astro" />
+    </div>
+
+    <h3 class="text-lg font-medium mb-2">2 Columns</h3>
+    <p class="text-gray-600 mb-4">
+      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">columns={2}</code>, two tiers sit side by side and centered on desktop — for simpler pricing.
+    </p>
+    <div class="mb-4">
+      <PricingTableComponent columns={2} plans={twoPlans} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<PricingTable columns={2} plans={plans} />`} language="astro" />
+    </div>
+
+    <h3 class="text-lg font-medium mb-2">Billing Toggle</h3>
+    <p class="text-gray-600 mb-4">
+      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">billingToggle</code>, a Monthly/Yearly switch appears above the table. Selecting Yearly shows each plan's <code class="font-mono text-sm bg-gray-100 px-1 rounded">yearlyPrice</code> (plans without one keep their regular price). Try it:
+    </p>
+    <div class="mb-4">
+      <PricingTableComponent billingToggle plans={samplePlans} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<PricingTable
+  billingToggle
   plans={[
     {
       name: "Starter",
       price: "$29",
+      yearlyPrice: "$290",
+      period: "/month",
+      description: "For new businesses getting online.",
+      features: ["1-page website", "Contact form"],
+      cta: { label: "Choose Starter", href: "/contact" },
+    },
+    {
+      name: "Growth",
+      price: "$79",
+      yearlyPrice: "$790",
+      period: "/month",
+      description: "For growing businesses that need more.",
+      features: ["Up to 5 pages", "Contact form", "Blog"],
+      featured: true,
+      cta: { label: "Choose Growth", href: "/contact" },
+    },
+  ]}
+/>`} language="astro" />
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<PricingTable
+  billingToggle
+  plans={[
+    {
+      name: "Starter",
+      price: "$29",
+      yearlyPrice: "$290",
       period: "/month",
       description: "For new businesses getting online.",
       features: ["1-page website", "Contact form", { text: "Blog", included: false }],
@@ -92,6 +161,7 @@ const samplePlans = [
     {
       name: "Growth",
       price: "$79",
+      yearlyPrice: "$790",
       period: "/month",
       description: "For growing businesses that need more.",
       features: ["Up to 5 pages", "Contact form", "Blog"],

@@ -21,11 +21,23 @@ The CodeBlock component displays code examples in a consistent, polished block w
 
 ### Props
 
-| Prop       | Type   | Default  | Description |
-|------------|--------|----------|-------------|
-| \`code\`     | string | —        | Code as a prop. Takes precedence over slot content when provided. |
-| \`language\` | string | "text"   | Language label shown in the header (e.g. "astro", "tsx", "bash"). |
-| \`id\`       | string | auto     | Optional id for the block. Auto-generated when omitted. |
+| Prop       | Type             | Default  | Description |
+|------------|------------------|----------|-------------|
+| \`code\`     | string           | —        | Code as a prop. Takes precedence over slot content when provided. |
+| \`language\` | string           | "text"   | Language label shown in the header (e.g. "astro", "tsx", "bash"). |
+| \`id\`       | string           | auto     | Optional id for the block. Auto-generated when omitted. |
+| \`theme\`    | "dark" \| "light" | "dark"  | Color theme of the block. "light" uses a light gray background with dark text. |
+| \`compact\`  | boolean          | false    | When true, hides the header row (language label + CopyButton). |
+
+---
+
+### Variants
+
+| Variant | Description |
+|---------|-------------|
+| Dark (default) | Dark gray block with light text — the classic code-editor look. |
+| Light (\`theme="light"\`) | Light gray background with dark text, for pages that need a softer code block. |
+| Compact (\`compact\`) | No header row — just the code, for inline or space-constrained displays. Combine with either theme. |
 
 ---
 
@@ -39,7 +51,7 @@ The CodeBlock component displays code examples in a consistent, polished block w
 
 ### Behavior
 
-- Renders code in a dark, scrollable block with a header row (language label + CopyButton).
+- Renders code in a scrollable block with a header row (language label + CopyButton), unless \`compact\` is set.
 - Normalizes indentation: strips the common leading whitespace from slot content.
 - CopyButton copies the exact displayed code.
 - No framework hydration required (vanilla scripts only).
@@ -57,15 +69,21 @@ Slot-based:
 <CodeBlock language="astro">
   <Button variant="primary">Save</Button>
 </CodeBlock>
+
+Light theme, compact:
+
+<CodeBlock code="npm run build" language="bash" theme="light" compact />
 `;
 
 interface Props {
   code?: string;
   language?: string;
   id?: string;
+  theme?: "dark" | "light";
+  compact?: boolean;
 }
 
-const { code, language = "text", id } = Astro.props;
+const { code, language = "text", id, theme = "dark", compact = false } = Astro.props;
 
 // Decode the HTML entities Astro applies when rendering slot content,
 // so the copied/displayed code is the raw source, not escaped entities.
@@ -95,12 +113,16 @@ const slotHtml = await Astro.slots.render("default");
 const raw = code ?? decodeEntities(slotHtml ?? "");
 const displayCode = normalizeIndent(raw);
 const blockId = id ?? `codeblock-${Math.random().toString(36).slice(2, 9)}`;
+
+const isLight = theme === "light";
 ---
 
-<div id={blockId} class="rounded-lg overflow-hidden border border-gray-700 bg-gray-900">
-  <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700">
-    <span class="text-xs font-mono uppercase tracking-wide text-gray-400">{language}</span>
-    <CopyButton text={displayCode} />
-  </div>
-  <pre class="p-4 overflow-x-auto text-sm leading-relaxed"><code class="font-mono text-gray-100">{displayCode}</code></pre>
+<div id={blockId} class={isLight ? "rounded-lg overflow-hidden border border-gray-300 bg-gray-100" : "rounded-lg overflow-hidden border border-gray-700 bg-gray-900"}>
+  {!compact && (
+    <div class={isLight ? "flex items-center justify-between px-4 py-2 bg-gray-200 border-b border-gray-300" : "flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700"}>
+      <span class={isLight ? "text-xs font-mono uppercase tracking-wide text-gray-600" : "text-xs font-mono uppercase tracking-wide text-gray-400"}>{language}</span>
+      <CopyButton text={displayCode} variant="secondary" />
+    </div>
+  )}
+  <pre class="p-4 overflow-x-auto text-sm leading-relaxed"><code class={isLight ? "font-mono text-gray-900" : "font-mono text-gray-100"}>{displayCode}</code></pre>
 </div>

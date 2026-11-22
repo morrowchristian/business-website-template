@@ -19,11 +19,22 @@ Cards become fully clickable when an \`href\` is provided.
 
 | Prop          | Type                                           | Default     | Description |
 |---------------|------------------------------------------------|-------------|-------------|
-| \`variant\`     | "base" \| "horizontal" \| "minimal"            | "base"      | Controls layout and visual style. |
+| \`variant\`     | "base" \| "horizontal" \| "minimal" \| "featured" | "base"   | Controls layout and visual style. |
 | \`href\`        | string \| null                                 | null        | When provided, the entire card becomes a clickable link. |
 | \`image\`       | string \| null                                 | null        | Optional image displayed according to the variant. |
 | \`title\`       | string                                         | —           | Required card heading. |
 | \`description\` | string \| undefined                            | undefined   | Optional supporting text. |
+
+---
+
+### Variants
+
+| Variant      | Description |
+|--------------|-------------|
+| \`base\`       | Default image-top layout with a white background and subtle shadow. |
+| \`horizontal\` | Image left, content right, in a horizontal flex row. |
+| \`minimal\`    | Text-first layout with no border, background, or shadow. |
+| \`featured\`   | Highlighted card: blue border, light blue background, and a stronger shadow. Same image-top layout as \`base\`. |
 
 ---
 
@@ -54,6 +65,12 @@ Cards become fully clickable when an \`href\` is provided.
 />
 
 <Card
+  variant="featured"
+  title="Featured Service"
+  description="Our most popular offering, highlighted for attention."
+/>
+
+<Card
   title="Card With Actions"
   description="This card includes an internal action."
 >
@@ -62,7 +79,7 @@ Cards become fully clickable when an \`href\` is provided.
 `;
 
 interface Props {
-  variant?: "base" | "horizontal" | "minimal";
+  variant?: "base" | "horizontal" | "minimal" | "featured";
   href?: string | null;
   image?: string | null;
   title: string;
@@ -96,6 +113,13 @@ const horizontalClasses =
 
 const minimalClasses = "p-4 space-y-3";
 
+const featuredClasses =
+  `rounded-lg border-2 border-blue-600 bg-blue-50 shadow-lg overflow-hidden
+  transition-all duration-200
+  hover:shadow-xl hover:border-blue-700
+  focus-visible:outline focus-visible:outline-2
+  focus-visible:outline-offset-2 focus-visible:outline-blue-500`;
+
 const Wrapper = href ? "a" : "article";
 const wrapperAttrs = href ? { href } : {};
 ---
@@ -106,6 +130,7 @@ const wrapperAttrs = href ? { href } : {};
     ${variant === "base" ? baseClasses : ""}
     ${variant === "horizontal" ? horizontalClasses : ""}
     ${variant === "minimal" ? minimalClasses : ""}
+    ${variant === "featured" ? featuredClasses : ""}
     ${isClickable ? "cursor-pointer" : ""}
   `}
 >
@@ -113,7 +138,7 @@ const wrapperAttrs = href ? { href } : {};
     <img src={image} alt={title} loading="lazy" class="w-32 h-32 object-cover rounded-md" />
   )}
 
-  {variant === "base" && image && (
+  {(variant === "base" || variant === "featured") && image && (
     <img src={image} alt={title} loading="lazy" class="w-full aspect-[4/3] object-cover" />
   )}
 
