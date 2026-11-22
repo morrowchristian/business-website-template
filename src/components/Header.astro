@@ -30,13 +30,14 @@ It loads navigation links from \`src/data/navigation.ts\`.
 |---------|-------------|
 | \`default\` | Logo left, navigation right, with the Message Me button and mobile menu button — the standard site header. |
 | \`centered\` | Logo centered on its own row, with navigation and the Message Me button below it. |
-| \`minimal\` | Logo only — no navigation links, Message Me button, or mobile menu button. |
+| \`minimal\` | Logo only — no navigation links, Message Me button, or mobile menu button. The dark-mode toggle sits beside the logo. |
 
 ---
 
 ### Behavior
 
 - Displays site title linking to the homepage.
+- Includes a dark-mode toggle in every layout, beside the Message Me button (default/centered) or the logo (minimal).
 - Renders desktop navigation using your navigation data.
 - Includes a mobile menu button (placeholder for future expansion).
 - Uses semantic <header> markup.
@@ -54,6 +55,7 @@ It loads navigation links from \`src/data/navigation.ts\`.
 
 
 import { navigation } from "../data/navigation";
+import DarkModeToggle from "./DarkModeToggle.astro";
 
 interface Props {
   layout?: "default" | "centered" | "minimal";
@@ -63,17 +65,18 @@ const { layout = "default" } = Astro.props;
 ---
 
 {layout === "minimal" ? (
-  <header class="w-full border-b bg-white">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-center">
-      <a href="/components" class="text-xl font-bold tracking-tight">
+  <header class="w-full border-b bg-white dark:bg-gray-800 dark:border-gray-700">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-center gap-3">
+      <a href="/components" class="text-xl font-bold tracking-tight dark:text-gray-100">
         Business Website
       </a>
+      <DarkModeToggle />
     </div>
   </header>
 ) : layout === "centered" ? (
-  <header class="w-full border-b bg-white">
+  <header class="w-full border-b bg-white dark:bg-gray-800 dark:border-gray-700">
     <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col items-center gap-4">
-      <a href="/components" class="text-xl font-bold tracking-tight">
+      <a href="/components" class="text-xl font-bold tracking-tight dark:text-gray-100">
         Business Website
       </a>
 
@@ -82,12 +85,14 @@ const { layout = "default" } = Astro.props;
           {navigation.map((item) => (
             <a
               href={item.href}
-              class="text-gray-700 hover:text-blue-600 transition"
+              class="text-gray-700 hover:text-blue-600 dark:text-gray-200 transition"
             >
               {item.label}
             </a>
           ))}
         </nav>
+
+        <DarkModeToggle />
 
         <button
           type="button"
@@ -98,7 +103,7 @@ const { layout = "default" } = Astro.props;
         </button>
 
         <button
-          class="md:hidden p-2 rounded border text-gray-700 hover:bg-gray-100"
+          class="md:hidden p-2 rounded border text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 dark:border-gray-600"
           aria-label="Open menu"
         >
           ☰
@@ -107,10 +112,10 @@ const { layout = "default" } = Astro.props;
     </div>
   </header>
 ) : (
-  <header class="w-full border-b bg-white">
+  <header class="w-full border-b bg-white dark:bg-gray-800 dark:border-gray-700">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
 
-      <a href="/components" class="text-xl font-bold tracking-tight">
+      <a href="/components" class="text-xl font-bold tracking-tight dark:text-gray-100">
         Business Website
       </a>
 
@@ -118,12 +123,14 @@ const { layout = "default" } = Astro.props;
         {navigation.map((item) => (
           <a
             href={item.href}
-            class="text-gray-700 hover:text-blue-600 transition"
+            class="text-gray-700 hover:text-blue-600 dark:text-gray-200 transition"
           >
             {item.label}
           </a>
         ))}
       </nav>
+
+      <DarkModeToggle />
 
       <button
         type="button"
@@ -134,7 +141,7 @@ const { layout = "default" } = Astro.props;
       </button>
 
       <button
-        class="md:hidden p-2 rounded border text-gray-700 hover:bg-gray-100"
+        class="md:hidden p-2 rounded border text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 dark:border-gray-600"
         aria-label="Open menu"
       >
         ☰

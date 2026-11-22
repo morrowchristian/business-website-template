@@ -89,12 +89,12 @@ const containerClass =
   variant === "card"
     ? "space-y-3"
     : variant === "minimal"
-      ? "divide-y divide-gray-200"
-      : "divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white overflow-hidden";
+      ? "divide-y divide-gray-200 dark:divide-gray-700"
+      : "divide-y divide-gray-200 dark:divide-gray-700 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden";
 
 const itemClass =
   variant === "card"
-    ? "faq-item overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
+    ? "faq-item overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm"
     : "faq-item";
 ---
 
@@ -114,12 +114,12 @@ const itemClass =
             type="button"
             aria-expanded={isOpen ? "true" : "false"}
             aria-controls={panelId}
-            class="flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-medium text-gray-900 hover:bg-gray-50 transition"
+            class="flex w-full items-center justify-between gap-4 px-4 py-4 text-left font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
           >
             <span>{item.question}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="faq-chevron h-5 w-5 shrink-0 text-gray-500"
+              class="faq-chevron h-5 w-5 shrink-0 text-gray-500 dark:text-gray-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -137,7 +137,7 @@ const itemClass =
           class="faq-panel"
         >
           <div class="overflow-hidden">
-            <p class="px-5 pb-5 text-gray-600 leading-relaxed">{item.answer}</p>
+            <p class="px-4 pb-4 text-gray-600 dark:text-gray-300 leading-relaxed">{item.answer}</p>
           </div>
         </div>
       </div>

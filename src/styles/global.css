@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Global keyboard focus indicator (WCAG 2.2 AA).
    Components with their own focus styles (Button, Card) keep those;
    this rule covers links, nav items, and anything else focusable. */
