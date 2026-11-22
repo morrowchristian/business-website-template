@@ -11,7 +11,7 @@ export const docs = `
 ## DarkModeToggle Component API
 
 ### Overview
-The DarkModeToggle component renders a button that switches the site between light and dark themes. It toggles the \`dark\` class on \`document.documentElement\`, which activates the \`dark:\` Tailwind variants (enabled by the \`@custom-variant dark\` rule in \`src/styles/global.css\`). The button shows a moon icon in light mode and a sun icon in dark mode — the icon indicates the mode you switch to.
+The DarkModeToggle component renders a button that switches the site between light and dark themes. It toggles the \`dark\` class on \`document.documentElement\`, which activates the \`dark:\` Tailwind variants (enabled by the \`@custom-variant dark\` rule in \`src/styles/global.css\`). The button shows a moon icon in light mode and a sun icon in dark mode — the icon indicates the mode you switch to. This is a component for your own site: it is not in the template's header by default — add \`<DarkModeToggle />\` to your header to use it.
 
 ---
 
@@ -26,7 +26,7 @@ This component takes no props.
 - Clicking the button toggles the \`dark\` class on \`document.documentElement\`.
 - The choice is saved to localStorage under the key \`theme\` with the value \`"dark"\` or \`"light"\`.
 - On load, the script sets the icon to match the current theme (whether \`documentElement\` already has the \`dark\` class — the no-FOUC script in the layouts sets it before paint).
-- On first visit, with no saved preference, the layout head script respects the OS preference (\`prefers-color-scheme: dark\`).
+- On first visit, with no saved preference, the site stays light — only an explicit saved choice (from clicking the toggle) turns dark mode on.
 - The icon is selected by class (\`dark-mode-toggle-icon\`), so the script works even when more than one toggle is on the page.
 
 ---

@@ -41,8 +41,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <script>
       (function () {
         try {
-          var t = localStorage.getItem("theme");
-          var dark = t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var dark = localStorage.getItem("theme") === "dark";
+          // Only an explicit saved choice turns dark mode on — the template stays light by default.
           document.documentElement.classList.toggle("dark", dark);
         } catch (e) {}
       })();

@@ -18,7 +18,6 @@ import "../styles/global.css";
 import BackButton from "../components/BackButton.astro";
 import Button from "../components/Button.astro";
 import ContactChat from "../components/ContactChat.astro";
-import DarkModeToggle from "../components/DarkModeToggle.astro";
 
 const {
   title = "Cedar Creek Plumbing",
@@ -46,8 +45,8 @@ const isActive = (href: string) => currentPath === href.replace(/\/$/, "");
     <script>
       (function () {
         try {
-          var t = localStorage.getItem("theme");
-          var dark = t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var dark = localStorage.getItem("theme") === "dark";
+          // Only an explicit saved choice turns dark mode on — the template stays light by default.
           document.documentElement.classList.toggle("dark", dark);
         } catch (e) {}
       })();
@@ -80,7 +79,6 @@ const isActive = (href: string) => currentPath === href.replace(/\/$/, "");
         </nav>
 
         <div class="ml-auto flex flex-wrap items-center gap-2">
-          <DarkModeToggle />
           <button
             type="button"
             data-open-contact-chat
