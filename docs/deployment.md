@@ -1,7 +1,10 @@
 # Deployment Guide
 
-This document explains how to deploy the Business Website Template to popular hosting platforms.  
+This document explains how the Business Website Template is deployed.  
 Astro supports static site output, which makes deployment simple and flexible.
+
+The live site is hosted on **Vercel** at https://business-website-template-three.vercel.app and **auto-deploys on every push to `main`**.  
+`@astrojs/sitemap` is installed and the `site` URL is set in `astro.config.mjs`, so the sitemap and canonical URLs are generated automatically on build.
 
 ---
 
@@ -17,29 +20,7 @@ The output will be created in the `dist/` directory.
 
 ---
 
-## 2. Deploy to Netlify
-
-### Option A: Drag-and-Drop
-
-1. Run `npm run build`
-2. Zip the `dist/` folder
-3. Upload it to https://app.netlify.com/drop
-
-### Option B: Git-Based Deployment
-
-1. Push your project to GitHub
-2. Create a new site in Netlify
-3. Select your repository
-4. Use these settings:
-
-- **Build command:** `npm run build`
-- **Publish directory:** `dist`
-
-Netlify will automatically deploy on every push to `main`.
-
----
-
-## 3. Deploy to Vercel
+## 2. Deploy to Vercel
 
 1. Install the Vercel CLI (optional):
 
@@ -55,44 +36,11 @@ npm install -g vercel
 - **Build command:** `npm run build`  
 - **Output directory:** `dist`  
 
-Vercel will handle the rest.
+Vercel will handle the rest, and will auto-deploy on every push to `main`.
 
 ---
 
-## 4. Deploy to GitHub Pages
-
-### Option A: Using GitHub Actions (recommended)
-
-1. Install the GitHub Pages adapter:
-
-'''
-npm install @astrojs/github
-'''
-
-2. Update `astro.config.mjs`:
-
-'''
-import { defineConfig } from 'astro/config';
-import github from '@astrojs/github';
-
-export default defineConfig({
-  output: 'static',
-  adapter: github(),
-});
-'''
-
-3. Push to GitHub  
-4. Enable GitHub Pages in repository settings  
-5. Select the `gh-pages` branch created by the adapter
-
-### Option B: Manual Upload
-
-1. Run `npm run build`
-2. Upload the contents of `dist/` to the `gh-pages` branch
-
----
-
-## 5. Environment Variables (Optional)
+## 3. Environment Variables (Optional)
 
 If you add features that require environment variables:
 
@@ -107,7 +55,7 @@ Astro automatically loads `.env` files during build.
 
 ---
 
-## 6. Deployment Checklist
+## 4. Deployment Checklist
 
 Before deploying:
 
@@ -119,7 +67,7 @@ Before deploying:
 
 ---
 
-## 7. Troubleshooting
+## 5. Troubleshooting
 
 ### Build fails
 - Delete `node_modules` and reinstall  
@@ -130,10 +78,6 @@ Before deploying:
 - Confirm Tailwind is configured correctly  
 - Ensure global styles are imported in `src/styles/global.css`  
 
-### 404 errors on GitHub Pages
-- Ensure the GitHub adapter is configured  
-- Confirm the correct branch is selected in Pages settings  
-
 ---
 
-This guide ensures the template can be deployed quickly and reliably across multiple platforms.
+This guide ensures the template can be deployed quickly and reliably on Vercel.

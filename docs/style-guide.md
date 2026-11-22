@@ -9,19 +9,19 @@ used throughout the Business Website Template project.
 
 ### Components
 - Use **PascalCase**
-- Example: `Hero.astro`, `ServiceCard.astro`
+- Example: `Hero.astro`, `Card.astro`
 
 ### Data Files
 - Use **camelCase**
-- Example: `navigation.ts`, `services.ts`
+- Example: `navigation.ts`
 
 ### Pages
 - Use **kebab-case**
-- Example: `about.astro`, `contact.astro`
+- Example: `technical-checklist.astro`, `design-tokens.astro`
 
 ### Branches
 - Use `<type>/<short-description>`
-- Example: `feature/add-hero`, `docs/update-readme`
+- Example: `feat/add-hero`, `docs/update-readme`
 
 ---
 
@@ -58,13 +58,18 @@ Examples:
 feat(components): add Hero component
 docs: update architecture.md
 fix(layout): correct footer spacing
+refactor(card): simplify variant logic
+chore: bump dependencies
 '''
+
+Accepted commit types: `feat`, `fix`, `docs`, `refactor`, `style`, `chore`.
 
 ---
 
 ## 5. Documentation Standards
 
 - Use triple quotes (`'''`) for code blocks  
+- Code shown on the site's component explorer pages uses the `CodeBlock` component — no raw `<pre>` blocks in explorer pages  
 - Keep explanations concise  
 - Update docs when adding new components or pages  
 - Add ADR entries for major architectural decisions  

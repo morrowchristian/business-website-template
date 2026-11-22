@@ -44,7 +44,7 @@ Use the following format:
 Examples:
 
 '''
-feature/add-hero-component
+feat/add-hero-component
 fix/header-mobile-menu
 docs/setup-documentation-structure
 refactor/card-layout
@@ -53,7 +53,7 @@ refactor/card-layout
 If the work relates to a specific issue, you may optionally include the issue number:
 
 '''
-feature/12-hero-component
+feat/12-hero-component
 '''
 
 ---
@@ -95,10 +95,12 @@ A good pull request includes:
 
 - A clear title  
 - A short summary of changes  
-- A link to the related issue (e.g., “Closes #20”)  
+- A link to the related issue using “Closes #NN” so the issue auto-closes on merge (e.g., “Closes #20”)  
 - Clean commit history  
 - Passing build (if applicable)  
 - Updated documentation when needed  
+
+PRs are merged with merge commits.
 
 ### **3.2 PR Size**
 
@@ -144,6 +146,7 @@ When adding new components, pages, or architectural decisions:
 
 Before submitting a PR:
 
+- Run `npm run build` and make sure it passes  
 - Run the project locally  
 - Verify layout and component behavior  
 - Check responsive breakpoints  
