@@ -1,0 +1,88 @@
+---
+/**
+ * FAQAccordion Component Explorer Page
+ *
+ * Purpose:
+ * - Displays the FAQAccordion component's API documentation.
+ * - Provides live previews of single-open and multi-open behavior.
+ * - Shows example usage code for reference.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import FAQAccordionComponent, { docs } from "../../components/FAQAccordion.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const sampleItems = [
+  {
+    question: "Do you offer free estimates?",
+    answer: "Yes — every project starts with a free, no-obligation estimate. We review your goals, look at your current site (if you have one), and send a fixed quote before any work begins."
+  },
+  {
+    question: "How long does a typical project take?",
+    answer: "Most small business sites launch in 2–4 weeks from kickoff, depending on how many pages you need and how quickly content is ready."
+  },
+  {
+    question: "Will I be able to update the site myself?",
+    answer: "Yes. Every site ships with a simple way to edit text, images, and pages — and we include a short walkthrough so you are comfortable making changes on your own."
+  }
+];
+---
+
+<ComponentExplorerLayout title="FAQ Accordion">
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
+  <!-- Live Preview: single-open (default) -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview — Single Open (Default)</h2>
+    <p class="text-gray-600 mb-4">
+      Only one answer is open at a time. Opening a new question closes the previous one. The first question starts open here via <code class="font-mono text-sm bg-gray-100 px-1 rounded">defaultOpen={0}</code>.
+    </p>
+    <FAQAccordionComponent items={sampleItems} defaultOpen={0} />
+  </section>
+
+  <!-- Live Preview: multi-open -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview — Multiple Open</h2>
+    <p class="text-gray-600 mb-4">
+      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">allowMultiple</code>, more than one answer can stay open at once.
+    </p>
+    <FAQAccordionComponent items={sampleItems} allowMultiple />
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<FAQAccordion
+  defaultOpen={0}
+  items={[
+    { question: "Do you offer free estimates?", answer: "Yes — every project starts with a free, no-obligation estimate." },
+    { question: "How long does a typical project take?", answer: "Most small business sites launch in 2–4 weeks." },
+  ]}
+/>`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/card" class="text-blue-600 hover:underline">Card</a>
+        {" "}— another content container often used alongside FAQ sections.
+      </li>
+      <li>
+        <a href="/components/code-block" class="text-blue-600 hover:underline">CodeBlock</a>
+        {" "}— used on this page to display the API docs and code example.
+      </li>
+      <li>
+        <a href="/components/hero" class="text-blue-600 hover:underline">Hero</a>
+        {" "}— the section that usually sits above an FAQ on a business page.
+      </li>
+    </ul>
+  </section>
+
+</ComponentExplorerLayout>
