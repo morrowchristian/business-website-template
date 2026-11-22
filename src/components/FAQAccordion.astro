@@ -1,0 +1,188 @@
+---
+/**
+ * FAQAccordion Component
+ *
+ * Purpose:
+ * - Accessible, expandable question/answer list for FAQ sections.
+ * - Supports single-open and multi-open behavior.
+ * - Keyboard accessible (arrow keys to move, Enter/Space to toggle).
+ * - Smooth expand/collapse with no layout jump.
+ */
+
+export const docs = `
+## FAQAccordion Component API
+
+### Overview
+The FAQAccordion component displays a list of questions that expand to reveal answers. It is the standard FAQ module for business sites: accessible, keyboard-navigable, and smooth to open and close.
+
+---
+
+### Props
+
+| Prop            | Type                                | Default | Description |
+|-----------------|-------------------------------------|---------|-------------|
+| \`items\`         | { question: string, answer: string }[] | —       | The FAQ entries to display. |
+| \`allowMultiple\` | boolean                             | false   | When true, more than one answer can be open at a time. When false, opening one closes the others. |
+| \`defaultOpen\`   | number \| null                      | null    | Index of the item open on load. \`null\` means all closed. |
+
+---
+
+### Slots
+
+| Slot    | Description |
+|---------|-------------|
+| none    | Content is provided entirely through the \`items\` prop. |
+
+---
+
+### Behavior
+
+- Renders each question as a \`<button>\` with \`aria-expanded\` and \`aria-controls\`.
+- Answers live in a \`role="region"\` panel labelled by its question button.
+- Clicking a question toggles its answer. With \`allowMultiple={false}\` (default), opening one closes the others.
+- Keyboard: Tab to move between questions, Enter/Space to toggle, ArrowUp/ArrowDown to move to the previous/next question.
+- Smooth expand/collapse via a grid-rows transition; closed panels are \`visibility: hidden\` so screen readers skip them.
+- No framework hydration required (vanilla script).
+
+---
+
+### Usage Examples
+
+<FAQAccordion items={[
+  { question: "Do you offer free estimates?", answer: "Yes — every project starts with a free, no-obligation estimate." },
+  { question: "How long does a typical project take?", answer: "Most small business sites launch in 2–4 weeks." }
+]} />
+
+<FAQAccordion allowMultiple defaultOpen={0} items={[...]} />
+`;
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FAQItem[];
+  allowMultiple?: boolean;
+  defaultOpen?: number | null;
+}
+
+const { items, allowMultiple = false, defaultOpen = null } = Astro.props;
+const accordionId = `faq-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div
+  id={accordionId}
+  class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white overflow-hidden"
+>
+  {items.map((item, index) => {
+    const isOpen = defaultOpen === index;
+    const buttonId = `${accordionId}-button-${index}`;
+    const panelId = `${accordionId}-panel-${index}`;
+    return (
+      <div class="faq-item" data-open={isOpen ? "true" : "false"}>
+        <h3 class="m-0">
+          <button
+            id={buttonId}
+            type="button"
+            aria-expanded={isOpen ? "true" : "false"}
+            aria-controls={panelId}
+            class="flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-medium text-gray-900 hover:bg-gray-50 transition"
+          >
+            <span>{item.question}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="faq-chevron h-5 w-5 shrink-0 text-gray-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </h3>
+        <div
+          id={panelId}
+          role="region"
+          aria-labelledby={buttonId}
+          class="faq-panel"
+        >
+          <div class="overflow-hidden">
+            <p class="px-5 pb-5 text-gray-600 leading-relaxed">{item.answer}</p>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  .faq-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition: grid-template-rows 0.3s ease, visibility 0s 0.3s;
+  }
+  .faq-item[data-open="true"] .faq-panel {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: grid-template-rows 0.3s ease, visibility 0s 0s;
+  }
+  .faq-chevron {
+    transition: transform 0.3s ease;
+  }
+  .faq-item[data-open="true"] .faq-chevron {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script define:vars={{ accordionId, allowMultiple }}>
+  const root = document.getElementById(accordionId);
+  if (root) {
+    const items = Array.from(root.querySelectorAll(".faq-item"));
+    const buttons = items.map((item) => item.querySelector("button"));
+
+    function setOpen(index, open) {
+      const item = items[index];
+      const btn = buttons[index];
+      if (!item || !btn) return;
+      item.setAttribute("data-open", open ? "true" : "false");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    function isOpen(index) {
+      return items[index]?.getAttribute("data-open") === "true";
+    }
+
+    function toggle(index) {
+      if (isOpen(index)) {
+        setOpen(index, false);
+      } else {
+        if (!allowMultiple) {
+          items.forEach((_, i) => {
+            if (i !== index) setOpen(i, false);
+          });
+        }
+        setOpen(index, true);
+      }
+    }
+
+    buttons.forEach((btn, index) => {
+      if (!btn) return;
+      btn.addEventListener("click", () => toggle(index));
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          const next = (index + 1) % buttons.length;
+          buttons[next]?.focus();
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          const prev = (index - 1 + buttons.length) % buttons.length;
+          buttons[prev]?.focus();
+        }
+      });
+    });
+  }
+</script>
