@@ -109,7 +109,7 @@ function starPath(filled: boolean): string {
 const wrapperClass =
   layout === "minimal"
     ? "relative py-8"
-    : "relative rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8";
+    : "relative rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm sm:p-8";
 
 const figureClass =
   layout === "split"
@@ -120,8 +120,8 @@ const figureClass =
 
 const quoteClass =
   layout === "minimal"
-    ? "text-2xl font-medium leading-relaxed text-gray-800 sm:text-3xl"
-    : "text-lg leading-relaxed text-gray-700";
+    ? "text-2xl font-medium leading-relaxed text-gray-800 dark:text-gray-100 sm:text-3xl"
+    : "text-lg leading-relaxed text-gray-700 dark:text-gray-200";
 
 const ratingClass =
   layout === "minimal"
@@ -157,7 +157,7 @@ const controlsClass =
             t.avatar ? (
               <img src={t.avatar} alt={`Photo of ${t.name}`} loading="lazy" class="h-20 w-20 shrink-0 rounded-full object-cover" />
             ) : (
-              <span class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-blue-100 text-3xl font-semibold text-blue-700" aria-hidden="true">
+              <span class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-3xl font-semibold text-blue-700 dark:text-blue-300" aria-hidden="true">
                 {t.name.charAt(0)}
               </span>
             )
@@ -189,15 +189,15 @@ const controlsClass =
                 t.avatar ? (
                   <img src={t.avatar} alt={`Photo of ${t.name}`} loading="lazy" class="h-11 w-11 rounded-full object-cover" />
                 ) : (
-                  <span class="flex h-11 w-11 items-center justify-center rounded-full bg-blue-100 text-lg font-semibold text-blue-700" aria-hidden="true">
+                  <span class="flex h-11 w-11 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-lg font-semibold text-blue-700 dark:text-blue-300" aria-hidden="true">
                     {t.name.charAt(0)}
                   </span>
                 )
               )}
               <div class={layout === "minimal" ? "text-center" : ""}>
-                <p class="font-semibold text-gray-900">{t.name}</p>
+                <p class="font-semibold text-gray-900 dark:text-gray-100">{t.name}</p>
                 {(t.role || t.company) && (
-                  <p class="text-sm text-gray-500">
+                  <p class="text-sm text-gray-500 dark:text-gray-400">
                     {[t.role, t.company].filter(Boolean).join(", ")}
                   </p>
                 )}
@@ -214,7 +214,7 @@ const controlsClass =
     <div class="flex gap-2">
       <button
         type="button"
-        class="prev-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition"
+        class="prev-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
         aria-label="Previous testimonial"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -223,7 +223,7 @@ const controlsClass =
       </button>
       <button
         type="button"
-        class="next-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition"
+        class="next-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
         aria-label="Next testimonial"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -256,6 +256,9 @@ const controlsClass =
   }
   .dot-btn {
     background-color: #d1d5db;
+  }
+  .dark .dot-btn {
+    background-color: #4b5563;
   }
   .dot-btn[data-active="true"] {
     background-color: #2563eb;

@@ -1,0 +1,58 @@
+---
+/**
+ * DarkModeToggle Component Explorer Page
+ *
+ * Purpose:
+ * - Demonstrates the dark-mode toggle button.
+ * - Displays API documentation and example usage.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import DarkModeToggleComponent, { docs } from "../../components/DarkModeToggle.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+---
+
+<ComponentExplorerLayout title="Dark Mode Toggle">
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <DarkModeToggleComponent />
+  </section>
+
+  <!-- Variants -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Variants</h2>
+    <p class="text-gray-600 mb-3">This component has no visual variants. It renders the same in both themes, and its icon follows the current theme: a moon icon in light mode, a sun icon in dark mode.</p>
+    <DarkModeToggleComponent />
+  </section>
+
+  <!-- API Documentation -->
+  <section class="prose max-w-none mb-12">
+    <h2>API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<DarkModeToggle />`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/button" class="text-blue-600 hover:underline">Button</a>
+        {" "}— the toggle wraps button styling (ghost-style, with a focus-visible outline).
+      </li>
+      <li>
+        <a href="/components/header" class="text-blue-600 hover:underline">Header</a>
+        {" "}— where the toggle lives, alongside the site navigation.
+      </li>
+    </ul>
+  </section>
+
+</ComponentExplorerLayout>

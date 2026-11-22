@@ -27,7 +27,8 @@ const groups = [
       { name: "Back Button", href: "/components/back-button" },
       { name: "Card", href: "/components/card" },
       { name: "CodeBlock", href: "/components/code-block" },
-      { name: "CopyButton", href: "/components/copy-button" }
+      { name: "CopyButton", href: "/components/copy-button" },
+      { name: "Dark Mode Toggle", href: "/components/dark-mode-toggle" }
     ]
   },
   {
@@ -53,24 +54,33 @@ const isActive = (href: string) => currentPath === href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Component explorer for the business website template." />
     <title>{title}</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          var dark = t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (e) {}
+      })();
+    </script>
   </head>
 
-  <body class="min-h-screen flex flex-col text-gray-900 bg-white antialiased">
+  <body class="min-h-screen flex flex-col text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 antialiased">
     <Header />
 
     <div class="flex flex-col md:flex-row flex-1">
 
       <!-- Sidebar -->
-      <aside class="w-full md:w-64 md:shrink-0 border-b md:border-b-0 md:border-r bg-gray-50 p-6">
+      <aside class="w-full md:w-64 md:shrink-0 border-b md:border-b-0 md:border-r dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
         <h2 class="text-xl font-bold mb-6">Components</h2>
 
         <div class="space-y-6">
           {groups.map((group) => (
             <nav>
-              <h3 class="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">
+              <h3 class="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
                 {group.heading}
               </h3>
-              <p class="mb-2 text-xs text-gray-400">{group.description}</p>
+              <p class="mb-2 text-xs text-gray-400 dark:text-gray-500">{group.description}</p>
               <div class="space-y-1">
                 {group.items.map((c) => (
                   <a
@@ -78,8 +88,8 @@ const isActive = (href: string) => currentPath === href;
                     aria-current={isActive(c.href) ? "page" : undefined}
                     class={`block px-3 py-2 rounded transition ${
                       isActive(c.href)
-                        ? "bg-blue-100 font-semibold text-blue-700"
-                        : "hover:bg-gray-200"
+                        ? "bg-blue-100 dark:bg-blue-900/30 font-semibold text-blue-700"
+                        : "hover:bg-gray-200 dark:hover:bg-gray-700"
                     }`}
                   >
                     {c.name}
@@ -92,8 +102,8 @@ const isActive = (href: string) => currentPath === href;
       </aside>
 
       <!-- Main Content -->
-      <main class="flex-1 min-w-0 p-6 md:p-10">
-        <h1 class="text-3xl font-bold mb-6">{title}</h1>
+      <main class="flex-1 min-w-0 p-6 md:px-10 md:py-8">
+        <h1 class="text-3xl font-bold mb-4">{title}</h1>
         <slot />
       </main>
 

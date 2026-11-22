@@ -62,9 +62,9 @@ const year = new Date().getFullYear();
 ---
 
 {layout === "simple" ? (
-  <footer class="w-full border-t bg-gray-50 py-6 mt-12">
+  <footer class="w-full border-t bg-gray-50 dark:bg-gray-800 dark:border-gray-700 py-8 mt-12">
     <div class="max-w-6xl mx-auto px-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <p class="text-gray-600">
+      <p class="text-gray-600 dark:text-gray-300">
         © {year} Business Website. All rights reserved.
       </p>
       <nav>
@@ -73,7 +73,7 @@ const year = new Date().getFullYear();
             <li>
               <a
                 href={item.href}
-                class="text-gray-700 hover:text-blue-600 transition"
+                class="text-gray-700 hover:text-blue-600 dark:text-gray-200 transition"
               >
                 {item.label}
               </a>
@@ -84,7 +84,7 @@ const year = new Date().getFullYear();
     </div>
   </footer>
 ) : layout === "centered" ? (
-  <footer class="w-full border-t bg-gray-50 py-8 mt-12">
+  <footer class="w-full border-t bg-gray-50 dark:bg-gray-800 dark:border-gray-700 py-8 mt-12">
     <div class="max-w-6xl mx-auto px-4 flex flex-col items-center text-center gap-6">
       <nav>
         <ul class="flex flex-wrap justify-center gap-x-6 gap-y-2">
@@ -92,7 +92,7 @@ const year = new Date().getFullYear();
             <li>
               <a
                 href={item.href}
-                class="text-gray-700 hover:text-blue-600 transition"
+                class="text-gray-700 hover:text-blue-600 dark:text-gray-200 transition"
               >
                 {item.label}
               </a>
@@ -101,27 +101,27 @@ const year = new Date().getFullYear();
         </ul>
       </nav>
 
-      <p class="text-gray-600 leading-relaxed max-w-md">
+      <p class="text-gray-600 dark:text-gray-300 leading-relaxed max-w-md">
         A clean, modern business website template built with Astro and Tailwind CSS.
       </p>
 
-      <p class="text-gray-600">
+      <p class="text-gray-600 dark:text-gray-300">
         © {year} Business Website. All rights reserved.
       </p>
     </div>
   </footer>
 ) : (
-  <footer class="w-full border-t bg-gray-50 py-8 mt-12">
-    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+  <footer class="w-full border-t bg-gray-50 dark:bg-gray-800 dark:border-gray-700 py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
 
       <div>
-        <h2 class="text-lg font-semibold mb-3">Navigation</h2>
+        <h2 class="text-lg font-semibold mb-3 dark:text-gray-100">Navigation</h2>
         <ul class="space-y-2">
           {navigation.map((item) => (
             <li>
               <a
                 href={item.href}
-                class="text-gray-700 hover:text-blue-600 transition"
+                class="text-gray-700 hover:text-blue-600 dark:text-gray-200 transition"
               >
                 {item.label}
               </a>
@@ -131,14 +131,14 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <h2 class="text-lg font-semibold mb-3">About</h2>
-        <p class="text-gray-600 leading-relaxed">
+        <h2 class="text-lg font-semibold mb-3 dark:text-gray-100">About</h2>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
           A clean, modern business website template built with Astro and Tailwind CSS.
         </p>
       </div>
 
       <div class="flex md:justify-end items-start">
-        <p class="text-gray-600">
+        <p class="text-gray-600 dark:text-gray-300">
           © {year} Business Website. All rights reserved.
         </p>
       </div>

@@ -105,10 +105,10 @@ const gridCols =
 
 const articleClass =
   cardStyle === "compact"
-    ? "flex gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+    ? "flex gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm"
     : cardStyle === "circle"
-      ? "rounded-xl border border-gray-200 bg-white text-center shadow-sm"
-      : "overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm";
+      ? "rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-center shadow-sm"
+      : "overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm";
 
 const photoImgClass =
   cardStyle === "compact"
@@ -119,24 +119,24 @@ const photoImgClass =
 
 const photoFallbackClass =
   cardStyle === "compact"
-    ? "flex h-24 w-24 shrink-0 items-center justify-center rounded-lg bg-blue-50"
+    ? "flex h-24 w-24 shrink-0 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30"
     : cardStyle === "circle"
-      ? "mx-auto mt-6 flex h-32 w-32 items-center justify-center rounded-full bg-blue-50"
-      : "flex aspect-square w-full items-center justify-center bg-blue-50";
+      ? "mx-auto mt-6 flex h-32 w-32 items-center justify-center rounded-full bg-blue-50 dark:bg-blue-900/30"
+      : "flex aspect-square w-full items-center justify-center bg-blue-50 dark:bg-blue-900/30";
 
 const photoFallbackTextClass =
   cardStyle === "compact"
-    ? "text-3xl font-bold text-blue-600"
+    ? "text-3xl font-bold text-blue-600 dark:text-blue-300"
     : cardStyle === "circle"
-      ? "text-4xl font-bold text-blue-600"
-      : "text-6xl font-bold text-blue-600";
+      ? "text-4xl font-bold text-blue-600 dark:text-blue-300"
+      : "text-6xl font-bold text-blue-600 dark:text-blue-300";
 
 const bodyClass =
   cardStyle === "compact"
     ? "min-w-0 flex-1"
     : cardStyle === "circle"
-      ? "p-5 pt-4 text-center"
-      : "p-5";
+      ? "p-4 text-center"
+      : "p-4";
 
 const socialsClass =
   cardStyle === "circle"
@@ -163,11 +163,11 @@ const socialsClass =
       )}
 
       <div class={bodyClass}>
-        <h3 class="text-lg font-semibold text-gray-900">{member.name}</h3>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{member.name}</h3>
         <p class="text-sm font-medium text-blue-600">{member.role}</p>
 
         {member.bio && (
-          <p class="mt-2 text-sm leading-relaxed text-gray-600">{member.bio}</p>
+          <p class="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">{member.bio}</p>
         )}
 
         {member.socials && member.socials.length > 0 && (

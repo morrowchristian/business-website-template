@@ -1,0 +1,78 @@
+---
+/**
+ * DarkModeToggle Component
+ *
+ * Purpose:
+ * - Toggle between light and dark themes by adding or removing the
+ *   "dark" class on document.documentElement.
+ */
+
+export const docs = `
+## DarkModeToggle Component API
+
+### Overview
+The DarkModeToggle component renders a button that switches the site between light and dark themes. It toggles the \`dark\` class on \`document.documentElement\`, which activates the \`dark:\` Tailwind variants (enabled by the \`@custom-variant dark\` rule in \`src/styles/global.css\`). The button shows a moon icon in light mode and a sun icon in dark mode — the icon indicates the mode you switch to.
+
+---
+
+### Props
+
+This component takes no props.
+
+---
+
+### Behavior
+
+- Clicking the button toggles the \`dark\` class on \`document.documentElement\`.
+- The choice is saved to localStorage under the key \`theme\` with the value \`"dark"\` or \`"light"\`.
+- On load, the script sets the icon to match the current theme (whether \`documentElement\` already has the \`dark\` class — the no-FOUC script in the layouts sets it before paint).
+- On first visit, with no saved preference, the layout head script respects the OS preference (\`prefers-color-scheme: dark\`).
+- The icon is selected by class (\`dark-mode-toggle-icon\`), so the script works even when more than one toggle is on the page.
+
+---
+
+### Usage Examples
+
+<DarkModeToggle />
+`;
+
+interface Props {}
+
+const {} = Astro.props;
+---
+
+<button
+  type="button"
+  aria-label="Toggle dark mode"
+  class="dark-mode-toggle inline-flex items-center justify-center p-2 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+>
+  <span class="dark-mode-toggle-icon material-icons text-base">dark_mode</span>
+</button>
+
+<script>
+  function updateDarkModeIcons() {
+    const isDark = document.documentElement.classList.contains("dark");
+    document.querySelectorAll(".dark-mode-toggle-icon").forEach((icon) => {
+      icon.textContent = isDark ? "light_mode" : "dark_mode";
+    });
+  }
+
+  updateDarkModeIcons();
+
+  // Guarded per button: the component may appear more than once on a page
+  // (e.g. its explorer page), and each instance emits this script, so a
+  // button must only ever get one click listener.
+  document.querySelectorAll(".dark-mode-toggle").forEach((button) => {
+    if (button.hasAttribute("data-dark-mode-toggle-bound")) return;
+    button.setAttribute("data-dark-mode-toggle-bound", "");
+    button.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      try {
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      } catch (e) {
+        // localStorage unavailable (e.g. private mode) — theme still toggles for this visit.
+      }
+      updateDarkModeIcons();
+    });
+  });
+</script>
