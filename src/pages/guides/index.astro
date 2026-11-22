@@ -1,0 +1,61 @@
+---
+/**
+ * Guides Index Page
+ *
+ * Purpose:
+ * - Lists the reference guides in the catalog.
+ */
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const guides = [
+  {
+    name: "Page Catalog by Business Type",
+    href: "/guides/page-catalog",
+    description:
+      "Which pages and components to use for each type of business — Local Service, E-Commerce, Restaurant, Design/Portfolio, and Health/Wellness."
+  },
+  {
+    name: "Technical & Optimization Checklist",
+    href: "/guides/technical-checklist",
+    description:
+      "The production-ready standards the template follows — responsive breakpoints, Core Web Vitals, accessibility, SEO, security, and analytics. (Coming soon.)",
+    comingSoon: true
+  }
+];
+---
+
+<BaseLayout
+  title="Guides"
+  description="Reference guides for building business websites."
+>
+  <h1 class="text-3xl font-bold mb-4">Guides</h1>
+  <p class="text-gray-600 mb-8 max-w-3xl">
+    Reference material for building business websites: which pages each type of
+    business needs, and the technical standards a production-ready site should meet.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {guides.map((guide) => (
+      <article class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 class="text-xl font-semibold">
+          {guide.comingSoon ? (
+            <span class="text-gray-900">{guide.name}</span>
+          ) : (
+            <a href={guide.href} class="text-blue-600 hover:underline">
+              {guide.name}
+            </a>
+          )}
+        </h2>
+        <p class="mt-2 text-gray-600">{guide.description}</p>
+        {guide.comingSoon && (
+          <p class="mt-3">
+            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
+              Coming soon
+            </span>
+          </p>
+        )}
+      </article>
+    ))}
+  </div>
+</BaseLayout>

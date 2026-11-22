@@ -1,0 +1,181 @@
+---
+/**
+ * Page Catalog by Business Type (Guide)
+ *
+ * Purpose:
+ * - Reference guide mapping business types to their essential pages,
+ *   specialized functional needs, and the catalog components that cover them.
+ * - Tells a builder exactly which pages and components to pull in for a client.
+ *
+ * Note: this is a documentation/reference page. Where a component already
+ * exists it links to the explorer; where it does not, it is noted as planned.
+ */
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+interface BusinessType {
+  name: string;
+  tagline: string;
+  pages: string[];
+  needs: string[];
+  components: { name: string; href?: string; planned?: boolean }[];
+}
+
+const businessTypes: BusinessType[] = [
+  {
+    name: "Local Service",
+    tagline: "Plumber, consultant, electrician, landscaper — a business that serves a local area.",
+    pages: ["Home", "About", "Services", "Reviews", "Contact"],
+    needs: [
+      "Click-to-call buttons (tap to dial from mobile)",
+      "Service-area map showing where you work",
+      "Booking / quote-request integration"
+    ],
+    components: [
+      { name: "Hero", href: "/components/hero" },
+      { name: "Card", href: "/components/card" },
+      { name: "Testimonial Carousel", href: "/components/testimonial-carousel" },
+      { name: "FAQ Accordion", href: "/components/faq-accordion" },
+      { name: "Button", href: "/components/button" },
+      { name: "Click-to-call button", planned: true },
+      { name: "Service-area map", planned: true }
+    ]
+  },
+  {
+    name: "E-Commerce",
+    tagline: "A store selling products online, from a single product to a full catalog.",
+    pages: ["Home", "Shop", "Product Detail", "Cart", "Checkout", "Policies (Returns / Privacy)"],
+    needs: [
+      "Inventory sync with the store backend",
+      "Payment gateway (Stripe / PayPal)",
+      "Tax and shipping calculators at checkout"
+    ],
+    components: [
+      { name: "Hero", href: "/components/hero" },
+      { name: "Card", href: "/components/card" },
+      { name: "Pricing Table", href: "/components/pricing-table" },
+      { name: "Button", href: "/components/button" },
+      { name: "Product gallery", planned: true },
+      { name: "Cart & checkout", planned: true }
+    ]
+  },
+  {
+    name: "Restaurant",
+    tagline: "A restaurant, cafe, or food truck that needs diners to find, browse, and book.",
+    pages: ["Home", "Menu", "Location / Hours", "Reservations", "Contact"],
+    needs: [
+      "PDF menu embed (or an online menu page)",
+      "OpenTable reservation integration",
+      "Google Maps embed for location and directions"
+    ],
+    components: [
+      { name: "Hero", href: "/components/hero" },
+      { name: "Card", href: "/components/card" },
+      { name: "Testimonial Carousel", href: "/components/testimonial-carousel" },
+      { name: "Button", href: "/components/button" },
+      { name: "Menu embed", planned: true },
+      { name: "Reservation widget", planned: true }
+    ]
+  },
+  {
+    name: "Design / Portfolio",
+    tagline: "A designer, photographer, or agency showing work to win new clients.",
+    pages: ["Home", "Portfolio Grid", "Project Detail", "About", "Contact"],
+    needs: [
+      "Lightbox galleries for project images",
+      "Filterable project tags (by type, industry, year)",
+      "Case study layouts with process and results"
+    ],
+    components: [
+      { name: "Hero", href: "/components/hero" },
+      { name: "Card", href: "/components/card" },
+      { name: "Testimonial Carousel", href: "/components/testimonial-carousel" },
+      { name: "Button", href: "/components/button" },
+      { name: "Lightbox gallery", planned: true },
+      { name: "Filterable project grid", planned: true }
+    ]
+  },
+  {
+    name: "Health / Wellness",
+    tagline: "A clinic, gym, therapist, or wellness studio that books appointments.",
+    pages: ["Home", "Services", "About", "Blog", "FAQ", "Contact"],
+    needs: [
+      "Appointment scheduling widget (e.g. Calendly)",
+      "HIPAA-conscious form handling for health information",
+      "Clear service and pricing information"
+    ],
+    components: [
+      { name: "Hero", href: "/components/hero" },
+      { name: "Card", href: "/components/card" },
+      { name: "FAQ Accordion", href: "/components/faq-accordion" },
+      { name: "Pricing Table", href: "/components/pricing-table" },
+      { name: "Testimonial Carousel", href: "/components/testimonial-carousel" },
+      { name: "Appointment scheduling", planned: true }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title="Page Catalog by Business Type"
+  description="Which pages and components to use for each type of business website."
+>
+  <h1 class="text-3xl font-bold mb-4">Page Catalog by Business Type</h1>
+  <p class="text-gray-600 mb-8 max-w-3xl">
+    Every business needs a different set of pages. This guide maps five common
+    business types to their essential pages, the specialized functionality each
+    one needs, and the catalog components that cover them. Components link to
+    the explorer where they exist; items marked "planned" are not built yet.
+  </p>
+
+  <div class="space-y-10">
+    {businessTypes.map((type) => (
+      <section class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 class="text-2xl font-semibold">{type.name}</h2>
+        <p class="mt-1 text-gray-600">{type.tagline}</p>
+
+        <h3 class="mt-6 mb-2 text-sm font-semibold uppercase tracking-wide text-gray-500">
+          Essential Pages
+        </h3>
+        <div class="flex flex-wrap gap-2">
+          {type.pages.map((page) => (
+            <span class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
+              {page}
+            </span>
+          ))}
+        </div>
+
+        <h3 class="mt-6 mb-2 text-sm font-semibold uppercase tracking-wide text-gray-500">
+          Specialized Functional Needs
+        </h3>
+        <ul class="list-disc list-inside space-y-1 text-gray-700">
+          {type.needs.map((need) => (
+            <li>{need}</li>
+          ))}
+        </ul>
+
+        <h3 class="mt-6 mb-2 text-sm font-semibold uppercase tracking-wide text-gray-500">
+          Catalog Components
+        </h3>
+        <ul class="flex flex-wrap gap-2">
+          {type.components.map((c) => (
+            <li>
+              {c.href ? (
+                <a
+                  href={c.href}
+                  class="inline-block rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700 hover:bg-blue-100 transition"
+                >
+                  {c.name}
+                </a>
+              ) : (
+                <span class="inline-block rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-500">
+                  {c.name} (planned)
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</BaseLayout>
