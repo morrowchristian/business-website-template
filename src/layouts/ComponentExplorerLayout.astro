@@ -4,6 +4,9 @@
  *
  * Purpose:
  * - Storybook-style layout with sidebar + main content.
+ * - Sidebar groups components by catalog layer (Global UI & Layout,
+ *   then Page-Specific Functional Components) and highlights the
+ *   active component.
  */
 
 import "../styles/global.css";
@@ -12,20 +15,36 @@ import Footer from "../components/Footer.astro";
 
 const { title } = Astro.props;
 
-const components = [
-  { name: "Button", href: "/components/button" },
-  { name: "Button Group", href: "/components/button-group" },
-  { name: "Back Button", href: "/components/back-button" },
-  { name: "Card", href: "/components/card" },
-  { name: "CodeBlock", href: "/components/code-block" },
-  { name: "FAQ Accordion", href: "/components/faq-accordion" },
-  { name: "Hero", href: "/components/hero" },
-  { name: "Pricing Table", href: "/components/pricing-table" },
-  { name: "Team Grid", href: "/components/team-grid" },
-  { name: "Testimonial Carousel", href: "/components/testimonial-carousel" },
-  { name: "Header", href: "/components/header" },
-  { name: "Footer", href: "/components/footer" }
+const groups = [
+  {
+    heading: "Global UI & Layout",
+    description: "Reusable elements that appear across multiple pages.",
+    items: [
+      { name: "Header", href: "/components/header" },
+      { name: "Footer", href: "/components/footer" },
+      { name: "Button", href: "/components/button" },
+      { name: "Button Group", href: "/components/button-group" },
+      { name: "Back Button", href: "/components/back-button" },
+      { name: "Card", href: "/components/card" },
+      { name: "CodeBlock", href: "/components/code-block" },
+      { name: "CopyButton", href: "/components/copy-button" }
+    ]
+  },
+  {
+    heading: "Page-Specific Functional Components",
+    description: "Distinct modules that serve specific purposes on individual pages.",
+    items: [
+      { name: "Hero", href: "/components/hero" },
+      { name: "FAQ Accordion", href: "/components/faq-accordion" },
+      { name: "Pricing Table", href: "/components/pricing-table" },
+      { name: "Testimonial Carousel", href: "/components/testimonial-carousel" },
+      { name: "Team Grid", href: "/components/team-grid" }
+    ]
+  }
 ];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) => currentPath === href;
 ---
 
 <html lang="en">
@@ -41,19 +60,34 @@ const components = [
     <div class="flex flex-1">
 
       <!-- Sidebar -->
-      <aside class="w-64 border-r bg-gray-50 p-6 space-y-4">
-        <h2 class="text-xl font-bold mb-4">Components</h2>
+      <aside class="w-64 shrink-0 border-r bg-gray-50 p-6">
+        <h2 class="text-xl font-bold mb-6">Components</h2>
 
-        <nav class="space-y-2">
-          {components.map((c) => (
-            <a
-              href={c.href}
-              class="block px-3 py-2 rounded hover:bg-gray-200 transition"
-            >
-              {c.name}
-            </a>
+        <div class="space-y-6">
+          {groups.map((group) => (
+            <nav>
+              <h3 class="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">
+                {group.heading}
+              </h3>
+              <p class="mb-2 text-xs text-gray-400">{group.description}</p>
+              <div class="space-y-1">
+                {group.items.map((c) => (
+                  <a
+                    href={c.href}
+                    aria-current={isActive(c.href) ? "page" : undefined}
+                    class={`block px-3 py-2 rounded transition ${
+                      isActive(c.href)
+                        ? "bg-blue-100 font-semibold text-blue-700"
+                        : "hover:bg-gray-200"
+                    }`}
+                  >
+                    {c.name}
+                  </a>
+                ))}
+              </div>
+            </nav>
           ))}
-        </nav>
+        </div>
       </aside>
 
       <!-- Main Content -->

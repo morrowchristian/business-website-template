@@ -1,0 +1,54 @@
+---
+/**
+ * CopyButton Component Explorer Page
+ *
+ * Purpose:
+ * - Displays the CopyButton component's API documentation.
+ * - Provides a live preview of the copy interaction.
+ * - Shows example usage code for reference.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import CopyButtonComponent, { docs } from "../../components/CopyButton.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<ComponentExplorerLayout title="CopyButton">
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <p class="text-gray-600 mb-4">
+      Click the button to copy the sample text. It briefly shows "Copied!" on success.
+    </p>
+    <CopyButtonComponent text="Hello from the CopyButton component!" />
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<CopyButton text="Hello from the CopyButton component!" />`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/code-block" class="text-blue-600 hover:underline">CodeBlock</a>
+        {" "}— the component that renders a CopyButton in its top-right corner.
+      </li>
+      <li>
+        <a href="/components/button" class="text-blue-600 hover:underline">Button</a>
+        {" "}— the general-purpose button component.
+      </li>
+    </ul>
+  </section>
+
+</ComponentExplorerLayout>

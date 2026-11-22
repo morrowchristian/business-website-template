@@ -4,14 +4,68 @@
  *
  * Purpose:
  * - Landing page for the Storybook-style component explorer.
- * - Provides instructions and context for navigating the component library.
+ * - Explains the two catalog layers and links to each layer's components.
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+
+const layers = [
+  {
+    heading: "Global UI & Layout",
+    description:
+      "Reusable elements that appear across multiple pages. These are the building blocks every site starts with — navigation, buttons, cards, and the pieces that display code.",
+    components: [
+      { name: "Header", href: "/components/header" },
+      { name: "Footer", href: "/components/footer" },
+      { name: "Button", href: "/components/button" },
+      { name: "Button Group", href: "/components/button-group" },
+      { name: "Back Button", href: "/components/back-button" },
+      { name: "Card", href: "/components/card" },
+      { name: "CodeBlock", href: "/components/code-block" },
+      { name: "CopyButton", href: "/components/copy-button" }
+    ]
+  },
+  {
+    heading: "Page-Specific Functional Components",
+    description:
+      "Distinct modules that serve specific purposes on individual pages — the sections that make a business site feel complete: heroes, FAQs, pricing, social proof, and team.",
+    components: [
+      { name: "Hero", href: "/components/hero" },
+      { name: "FAQ Accordion", href: "/components/faq-accordion" },
+      { name: "Pricing Table", href: "/components/pricing-table" },
+      { name: "Testimonial Carousel", href: "/components/testimonial-carousel" },
+      { name: "Team Grid", href: "/components/team-grid" }
+    ]
+  }
+];
 ---
 
 <ComponentExplorerLayout title="Component Explorer">
-  <p class="text-gray-600">
-    Select a component from the sidebar to view its documentation and live preview.
+  <p class="text-gray-600 mb-8">
+    The component library is organized by layer. Start with the Global UI &amp; Layout
+    pieces that appear on every page, then pull in the page-specific modules a
+    given business needs. Select a component from the sidebar — or from a layer
+    below — to view its documentation and live preview.
   </p>
+
+  <div class="space-y-10">
+    {layers.map((layer) => (
+      <section>
+        <h2 class="text-xl font-semibold mb-2">{layer.heading}</h2>
+        <p class="text-gray-600 mb-4">{layer.description}</p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {layer.components.map((c) => (
+            <li>
+              <a
+                href={c.href}
+                class="block rounded-lg border border-gray-200 bg-white px-4 py-3 font-medium text-blue-600 hover:border-blue-300 hover:bg-blue-50 transition"
+              >
+                {c.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
 </ComponentExplorerLayout>
