@@ -1,0 +1,277 @@
+---
+/**
+ * TestimonialCarousel Component
+ *
+ * Purpose:
+ * - Social-proof module that cycles through customer reviews/quotes.
+ * - Auto-advancing with manual prev/next and dot navigation.
+ * - Pauses on hover/focus for accessibility.
+ * - Supports avatar, name, role/company, and star rating.
+ */
+
+export const docs = `
+## TestimonialCarousel Component API
+
+### Overview
+The TestimonialCarousel component displays customer reviews one at a time, advancing automatically and letting visitors navigate manually. It is the standard social-proof module for business sites.
+
+---
+
+### Props
+
+| Prop           | Type          | Default | Description |
+|----------------|---------------|---------|-------------|
+| \`testimonials\` | Testimonial[] | —       | The reviews to display. |
+| \`autoplay\`     | boolean       | true    | Whether the carousel advances automatically. |
+| \`interval\`     | number        | 5000    | Autoplay interval in milliseconds. |
+
+### Testimonial
+
+| Field     | Type   | Description |
+|-----------|--------|-------------|
+| \`quote\`   | string | The review text. |
+| \`name\`    | string | Reviewer's name. |
+| \`role\`    | string | Reviewer's role (e.g. "Owner"). Optional. |
+| \`company\` | string | Reviewer's company. Optional. |
+| \`avatar\`  | string | Image URL for the reviewer's photo. Optional — falls back to an initial. |
+| \`rating\`  | number | Star rating (1–5). Optional. |
+
+---
+
+### Slots
+
+| Slot    | Description |
+|---------|-------------|
+| none    | Content is provided entirely through the \`testimonials\` prop. |
+
+---
+
+### Behavior
+
+- Renders the first testimonial on load; advances on \`interval\` when \`autoplay\` is on.
+- Prev/next arrows and dot indicators navigate manually; manual navigation restarts the autoplay timer.
+- Autoplay pauses on hover and on focus (mouseenter/focusin), and resumes on leave/blur.
+- Screen-reader announcements via an \`aria-live="polite"\` region (announces the current testimonial number and reviewer).
+- Smooth fade/slide transition between testimonials.
+- No framework hydration required (vanilla script).
+
+---
+
+### Usage Examples
+
+<TestimonialCarousel
+  testimonials={[
+    { quote: "They rebuilt our site and bookings doubled.", name: "Sarah M.", role: "Owner", company: "Maple Bakery", rating: 5 },
+    { quote: "Fast, clear, and easy to work with.", name: "James L.", role: "Manager", company: "Ridge Plumbing", rating: 5 },
+  ]}
+/>
+
+<TestimonialCarousel autoplay={false} testimonials={[...]} />
+`;
+
+interface Testimonial {
+  quote: string;
+  name: string;
+  role?: string;
+  company?: string;
+  avatar?: string;
+  rating?: number;
+}
+
+interface Props {
+  testimonials: Testimonial[];
+  autoplay?: boolean;
+  interval?: number;
+}
+
+const { testimonials, autoplay = true, interval = 5000 } = Astro.props;
+const carouselId = `testimonial-${Math.random().toString(36).slice(2, 9)}`;
+
+function starPath(filled: boolean): string {
+  return filled ? "text-yellow-400" : "text-gray-300";
+}
+---
+
+<div
+  id={carouselId}
+  class="relative rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8"
+>
+  <!-- Screen-reader announcements -->
+  <div class="sr-only" aria-live="polite" aria-atomic="true">
+    <span class="sr-announcement"></span>
+  </div>
+
+  <!-- Slides -->
+  <div class="overflow-hidden">
+    {testimonials.map((t, index) => (
+      <figure class="testimonial-slide" data-index={index} hidden={index !== 0}>
+        <blockquote class="text-lg leading-relaxed text-gray-700">
+          &ldquo;{t.quote}&rdquo;
+        </blockquote>
+
+        {t.rating && (
+          <div class="mt-3 flex gap-0.5" aria-label={`${t.rating} out of 5 stars`}>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class={`h-4 w-4 ${starPath(i < t.rating)}`}
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M12 2l2.9 6.26L21.5 9.3l-4.75 4.4L18 20.5 12 17l-6 3.5 1.25-6.8L2.5 9.3l6.6-1.04L12 2z" />
+              </svg>
+            ))}
+          </div>
+        )}
+
+        <figcaption class="mt-4 flex items-center gap-3">
+          {t.avatar ? (
+            <img src={t.avatar} alt="" class="h-11 w-11 rounded-full object-cover" />
+          ) : (
+            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-blue-100 text-lg font-semibold text-blue-700" aria-hidden="true">
+              {t.name.charAt(0)}
+            </span>
+          )}
+          <div>
+            <p class="font-semibold text-gray-900">{t.name}</p>
+            {(t.role || t.company) && (
+              <p class="text-sm text-gray-500">
+                {[t.role, t.company].filter(Boolean).join(", ")}
+              </p>
+            )}
+          </div>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <!-- Controls -->
+  <div class="mt-6 flex items-center justify-between">
+    <div class="flex gap-2">
+      <button
+        type="button"
+        class="prev-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition"
+        aria-label="Previous testimonial"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="next-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition"
+        aria-label="Next testimonial"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex gap-2">
+      {testimonials.map((_, index) => (
+        <button
+          type="button"
+          class="dot-btn h-2.5 w-2.5 rounded-full transition"
+          data-active={index === 0 ? "true" : "false"}
+          aria-label={`Go to testimonial ${index + 1}`}
+          aria-current={index === 0 ? "true" : "false"}
+        />
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .testimonial-slide:not([hidden]) {
+    animation: testimonial-fade-in 0.4s ease;
+  }
+  @keyframes testimonial-fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .dot-btn {
+    background-color: #d1d5db;
+  }
+  .dot-btn[data-active="true"] {
+    background-color: #2563eb;
+  }
+</style>
+
+<script define:vars={{ carouselId, autoplay, interval }}>
+  const root = document.getElementById(carouselId);
+  if (root) {
+    const slides = Array.from(root.querySelectorAll(".testimonial-slide"));
+    const prevBtn = root.querySelector(".prev-btn");
+    const nextBtn = root.querySelector(".next-btn");
+    const dots = Array.from(root.querySelectorAll(".dot-btn"));
+    const announcement = root.querySelector(".sr-announcement");
+    let current = 0;
+    let timer = null;
+    let paused = false;
+
+    function show(index) {
+      const next = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        slide.hidden = i !== next;
+      });
+      dots.forEach((dot, i) => {
+        const active = i === next;
+        dot.setAttribute("data-active", active ? "true" : "false");
+        dot.setAttribute("aria-current", active ? "true" : "false");
+      });
+      current = next;
+      if (announcement) {
+        const name = slides[next]?.querySelector("figcaption .font-semibold")?.textContent ?? "";
+        announcement.textContent = `Testimonial ${next + 1} of ${slides.length}${name ? `: ${name}` : ""}`;
+      }
+    }
+
+    function startAutoplay() {
+      if (!autoplay || paused) return;
+      stopAutoplay();
+      timer = setInterval(() => show(current + 1), interval);
+    }
+    function stopAutoplay() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    root.addEventListener("mouseenter", () => {
+      paused = true;
+      stopAutoplay();
+    });
+    root.addEventListener("mouseleave", () => {
+      paused = false;
+      startAutoplay();
+    });
+    root.addEventListener("focusin", () => {
+      paused = true;
+      stopAutoplay();
+    });
+    root.addEventListener("focusout", () => {
+      paused = false;
+      startAutoplay();
+    });
+
+    prevBtn?.addEventListener("click", () => {
+      show(current - 1);
+      startAutoplay();
+    });
+    nextBtn?.addEventListener("click", () => {
+      show(current + 1);
+      startAutoplay();
+    });
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        show(i);
+        startAutoplay();
+      });
+    });
+
+    startAutoplay();
+  }
+</script>

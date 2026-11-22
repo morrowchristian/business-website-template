@@ -1,0 +1,112 @@
+---
+/**
+ * TestimonialCarousel Component Explorer Page
+ *
+ * Purpose:
+ * - Displays the TestimonialCarousel component's API documentation.
+ * - Provides a live preview with sample testimonials.
+ * - Shows example usage code for reference.
+ *
+ * Note: the testimonials below are sample/placeholder content used to
+ * demonstrate the component. Real client testimonials replace them
+ * when the component is used on a business site.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import TestimonialCarouselComponent, { docs } from "../../components/TestimonialCarousel.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const sampleTestimonials = [
+  {
+    quote: "They rebuilt our website and online bookings doubled within two months. Clear communication the whole way through.",
+    name: "Sarah M.",
+    role: "Owner",
+    company: "Maple Bakery",
+    rating: 5
+  },
+  {
+    quote: "Fast, clear, and easy to work with. Our new site loads instantly and customers keep mentioning how professional it looks.",
+    name: "James L.",
+    role: "Operations Manager",
+    company: "Ridge Plumbing",
+    rating: 5
+  },
+  {
+    quote: "We finally have a site we are proud to share. The quote calculator alone has saved us hours every week.",
+    name: "Priya K.",
+    role: "Founder",
+    company: "Northside Fitness",
+    rating: 4
+  }
+];
+---
+
+<ComponentExplorerLayout title="Testimonial Carousel">
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <p class="text-gray-600 mb-6">
+      Sample testimonials (placeholder content). The carousel auto-advances every 5 seconds, pauses on hover or focus, and can be navigated with the arrows or dots.
+    </p>
+    <TestimonialCarouselComponent testimonials={sampleTestimonials} />
+  </section>
+
+  <!-- Live Preview: autoplay off -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview — Autoplay Off</h2>
+    <p class="text-gray-600 mb-6">
+      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">autoplay={false}</code>, the carousel only moves when the visitor navigates.
+    </p>
+    <TestimonialCarouselComponent testimonials={sampleTestimonials} autoplay={false} />
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<TestimonialCarousel
+  testimonials={[
+    {
+      quote: "They rebuilt our website and online bookings doubled.",
+      name: "Sarah M.",
+      role: "Owner",
+      company: "Maple Bakery",
+      rating: 5,
+    },
+    {
+      quote: "Fast, clear, and easy to work with.",
+      name: "James L.",
+      role: "Operations Manager",
+      company: "Ridge Plumbing",
+      rating: 5,
+    },
+  ]}
+/>`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/card" class="text-blue-600 hover:underline">Card</a>
+        {" "}— another content container often used for reviews and quotes.
+      </li>
+      <li>
+        <a href="/components/faq-accordion" class="text-blue-600 hover:underline">FAQ Accordion</a>
+        {" "}— the section that often sits near testimonials to answer follow-up questions.
+      </li>
+      <li>
+        <a href="/components/code-block" class="text-blue-600 hover:underline">CodeBlock</a>
+        {" "}— used on this page to display the API docs and code example.
+      </li>
+    </ul>
+  </section>
+
+</ComponentExplorerLayout>
