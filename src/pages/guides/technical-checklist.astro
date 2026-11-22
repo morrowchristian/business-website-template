@@ -1,0 +1,137 @@
+---
+/**
+ * Technical & Optimization Checklist (Guide)
+ *
+ * Purpose:
+ * - Documents the production-ready standards the template follows.
+ * - Shows what the template implements vs. what is a client/deployment
+ *   setup step (e.g. GA4, CMS auth).
+ */
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+interface ChecklistItem {
+  text: string;
+  status: "done" | "setup";
+}
+
+interface ChecklistSection {
+  name: string;
+  intro: string;
+  items: ChecklistItem[];
+}
+
+const sections: ChecklistSection[] = [
+  {
+    name: "Responsive Breakpoints",
+    intro:
+      "The layout must work on a phone, a tablet, and a desktop — not just the screen it was designed on. The template uses Tailwind's mobile-first breakpoints so the base styles are the small-screen layout, and larger screens add columns and spacing.",
+    items: [
+      { text: "Base styles are mobile-first; layouts stack to a single column on small screens.", status: "done" },
+      { text: "Tailwind breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px). Components use sm/md/lg to switch from 1 → 2 → 3 columns (e.g. TeamGrid, PricingTable).", status: "done" },
+      { text: "Navigation collapses to a mobile menu below md (768px).", status: "done" },
+      { text: "Test on real devices, not just a resized browser window — tap targets, font sizes, and overflow behave differently on touch. Check at 360px (small phone), 768px (tablet), and 1440px (desktop) as a minimum.", status: "setup" }
+    ]
+  },
+  {
+    name: "Performance (Core Web Vitals)",
+    intro:
+      "Google ranks and users reward fast pages. The three Core Web Vitals are Largest Contentful Paint (LCP, under 2.5s), Interaction to Next Paint (INP, under 200ms), and Cumulative Layout Shift (CLS, under 0.1). Astro helps by shipping zero JavaScript by default — components only add scripts when they need interactivity.",
+    items: [
+      { text: "Images use loading=\"lazy\" (Card, TeamGrid, TestimonialCarousel avatars) so below-the-fold images don't block the first paint.", status: "done" },
+      { text: "CSS and JS are minified by the Astro/Vite build automatically.", status: "done" },
+      { text: "No JavaScript framework is shipped for static components — only FAQAccordion, TestimonialCarousel, and ContactChat include small vanilla scripts.", status: "done" },
+      { text: "Compress images to WebP or AVIF before adding them to public/ — aim for under 200KB per image. Astro's <Image /> component can generate optimized formats automatically.", status: "setup" },
+      { text: "Caching is handled by the host (Vercel sets cache headers for static assets). Confirm long cache times for hashed build assets on your deployment.", status: "setup" }
+    ]
+  },
+  {
+    name: "Accessibility (WCAG 2.2 AA)",
+    intro:
+      "A production site must be usable by keyboard, screen reader, and low-vision users. WCAG 2.2 AA is the standard most clients and governments expect. The template builds these in rather than bolting them on.",
+    items: [
+      { text: "Semantic landmarks on every page: <header> + <nav>, <main>, <footer>.", status: "done" },
+      { text: "Meaningful alt text on all images — Card images use the card title, TeamGrid photos use the member's name, testimonial avatars use the person's name.", status: "done" },
+      { text: "A global :focus-visible style (2px blue outline, 2px offset) covers links, nav items, and any focusable element without its own focus ring; Button and Card add their own focus-visible rings.", status: "done" },
+      { text: "Interactive components are keyboard-operable: FAQ Accordion supports arrow keys, Enter, and Space; the carousel has labeled prev/next buttons and dots.", status: "done" },
+      { text: "Color contrast: body text is gray-900 on white (well above the 4.5:1 AA ratio); blue-600 links on white pass AA for normal text. Verify any new color pairing with a contrast checker before shipping.", status: "setup" }
+    ]
+  },
+  {
+    name: "SEO Technical Setup",
+    intro:
+      "Search engines need machine-readable signals to index and rank a site. The template provides the foundation; the client fills in their own business details (name, address, phone) for the structured data.",
+    items: [
+      { text: "Every page has a <title> and a meta description (BaseLayout and ComponentExplorerLayout).", status: "done" },
+      { text: "Canonical URLs on every BaseLayout page (built from the site URL + the page path), so duplicate URLs don't split ranking.", status: "done" },
+      { text: "Open Graph tags (og:title, og:description, og:type, og:url) and Twitter Card tags on every BaseLayout page, so links shared on social media show a proper preview.", status: "done" },
+      { text: "XML sitemap generated automatically at build time by the @astrojs/sitemap integration (sitemap-index.xml).", status: "done" },
+      { text: "Add Schema.org structured data for the client's business: a LocalBusiness block on the homepage (name, address, phone, hours) and FAQPage blocks where an FAQ Accordion is used. This is per-client content, so it lives in the page frontmatter, not the template.", status: "setup" },
+      { text: "Add an og:image (1200×630) with the client's logo or a hero shot in public/ and reference it from BaseLayout, so social previews show an image.", status: "setup" }
+    ]
+  },
+  {
+    name: "Security",
+    intro:
+      "A static template has a small attack surface, but forms and third-party services are where problems creep in. These are the habits that keep a client site safe.",
+    items: [
+      { text: "Contact forms validate input on the client (required fields, email format) and should be submitted to a trusted form service that sanitizes input server-side — never trust raw form data.", status: "done" },
+      { text: "No secrets, API keys, or credentials are committed to the repo. Use environment variables (.env, gitignored) for anything sensitive.", status: "done" },
+      { text: "Keep Astro and dependencies updated — run npm audit and update on a regular schedule (monthly is a good cadence for a small site).", status: "setup" },
+      { text: "If a CMS is added, use its official authentication (not a shared password) and give each editor only the access they need.", status: "setup" }
+    ]
+  },
+  {
+    name: "Analytics & Tracking",
+    intro:
+      "A business site should prove it works: which pages get traffic, which buttons get clicked, and how many visitors become enquiries. Analytics is a per-client setup step, not template code.",
+    items: [
+      { text: "Create a Google Analytics 4 (GA4) property for the client's domain and add the measurement ID to the site's <head> (via an environment variable, not hardcoded).", status: "setup" },
+      { text: "Use Google Tag Manager if the client needs to add tracking without code changes — it lets marketing add tags (ads, chat widgets) without a deploy.", status: "setup" },
+      { text: "Track the events that matter: form submissions (ContactChat), click-to-call, and CTA clicks. In GA4 these are custom events; in GTM they are triggers on the button or form.", status: "setup" },
+      { text: "Add a cookie/privacy notice if the client operates where consent is required (EU/UK). The notice itself is a small component; the consent logic is a client decision.", status: "setup" }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title="Technical & Optimization Checklist"
+  description="The production-ready standards the template follows — responsive, performance, accessibility, SEO, security, and analytics."
+>
+  <h1 class="text-3xl font-bold mb-4">Technical &amp; Optimization Checklist</h1>
+  <p class="text-gray-600 mb-8 max-w-3xl">
+    A production-ready site is more than a pretty layout. This checklist covers
+    the six areas a reviewer or a client will check: responsive design,
+    performance, accessibility, SEO, security, and analytics. Items marked
+    <strong class="text-gray-900"> Implemented</strong> are already in the
+    template; items marked <strong class="text-gray-900">Setup step</strong>{" "}
+    are per-client or per-deployment work that the template documents rather than codes.
+  </p>
+
+  <div class="space-y-10">
+    {sections.map((section) => (
+      <section class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 class="text-2xl font-semibold">{section.name}</h2>
+        <p class="mt-2 text-gray-600">{section.intro}</p>
+
+        <ul class="mt-5 space-y-3">
+          {section.items.map((item) => (
+            <li class="flex items-start gap-3">
+              <span
+                class={`mt-0.5 shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                  item.status === "done"
+                    ? "bg-green-100 text-green-800"
+                    : "bg-amber-100 text-amber-800"
+                }`}
+              >
+                {item.status === "done" ? "Implemented" : "Setup step"}
+              </span>
+              <span class="text-gray-700">{item.text}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

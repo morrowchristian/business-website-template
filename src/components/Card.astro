@@ -110,11 +110,11 @@ const wrapperAttrs = href ? { href } : {};
   `}
 >
   {variant === "horizontal" && image && (
-    <img src={image} alt="" class="w-32 h-32 object-cover rounded-md" />
+    <img src={image} alt={title} loading="lazy" class="w-32 h-32 object-cover rounded-md" />
   )}
 
   {variant === "base" && image && (
-    <img src={image} alt="" class="w-full aspect-[4/3] object-cover" />
+    <img src={image} alt={title} loading="lazy" class="w-full aspect-[4/3] object-cover" />
   )}
 
   <div class={variant === "horizontal" ? "flex-1 space-y-2" : "space-y-3 p-4"}>

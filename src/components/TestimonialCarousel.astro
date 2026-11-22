@@ -127,7 +127,7 @@ function starPath(filled: boolean): string {
 
         <figcaption class="mt-4 flex items-center gap-3">
           {t.avatar ? (
-            <img src={t.avatar} alt="" class="h-11 w-11 rounded-full object-cover" />
+            <img src={t.avatar} alt={`Photo of ${t.name}`} loading="lazy" class="h-11 w-11 rounded-full object-cover" />
           ) : (
             <span class="flex h-11 w-11 items-center justify-center rounded-full bg-blue-100 text-lg font-semibold text-blue-700" aria-hidden="true">
               {t.name.charAt(0)}
