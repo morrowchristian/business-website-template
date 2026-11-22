@@ -1,0 +1,106 @@
+---
+/**
+ * CodeBlock Component
+ *
+ * Purpose:
+ * - Design-system code display with prop-based and slot-based input.
+ * - Normalizes indentation for slot content.
+ * - CopyButton in the top-right corner for easy copying.
+ * - Prepares for future syntax highlighting (Prism, Shiki, etc.).
+ */
+
+import CopyButton from "./CopyButton.astro";
+
+export const docs = `
+## CodeBlock Component API
+
+### Overview
+The CodeBlock component displays code examples in a consistent, polished block with a language label and a CopyButton. It accepts code as a \`code\` prop or as slot content, and normalizes indentation for slot input so examples stay clean.
+
+---
+
+### Props
+
+| Prop       | Type   | Default  | Description |
+|------------|--------|----------|-------------|
+| \`code\`     | string | —        | Code as a prop. Takes precedence over slot content when provided. |
+| \`language\` | string | "text"   | Language label shown in the header (e.g. "astro", "tsx", "bash"). |
+| \`id\`       | string | auto     | Optional id for the block. Auto-generated when omitted. |
+
+---
+
+### Slots
+
+| Slot    | Description |
+|---------|-------------|
+| default | Code as slot content (multi-line examples). Indentation is normalized. |
+
+---
+
+### Behavior
+
+- Renders code in a dark, scrollable block with a header row (language label + CopyButton).
+- Normalizes indentation: strips the common leading whitespace from slot content.
+- CopyButton copies the exact displayed code.
+- No framework hydration required (vanilla scripts only).
+
+---
+
+### Usage Examples
+
+Prop-based:
+
+<CodeBlock code="<Button variant=\\"primary\\">Save</Button>" language="astro" />
+
+Slot-based:
+
+<CodeBlock language="astro">
+  <Button variant="primary">Save</Button>
+</CodeBlock>
+`;
+
+interface Props {
+  code?: string;
+  language?: string;
+  id?: string;
+}
+
+const { code, language = "text", id } = Astro.props;
+
+// Decode the HTML entities Astro applies when rendering slot content,
+// so the copied/displayed code is the raw source, not escaped entities.
+function decodeEntities(html: string): string {
+  return html
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
+}
+
+// Strip the common leading indentation from multi-line slot content.
+function normalizeIndent(text: string): string {
+  const lines = text.replace(/^\n+|\n+$/g, "").split("\n");
+  let minIndent = Infinity;
+  for (const line of lines) {
+    if (line.trim() === "") continue;
+    const indent = line.match(/^(\s*)/)?.[1].length ?? 0;
+    if (indent < minIndent) minIndent = indent;
+  }
+  if (!isFinite(minIndent)) minIndent = 0;
+  return lines.map((line) => line.slice(minIndent)).join("\n");
+}
+
+const slotHtml = await Astro.slots.render("default");
+const raw = code ?? decodeEntities(slotHtml ?? "");
+const displayCode = normalizeIndent(raw);
+const blockId = id ?? `codeblock-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div id={blockId} class="rounded-lg overflow-hidden border border-gray-700 bg-gray-900">
+  <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700">
+    <span class="text-xs font-mono uppercase tracking-wide text-gray-400">{language}</span>
+    <CopyButton text={displayCode} />
+  </div>
+  <pre class="p-4 overflow-x-auto text-sm leading-relaxed"><code class="font-mono text-gray-100">{displayCode}</code></pre>
+</div>

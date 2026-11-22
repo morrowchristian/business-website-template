@@ -8,10 +8,9 @@
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
-import FooterComponent from "../../components/Footer.astro";
+import FooterComponent, { docs } from "../../components/Footer.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
 
-// Access internal docs safely with a type cast
-const docs = (FooterComponent as any).__astro_internal?.docs ?? "No documentation available.";
 ---
 
 <ComponentExplorerLayout title="Footer">
@@ -19,7 +18,7 @@ const docs = (FooterComponent as any).__astro_internal?.docs ?? "No documentatio
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
     <h2>API Documentation</h2>
-    <pre class="bg-gray-100 p-4 rounded whitespace-pre-wrap text-sm">{docs}</pre>
+    <CodeBlock code={docs} language="markdown" />
   </section>
 
   <!-- Live Preview -->
@@ -32,9 +31,7 @@ const docs = (FooterComponent as any).__astro_internal?.docs ?? "No documentatio
   <!-- Code Example -->
   <section>
     <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <pre class="bg-gray-100 p-4 rounded text-sm">
-{`<Footer />`}
-    </pre>
+    <CodeBlock code={`<Footer />`} language="astro" />
   </section>
 
 </ComponentExplorerLayout>

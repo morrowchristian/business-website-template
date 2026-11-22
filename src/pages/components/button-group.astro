@@ -9,11 +9,10 @@
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
-import ButtonGroupComponent from "../../components/ButtonGroup.astro";
+import ButtonGroupComponent, { docs } from "../../components/ButtonGroup.astro";
 import Button from "../../components/Button.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
 
-// Access internal docs safely with a type cast
-const docs = (ButtonGroupComponent as any).__astro_internal?.docs ?? "No documentation available.";
 ---
 
 <ComponentExplorerLayout title="Button Group">
@@ -21,7 +20,7 @@ const docs = (ButtonGroupComponent as any).__astro_internal?.docs ?? "No documen
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
     <h2>API Documentation</h2>
-    <pre class="bg-gray-100 p-4 rounded whitespace-pre-wrap text-sm">{docs}</pre>
+    <CodeBlock code={docs} language="markdown" />
   </section>
 
   <!-- Live Preview -->
@@ -55,12 +54,10 @@ const docs = (ButtonGroupComponent as any).__astro_internal?.docs ?? "No documen
   <!-- Code Example -->
   <section>
     <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <pre class="bg-gray-100 p-4 rounded text-sm">
-{`<ButtonGroup direction="horizontal" gap="gap-4">
+    <CodeBlock code={`<ButtonGroup direction="horizontal" gap="gap-4">
   <Button>Save</Button>
   <Button variant="secondary">Cancel</Button>
-</ButtonGroup>`}
-    </pre>
+</ButtonGroup>`} language="astro" />
   </section>
 
 </ComponentExplorerLayout>

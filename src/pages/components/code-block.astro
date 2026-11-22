@@ -1,0 +1,79 @@
+---
+/**
+ * CodeBlock Component Explorer Page
+ *
+ * Purpose:
+ * - Displays the CodeBlock component's API documentation.
+ * - Provides live previews of prop-based and slot-based usage.
+ * - Shows related components.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import CodeBlockComponent, { docs } from "../../components/CodeBlock.astro";
+import Button from "../../components/Button.astro";
+
+---
+
+<ComponentExplorerLayout title="CodeBlock">
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlockComponent code={docs} language="markdown" />
+  </section>
+
+  <!-- Prop-based Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Prop-based Example</h2>
+    <p class="text-gray-600 mb-4">
+      Pass code as a <code class="font-mono text-sm bg-gray-100 px-1 rounded">code</code> prop. Ideal for single-line snippets and code generated in frontmatter.
+    </p>
+    <CodeBlockComponent code={`<Button variant="primary">Save Changes</Button>`} language="astro" />
+  </section>
+
+  <!-- Slot-based Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Slot-based Example</h2>
+    <p class="text-gray-600 mb-4">
+      Write multi-line code as slot content. Indentation is normalized automatically, so you can indent the example to match your page source.
+    </p>
+    <CodeBlockComponent language="astro">
+{`<Button variant="primary">Save Changes</Button>
+<Button variant="secondary">Cancel</Button>
+<Button variant="ghost">Learn More</Button>`}
+    </CodeBlockComponent>
+  </section>
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <p class="text-gray-600 mb-4">
+      The buttons below are the live components from the slot example above. The CopyButton in each block copies the exact displayed code.
+    </p>
+    <div class="space-y-6">
+      <Button variant="primary">Save Changes</Button>
+      <Button variant="secondary">Cancel</Button>
+      <Button variant="ghost">Learn More</Button>
+    </div>
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/button" class="text-blue-600 hover:underline">Button</a>
+        {" "}— the component used in the examples above.
+      </li>
+      <li>
+        <a href="/components/card" class="text-blue-600 hover:underline">Card</a>
+        {" "}— another component whose explorer page now uses CodeBlock for its code samples.
+      </li>
+      <li>
+        <span class="font-mono text-sm">CopyButton</span>
+        {" "}— the small copy button rendered in the top-right corner of every CodeBlock. It copies the block's code and briefly shows "Copied!".
+      </li>
+    </ul>
+  </section>
+
+</ComponentExplorerLayout>
