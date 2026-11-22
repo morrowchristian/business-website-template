@@ -50,6 +50,18 @@ import CodeBlock from "../../components/CodeBlock.astro";
 
 <BackButton variant="button" />`} language="astro" />
       </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Icon only — just the arrow, no text</h3>
+        <p class="text-gray-600 mb-3">For tight spaces like a header. Renders only the back arrow, with an aria-label of "Back" so screen readers still announce it.</p>
+        <div class="space-y-4 mb-3">
+          <BackButtonComponent href="/components" variant="button" iconOnly />
+          <div><BackButtonComponent iconOnly /></div>
+        </div>
+        <CodeBlock code={`<BackButton href="/components" variant="button" iconOnly />
+
+<BackButton iconOnly />`} language="astro" />
+      </div>
     </div>
   </section>
 

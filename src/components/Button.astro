@@ -25,6 +25,7 @@ It supports multiple visual styles, sizes, full‑width mode, loading state, and
 | \`loading\`   | boolean                                                   | false       | Shows a loading spinner and disables interaction. |
 | \`fullWidth\` | boolean                                                   | false       | Expands the button to 100% width. |
 | \`icon\`      | string \| null                                            | null        | Optional icon name for left‑aligned icon. |
+| \`ariaLabel\` | string \| null                                            | null        | Accessible label, e.g. for an icon-only button with no visible text. |
 
 ---
 
@@ -79,6 +80,7 @@ interface Props {
   loading?: boolean;
   fullWidth?: boolean;
   icon?: string | null;
+  ariaLabel?: string | null;
 }
 
 const {
@@ -87,7 +89,8 @@ const {
   href = null,
   loading = false,
   fullWidth = false,
-  icon = null
+  icon = null,
+  ariaLabel = null
 } = Astro.props;
 
 const isLink = Boolean(href);
@@ -126,10 +129,12 @@ const spinnerClass =
 
 const Wrapper = isLink ? "a" : "button";
 const wrapperAttrs = isLink ? { href } : { disabled: loading };
+const ariaAttrs = ariaLabel ? { "aria-label": ariaLabel } : {};
 ---
 
 <Wrapper
   {...wrapperAttrs}
+  {...ariaAttrs}
   class={`${base} ${variants[variant]} ${sizes[size]} ${widthClass} ${loadingClass}`}
 >
   {loading && (
