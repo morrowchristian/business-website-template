@@ -7,12 +7,15 @@
  * - Gives the example its own header (business name + example nav + call
  *   button) and footer (contact details, hours, fictional-demo note).
  * - Does NOT reuse the template's Header/Footer, which show the template
- *   nav (Home, Services, Components, Guides).
+ *   nav (Components, Examples, Guides).
  * - Includes ContactChat so the "Message Us" button and the Hero's
  *   "Contact Us" button open the message panel on every example page.
+ * - A BackButton in the header takes visitors back to the template
+ *   (Components explorer) from any example page.
  */
 
 import "../styles/global.css";
+import BackButton from "../components/BackButton.astro";
 import Button from "../components/Button.astro";
 import ContactChat from "../components/ContactChat.astro";
 
@@ -44,6 +47,8 @@ const isActive = (href: string) => currentPath === href.replace(/\/$/, "");
   <body class="min-h-screen flex flex-col text-gray-900 bg-white antialiased">
     <header class="w-full border-b bg-white">
       <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-4">
+        <BackButton href="/components" variant="button" />
+
         <a href="/examples/plumbing/" class="text-xl font-bold text-gray-900">
           Cedar Creek <span class="text-blue-600">Plumbing</span>
         </a>
