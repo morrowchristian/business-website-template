@@ -1,0 +1,109 @@
+---
+/**
+ * TeamGrid Component Explorer Page
+ *
+ * Purpose:
+ * - Displays the TeamGrid component's API documentation.
+ * - Provides a live preview with sample members.
+ * - Shows example usage code for reference.
+ *
+ * Note: the members below are sample/placeholder content used to
+ * demonstrate the component. Real team members replace them
+ * when the component is used on a business site.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import TeamGridComponent, { docs } from "../../components/TeamGrid.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const sampleMembers = [
+  {
+    name: "Alex Rivera",
+    role: "Founder & CEO",
+    bio: "Started the company in 2018 after a decade in the trade. Still on every first install.",
+    socials: [
+      { label: "LinkedIn", href: "https://linkedin.com" },
+      { label: "Email", href: "mailto:alex@example.com" }
+    ]
+  },
+  {
+    name: "Sam Chen",
+    role: "Lead Installer",
+    bio: "Certified installer with 200+ projects completed. Leads the crew on every large job.",
+    socials: [{ label: "LinkedIn", href: "https://linkedin.com" }]
+  },
+  {
+    name: "Jordan Lee",
+    role: "Customer Success",
+    bio: "First point of contact for quotes and scheduling. Keeps every project on track.",
+    socials: [{ label: "Email", href: "mailto:jordan@example.com" }]
+  }
+];
+---
+
+<ComponentExplorerLayout title="Team Grid">
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <p class="text-gray-600 mb-6">
+      Sample team members (placeholder content). No photos are provided here, so each card shows an initial placeholder. The grid is 1 column on mobile, 2 on tablet, and 3 on desktop.
+    </p>
+    <TeamGridComponent members={sampleMembers} />
+  </section>
+
+  <!-- Live Preview: 4 columns -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview — 4 Columns</h2>
+    <p class="text-gray-600 mb-6">
+      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">columns={4}</code>, the grid shows 4 cards per row on desktop.
+    </p>
+    <TeamGridComponent members={[...sampleMembers, { name: "Casey Brooks", role: "Design Lead", bio: "Owns the look and feel of every site we ship.", socials: [{ label: "LinkedIn", href: "https://linkedin.com" }] }]} columns={4} />
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<TeamGrid
+  members={[
+    {
+      name: "Alex Rivera",
+      role: "Founder & CEO",
+      bio: "Started the company in 2018 after a decade in the trade.",
+      socials: [{ label: "LinkedIn", href: "https://linkedin.com" }],
+    },
+    {
+      name: "Sam Chen",
+      role: "Lead Installer",
+      bio: "Certified installer with 200+ projects completed.",
+    },
+  ]}
+/>`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/card" class="text-blue-600 hover:underline">Card</a>
+        {" "}— another content container; TeamGrid cards are a specialized variant.
+      </li>
+      <li>
+        <a href="/components/testimonial-carousel" class="text-blue-600 hover:underline">Testimonial Carousel</a>
+        {" "}— the social-proof module that often sits near a team section.
+      </li>
+      <li>
+        <a href="/components/code-block" class="text-blue-600 hover:underline">CodeBlock</a>
+        {" "}— used on this page to display the API docs and code example.
+      </li>
+    </ul>
+  </section>
+
+</ComponentExplorerLayout>
