@@ -1,0 +1,130 @@
+---
+/**
+ * Cedar Creek Plumbing — Home (example site)
+ *
+ * Purpose:
+ * - Example Local Service home page, built from the template's components.
+ * - Hero, services preview, reviews, FAQ, and a closing call-to-action.
+ * - All copy is fictional/placeholder content for the demo business.
+ */
+
+import ExampleLayout from "../../../layouts/ExampleLayout.astro";
+import Hero from "../../../components/Hero.astro";
+import Card from "../../../components/Card.astro";
+import Button from "../../../components/Button.astro";
+import TestimonialCarousel from "../../../components/TestimonialCarousel.astro";
+import FAQAccordion from "../../../components/FAQAccordion.astro";
+
+const reviews = [
+  {
+    quote: "They fixed our burst pipe the same afternoon we called. Clear pricing, no mess left behind, and they explained everything before they started.",
+    name: "Dana R.",
+    role: "Homeowner",
+    company: "Cleveland, TN",
+    rating: 5
+  },
+  {
+    quote: "Our water heater died on a Sunday. Cedar Creek had a new one installed by Monday morning, and the price matched the estimate exactly.",
+    name: "Marcus T.",
+    role: "Homeowner",
+    company: "Cleveland, TN",
+    rating: 5
+  },
+  {
+    quote: "Friendly, on time, and honest about what we actually needed. They talked us out of a repair we didn't need — that's why we'll call them again.",
+    name: "Priya S.",
+    role: "Homeowner",
+    company: "Charleston, TN",
+    rating: 5
+  }
+];
+
+const faqs = [
+  {
+    question: "Do you offer free estimates?",
+    answer: "Yes — every job starts with a free, no-obligation estimate. We'll look at the problem, explain your options, and give you an upfront price before any work begins."
+  },
+  {
+    question: "How fast can you come out for an emergency?",
+    answer: "Our emergency line is staffed 24/7. For burst pipes, major leaks, and sewer backups in the Cleveland area, we aim to be on site within 2 hours."
+  },
+  {
+    question: "Are you licensed and insured?",
+    answer: "Yes. Cedar Creek Plumbing is fully licensed and insured, and all work is backed by our 1-year workmanship guarantee."
+  },
+  {
+    question: "Do you charge by the hour or by the job?",
+    answer: "By the job. You get a flat, upfront price before we start, so there are no surprises when the work is done. The only exception is diagnostic visits, which are a flat $49 fee applied to the repair if you go ahead."
+  }
+];
+---
+
+<ExampleLayout
+  title="Cedar Creek Plumbing — Cleveland, TN"
+  description="Cedar Creek Plumbing is a fictional local plumbing company in Cleveland, TN — drain cleaning, water heaters, leak repair, and 24/7 emergency service. An example site built from the business-website-template components."
+>
+  <Hero
+    layout="centered"
+    title="Plumbing done right, right here in Cleveland."
+    subtitle="Licensed & insured local plumbers for drain cleaning, water heaters, leak repair, and 24/7 emergencies — serving Cleveland, TN and surrounding areas."
+    primaryCta={{ label: "Our Services", href: "/examples/plumbing/services" }}
+  />
+
+  <!-- Services preview -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-2">What we do</h2>
+    <p class="text-gray-600 mb-6">
+      Three of our most-requested services. See the full list on the{" "}
+      <a href="/examples/plumbing/services" class="text-blue-600 hover:underline">Services page</a>.
+    </p>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <Card
+        href="/examples/plumbing/services"
+        title="Drain Cleaning"
+        description="Slow drains, clogs, and backups cleared fast — with a camera inspection to find the real cause."
+      />
+      <Card
+        href="/examples/plumbing/services"
+        title="Water Heater Repair & Replacement"
+        description="No hot water? We repair and replace tank and tankless heaters, usually the same day."
+      />
+      <Card
+        variant="featured"
+        href="/examples/plumbing/services"
+        title="Emergency Plumbing"
+        description="Burst pipes, major leaks, and sewer backups — 24/7 emergency line, on site within 2 hours."
+      />
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-2">What our customers say</h2>
+    <p class="text-gray-600 mb-6">
+      Placeholder reviews — replace these with real customer feedback.
+    </p>
+    <TestimonialCarousel testimonials={reviews} />
+  </section>
+
+  <!-- FAQ -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-6">Common questions</h2>
+    <FAQAccordion items={faqs} defaultOpen={0} />
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="rounded-xl border border-gray-200 bg-blue-50 p-8 text-center">
+    <h2 class="text-2xl font-semibold text-gray-900">Got a leak, a clog, or no hot water?</h2>
+    <p class="mt-2 text-gray-600">
+      Call now and we'll get a plumber to you — 24/7 for emergencies.
+    </p>
+    <div class="mt-6 flex flex-wrap justify-center gap-4">
+      <Button href="tel:+14235550147" variant="primary" size="lg">
+        Call (423) 555-0147
+      </Button>
+      <Button href="/examples/plumbing/contact" variant="outline" size="lg">
+        Contact Us
+      </Button>
+    </div>
+  </section>
+</ExampleLayout>

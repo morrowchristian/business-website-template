@@ -1,0 +1,63 @@
+---
+/**
+ * Cedar Creek Plumbing — Reviews (example site)
+ *
+ * Purpose:
+ * - Example Local Service reviews page: a full testimonial carousel.
+ * - All reviews are fictional/placeholder content for the demo business.
+ */
+
+import ExampleLayout from "../../../layouts/ExampleLayout.astro";
+import TestimonialCarousel from "../../../components/TestimonialCarousel.astro";
+
+const reviews = [
+  {
+    quote: "They fixed our burst pipe the same afternoon we called. Clear pricing, no mess left behind, and they explained everything before they started.",
+    name: "Dana R.",
+    role: "Homeowner",
+    company: "Cleveland, TN",
+    rating: 5
+  },
+  {
+    quote: "Our water heater died on a Sunday. Cedar Creek had a new one installed by Monday morning, and the price matched the estimate exactly.",
+    name: "Marcus T.",
+    role: "Homeowner",
+    company: "Cleveland, TN",
+    rating: 5
+  },
+  {
+    quote: "Friendly, on time, and honest about what we actually needed. They talked us out of a repair we didn't need — that's why we'll call them again.",
+    name: "Priya S.",
+    role: "Homeowner",
+    company: "Charleston, TN",
+    rating: 5
+  },
+  {
+    quote: "We've used three plumbers in ten years and Cedar Creek is the only one we've called back. They show up when they say they will, and the work holds up.",
+    name: "Elena G.",
+    role: "Homeowner",
+    company: "Cleveland, TN",
+    rating: 5
+  },
+  {
+    quote: "The camera inspection found a root problem two other companies missed. They cleared it, showed us the footage, and the drain has been fine for a year.",
+    name: "James W.",
+    role: "Homeowner",
+    company: "Ooltewah, TN",
+    rating: 4
+  }
+];
+---
+
+<ExampleLayout
+  title="Reviews — Cedar Creek Plumbing"
+  description="Placeholder customer reviews for Cedar Creek Plumbing, a fictional local plumbing company in Cleveland, TN. An example site built from the business-website-template components."
+>
+  <h1 class="text-3xl font-bold mb-4">Customer Reviews</h1>
+  <p class="text-gray-600 mb-8 max-w-3xl">
+    These are placeholder reviews — replace them with real customer feedback.
+    Every review below is fictional content written for the demo.
+  </p>
+
+  <TestimonialCarousel layout="minimal" autoplay={true} testimonials={reviews} />
+</ExampleLayout>
