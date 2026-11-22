@@ -1,0 +1,373 @@
+---
+/**
+ * Design Tokens Guide Page
+ *
+ * Purpose:
+ * - Documents the design tokens actually in use across the template:
+ *   color, typography, spacing, radius, shadow, breakpoints, and focus.
+ * - Values were audited from the components (2026-11-22), not guessed.
+ * - The template uses Tailwind v4 defaults; there is no custom @theme
+ *   block yet. The "How to change a token" section explains how to add one.
+ */
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+interface ColorToken {
+  name: string;
+  hex: string;
+  tailwind: string;
+  usage: string;
+  swatch: string;
+}
+
+const blues: ColorToken[] = [
+  { name: "Blue 50", hex: "#eff6ff", tailwind: "blue-50", usage: "Light backgrounds (placeholder, hover states)", swatch: "bg-blue-50" },
+  { name: "Blue 100", hex: "#dbeafe", tailwind: "blue-100", usage: "Active sidebar item, light badges", swatch: "bg-blue-100" },
+  { name: "Blue 500", hex: "#3b82f6", tailwind: "blue-500", usage: "Focus rings and outlines", swatch: "bg-blue-500" },
+  { name: "Blue 600", hex: "#2563eb", tailwind: "blue-600", usage: "Primary buttons, links, accent text — the main brand color", swatch: "bg-blue-600" },
+  { name: "Blue 700", hex: "#1d4ed8", tailwind: "blue-700", usage: "Button hover state, darker accent text", swatch: "bg-blue-700" },
+  { name: "Blue 800", hex: "#1e40af", tailwind: "blue-800", usage: "Link hover state", swatch: "bg-blue-800" }
+];
+
+const grays: ColorToken[] = [
+  { name: "Gray 50", hex: "#f9fafb", tailwind: "gray-50", usage: "Sidebar background, subtle page background", swatch: "bg-gray-50" },
+  { name: "Gray 100", hex: "#f3f4f6", tailwind: "gray-100", usage: "Chips, light badges, code-adjacent backgrounds", swatch: "bg-gray-100" },
+  { name: "Gray 200", hex: "#e5e7eb", tailwind: "gray-200", usage: "Borders, dividers, hover backgrounds", swatch: "bg-gray-200" },
+  { name: "Gray 300", hex: "#d1d5db", tailwind: "gray-300", usage: "Input borders, stronger borders", swatch: "bg-gray-300" },
+  { name: "Gray 400", hex: "#9ca3af", tailwind: "gray-400", usage: "Muted secondary text", swatch: "bg-gray-400" },
+  { name: "Gray 500", hex: "#6b7280", tailwind: "gray-500", usage: "Section labels, captions", swatch: "bg-gray-500" },
+  { name: "Gray 600", hex: "#4b5563", tailwind: "gray-600", usage: "Body copy and descriptions — the most-used text color", swatch: "bg-gray-600" },
+  { name: "Gray 700", hex: "#374151", tailwind: "gray-700", usage: "Secondary headings and list text", swatch: "bg-gray-700" },
+  { name: "Gray 900", hex: "#111827", tailwind: "gray-900", usage: "Headings and primary text", swatch: "bg-gray-900" }
+];
+
+const statusColors: ColorToken[] = [
+  { name: "Red 600", hex: "#dc2626", tailwind: "red-600", usage: "Danger button", swatch: "bg-red-600" },
+  { name: "Red 700", hex: "#b91c1c", tailwind: "red-700", usage: "Danger button hover", swatch: "bg-red-700" },
+  { name: "Green 50", hex: "#f0fdf4", tailwind: "green-50", usage: "Success background (light)", swatch: "bg-green-50" },
+  { name: "Green 100", hex: "#dcfce7", tailwind: "green-100", usage: "Implemented badge background", swatch: "bg-green-100" },
+  { name: "Green 600", hex: "#16a34a", tailwind: "green-600", usage: "Included checkmarks (PricingTable)", swatch: "bg-green-600" },
+  { name: "Green 800", hex: "#166534", tailwind: "green-800", usage: "Implemented badge text", swatch: "bg-green-800" },
+  { name: "Amber 100", hex: "#fef3c7", tailwind: "amber-100", usage: "Setup-step badge background", swatch: "bg-amber-100" },
+  { name: "Amber 800", hex: "#92400e", tailwind: "amber-800", usage: "Setup-step badge text", swatch: "bg-amber-800" },
+  { name: "Yellow 400", hex: "#facc15", tailwind: "yellow-400", usage: "Star ratings (TestimonialCarousel)", swatch: "bg-yellow-400" }
+];
+
+interface TypeToken {
+  name: string;
+  size: string;
+  usage: string;
+  sampleClass: string;
+}
+
+const typeScale: TypeToken[] = [
+  { name: "text-xs", size: "12px", usage: "Badges, sidebar group labels, tiny captions", sampleClass: "text-xs" },
+  { name: "text-sm", size: "14px", usage: "Card descriptions, list text, form labels", sampleClass: "text-sm" },
+  { name: "text-base", size: "16px", usage: "Default body text", sampleClass: "text-base" },
+  { name: "text-lg", size: "18px", usage: "Card titles, section subheads", sampleClass: "text-lg" },
+  { name: "text-xl", size: "20px", usage: "Section headings (h2), explorer sidebar title", sampleClass: "text-xl" },
+  { name: "text-2xl", size: "24px", usage: "Guide section headings", sampleClass: "text-2xl" },
+  { name: "text-3xl", size: "30px", usage: "Page titles (h1) in layouts and guides", sampleClass: "text-3xl" },
+  { name: "text-4xl", size: "36px", usage: "Hero title (large)", sampleClass: "text-4xl" },
+  { name: "text-5xl", size: "48px", usage: "Hero title (extra large)", sampleClass: "text-5xl" },
+  { name: "text-6xl", size: "60px", usage: "TeamGrid initial placeholder", sampleClass: "text-6xl" }
+];
+
+interface Breakpoint {
+  name: string;
+  minWidth: string;
+  usage: string;
+}
+
+const breakpoints: Breakpoint[] = [
+  { name: "sm", minWidth: "640px", usage: "Small tablets and large phones — grids go 1 → 2 columns" },
+  { name: "md", minWidth: "768px", usage: "Tablets — navigation expands, grids go 2 → 3 columns" },
+  { name: "lg", minWidth: "1024px", usage: "Desktops — full multi-column layouts, sidebar visible" },
+  { name: "xl", minWidth: "1280px", usage: "Wide desktops — max-width containers cap content" }
+];
+
+interface RadiusToken {
+  name: string;
+  value: string;
+  usage: string;
+  sampleClass: string;
+}
+
+const radii: RadiusToken[] = [
+  { name: "rounded", value: "4px", usage: "Buttons, small inputs", sampleClass: "rounded" },
+  { name: "rounded-md", value: "6px", usage: "Form inputs, small cards", sampleClass: "rounded-md" },
+  { name: "rounded-lg", value: "8px", usage: "Cards, buttons, panels — the most-used radius", sampleClass: "rounded-lg" },
+  { name: "rounded-xl", value: "12px", usage: "Large cards, guide sections, team cards", sampleClass: "rounded-xl" },
+  { name: "rounded-full", value: "9999px", usage: "Pills, chips, badges, avatars", sampleClass: "rounded-full" }
+];
+
+interface ShadowToken {
+  name: string;
+  usage: string;
+  sampleClass: string;
+}
+
+const shadows: ShadowToken[] = [
+  { name: "shadow-sm", usage: "Cards, panels — the default card shadow", sampleClass: "shadow-sm" },
+  { name: "shadow", usage: "Cards on hover, elevated panels", sampleClass: "shadow" },
+  { name: "shadow-md", usage: "Featured pricing tier, dropdowns", sampleClass: "shadow-md" },
+  { name: "shadow-lg", usage: "Modals, floating panels", sampleClass: "shadow-lg" },
+  { name: "shadow-xl", usage: "ContactChat panel, large overlays", sampleClass: "shadow-xl" }
+];
+---
+
+<BaseLayout
+  title="Design Tokens"
+  description="The color, typography, spacing, radius, shadow, and breakpoint tokens used across the template."
+>
+  <h1 class="text-3xl font-bold mb-4">Design Tokens</h1>
+  <p class="text-gray-600 mb-8 max-w-3xl">
+    Design tokens are the named values behind every visual decision in the
+    template — the colors, type sizes, spacing, corners, and shadows. Change a
+    token in one place and every component that uses it updates. This page
+    documents the tokens actually in use, audited from the components
+    (2026-11-22). The template uses Tailwind v4 defaults; there is no custom
+    <code class="font-mono text-sm bg-gray-100 px-1 rounded">@theme</code>{" "}
+    block yet — see "How to change a token" at the bottom.
+  </p>
+
+  <!-- Color -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-2">Color</h2>
+    <p class="text-gray-600 mb-6">
+      Blue is the accent and primary action color. Gray carries all text and
+      borders. Red, green, amber, and yellow are reserved for meaning:
+      danger, success, setup steps, and ratings.
+    </p>
+
+    <h3 class="text-lg font-semibold mb-3">Blue — accent &amp; primary</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+      {blues.map((c) => (
+        <div class="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3">
+          <span class={`h-10 w-10 shrink-0 rounded-md border border-gray-200 ${c.swatch}`} aria-hidden="true"></span>
+          <div>
+            <p class="font-medium text-gray-900">{c.name} <span class="font-mono text-sm text-gray-500">{c.hex}</span></p>
+            <p class="text-sm text-gray-600">{c.usage}</p>
+            <p class="font-mono text-xs text-gray-500">{c.tailwind}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <h3 class="text-lg font-semibold mb-3">Gray — text &amp; neutrals</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+      {grays.map((c) => (
+        <div class="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3">
+          <span class={`h-10 w-10 shrink-0 rounded-md border border-gray-200 ${c.swatch}`} aria-hidden="true"></span>
+          <div>
+            <p class="font-medium text-gray-900">{c.name} <span class="font-mono text-sm text-gray-500">{c.hex}</span></p>
+            <p class="text-sm text-gray-600">{c.usage}</p>
+            <p class="font-mono text-xs text-gray-500">{c.tailwind}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <h3 class="text-lg font-semibold mb-3">Status — red, green, amber, yellow</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {statusColors.map((c) => (
+        <div class="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3">
+          <span class={`h-10 w-10 shrink-0 rounded-md border border-gray-200 ${c.swatch}`} aria-hidden="true"></span>
+          <div>
+            <p class="font-medium text-gray-900">{c.name} <span class="font-mono text-sm text-gray-500">{c.hex}</span></p>
+            <p class="text-sm text-gray-600">{c.usage}</p>
+            <p class="font-mono text-xs text-gray-500">{c.tailwind}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Typography -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-2">Typography</h2>
+    <p class="text-gray-600 mb-6">
+      The template uses the default sans-serif stack. <code class="font-mono text-sm bg-gray-100 px-1 rounded">font-mono</code> is
+      reserved for code, labels, and technical text. Headings are
+      <code class="font-mono text-sm bg-gray-100 px-1 rounded">font-semibold</code> or{" "}
+      <code class="font-mono text-sm bg-gray-100 px-1 rounded">font-bold</code>; body copy is regular weight.
+    </p>
+
+    <div class="overflow-x-auto rounded-lg border border-gray-200">
+      <table class="w-full text-left text-sm">
+        <thead class="bg-gray-50 text-gray-500">
+          <tr>
+            <th class="px-4 py-2 font-semibold">Token</th>
+            <th class="px-4 py-2 font-semibold">Size</th>
+            <th class="px-4 py-2 font-semibold">Sample</th>
+            <th class="px-4 py-2 font-semibold">Used for</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 bg-white">
+          {typeScale.map((t) => (
+            <tr>
+              <td class="px-4 py-2 font-mono text-xs">{t.name}</td>
+              <td class="px-4 py-2 text-gray-600">{t.size}</td>
+              <td class={`px-4 py-2 font-semibold text-gray-900 ${t.sampleClass}`}>Heading</td>
+              <td class="px-4 py-2 text-gray-600">{t.usage}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="rounded-lg border border-gray-200 bg-white p-4">
+        <p class="font-mono text-xs text-gray-500 mb-2">font-semibold (most used)</p>
+        <p class="text-lg font-semibold text-gray-900">Semibold heading</p>
+      </div>
+      <div class="rounded-lg border border-gray-200 bg-white p-4">
+        <p class="font-mono text-xs text-gray-500 mb-2">font-medium</p>
+        <p class="text-lg font-medium text-gray-900">Medium label</p>
+      </div>
+      <div class="rounded-lg border border-gray-200 bg-white p-4">
+        <p class="font-mono text-xs text-gray-500 mb-2">font-mono</p>
+        <p class="text-lg font-mono text-gray-900">Code &amp; labels</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spacing -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-2">Spacing</h2>
+    <p class="text-gray-600 mb-6">
+      Spacing follows the Tailwind scale (1 unit = 4px). The values below are
+      the ones the components actually use most — section gaps, card padding,
+      and element margins.
+    </p>
+    <div class="overflow-x-auto rounded-lg border border-gray-200">
+      <table class="w-full text-left text-sm">
+        <thead class="bg-gray-50 text-gray-500">
+          <tr>
+            <th class="px-4 py-2 font-semibold">Token</th>
+            <th class="px-4 py-2 font-semibold">Value</th>
+            <th class="px-4 py-2 font-semibold">Used for</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 bg-white">
+          <tr><td class="px-4 py-2 font-mono text-xs">gap-2 / p-2</td><td class="px-4 py-2 text-gray-600">8px</td><td class="px-4 py-2 text-gray-600">Tight gaps inside buttons and badges</td></tr>
+          <tr><td class="px-4 py-2 font-mono text-xs">gap-3 / p-3 / px-3</td><td class="px-4 py-2 text-gray-600">12px</td><td class="px-4 py-2 text-gray-600">Button padding, small card gaps</td></tr>
+          <tr><td class="px-4 py-2 font-mono text-xs">gap-4 / p-4 / px-4</td><td class="px-4 py-2 text-gray-600">16px</td><td class="px-4 py-2 text-gray-600">Card padding, section gaps, page side padding</td></tr>
+          <tr><td class="px-4 py-2 font-mono text-xs">gap-6 / p-6</td><td class="px-4 py-2 text-gray-600">24px</td><td class="px-4 py-2 text-gray-600">Grid gaps, large card padding</td></tr>
+          <tr><td class="px-4 py-2 font-mono text-xs">space-y-2</td><td class="px-4 py-2 text-gray-600">8px</td><td class="px-4 py-2 text-gray-600">Stacked list items and links</td></tr>
+          <tr><td class="px-4 py-2 font-mono text-xs">space-y-3 / space-y-4</td><td class="px-4 py-2 text-gray-600">12–16px</td><td class="px-4 py-2 text-gray-600">Stacked card content</td></tr>
+          <tr><td class="px-4 py-2 font-mono text-xs">mb-4 / mb-6 / mb-8</td><td class="px-4 py-2 text-gray-600">16–32px</td><td class="px-4 py-2 text-gray-600">Spacing below headings and sections</td></tr>
+          <tr><td class="px-4 py-2 font-mono text-xs">mb-10 / mb-12</td><td class="px-4 py-2 text-gray-600">40–48px</td><td class="px-4 py-2 text-gray-600">Spacing between major page sections</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Border radius & shadow -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-2">Border Radius &amp; Shadow</h2>
+    <p class="text-gray-600 mb-6">
+      Corners are soft but not round — <code class="font-mono text-sm bg-gray-100 px-1 rounded">rounded-lg</code> (8px)
+      is the default for cards and panels. Shadows stay subtle; the strongest
+      is reserved for floating panels.
+    </p>
+
+    <h3 class="text-lg font-semibold mb-3">Radius</h3>
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-8">
+      {radii.map((r) => (
+        <div class="rounded-lg border border-gray-200 bg-white p-4 text-center">
+          <div class={`mx-auto mb-3 h-12 w-12 border-2 border-blue-600 bg-blue-50 ${r.sampleClass}`} aria-hidden="true"></div>
+          <p class="font-mono text-xs text-gray-900">{r.name}</p>
+          <p class="text-xs text-gray-500">{r.value}</p>
+          <p class="mt-1 text-xs text-gray-600">{r.usage}</p>
+        </div>
+      ))}
+    </div>
+
+    <h3 class="text-lg font-semibold mb-3">Shadow</h3>
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+      {shadows.map((s) => (
+        <div class={`rounded-lg border border-gray-200 bg-white p-4 text-center ${s.sampleClass}`}>
+          <p class="font-mono text-xs text-gray-900">{s.name}</p>
+          <p class="mt-1 text-xs text-gray-600">{s.usage}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Breakpoints -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-2">Breakpoints</h2>
+    <p class="text-gray-600 mb-6">
+      Layouts are mobile-first: the base styles are the small-screen layout,
+      and each breakpoint adds columns and spacing. The template uses three
+      breakpoints in practice.
+    </p>
+    <div class="overflow-x-auto rounded-lg border border-gray-200">
+      <table class="w-full text-left text-sm">
+        <thead class="bg-gray-50 text-gray-500">
+          <tr>
+            <th class="px-4 py-2 font-semibold">Token</th>
+            <th class="px-4 py-2 font-semibold">Min width</th>
+            <th class="px-4 py-2 font-semibold">Used for</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 bg-white">
+          {breakpoints.map((b) => (
+            <tr>
+              <td class="px-4 py-2 font-mono text-xs">{b.name}</td>
+              <td class="px-4 py-2 text-gray-600">{b.minWidth}</td>
+              <td class="px-4 py-2 text-gray-600">{b.usage}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Focus -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-2">Focus &amp; Interaction</h2>
+    <p class="text-gray-600 mb-4">
+      Every focusable element shows a visible keyboard focus indicator
+      (WCAG 2.2 AA). The global rule in <code class="font-mono text-sm bg-gray-100 px-1 rounded">src/styles/global.css</code> is:
+    </p>
+    <ul class="list-disc list-inside space-y-1 text-gray-700">
+      <li><strong>Outline:</strong> 2px solid <span class="font-mono text-sm">#2563eb</span> (blue-600)</li>
+      <li><strong>Offset:</strong> 2px from the element</li>
+      <li><strong>Applies to:</strong> links, nav items, and anything focusable without its own focus ring</li>
+      <li><strong>Exceptions:</strong> Button and Card define their own <code class="font-mono text-sm bg-gray-100 px-1 rounded">focus-visible</code> rings (same 2px blue outline)</li>
+      <li><strong>Transitions:</strong> 200ms on interactive elements (buttons, cards, links)</li>
+    </ul>
+  </section>
+
+  <!-- How to change a token -->
+  <section>
+    <h2 class="text-2xl font-semibold mb-2">How to change a token</h2>
+    <p class="text-gray-600 mb-4">
+      The template currently uses Tailwind v4 defaults — there is no custom
+      theme. To change a token for a client (for example, swapping the blue
+      accent for the client's brand color), add an <code class="font-mono text-sm bg-gray-100 px-1 rounded">@theme</code> block
+      to <code class="font-mono text-sm bg-gray-100 px-1 rounded">src/styles/global.css</code>:
+    </p>
+    <div class="rounded-lg border border-gray-200 bg-gray-900 p-4 overflow-x-auto">
+      <pre class="font-mono text-sm text-gray-100"><code>{`@import "tailwindcss";
+
+@theme {
+  /* Swap the accent color for a client's brand */
+  --color-primary-600: #0e7490;
+  --color-primary-700: #155e75;
+
+  /* Change the default font */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}`}</code></pre>
+    </div>
+    <p class="mt-4 text-gray-600">
+      After adding a theme token, use it like any Tailwind class
+      (<code class="font-mono text-sm bg-gray-100 px-1 rounded">bg-primary-600</code>,{" "}
+      <code class="font-mono text-sm bg-gray-100 px-1 rounded">text-primary-700</code>). Keep the
+      token names semantic (primary, accent) rather than literal colors, so a
+      future rebrand only touches this one file.
+    </p>
+  </section>
+</BaseLayout>
