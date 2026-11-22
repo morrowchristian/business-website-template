@@ -1,0 +1,133 @@
+---
+/**
+ * TeamGrid Component
+ *
+ * Purpose:
+ * - Responsive grid of team member bio cards.
+ * - Each card shows a photo (with placeholder fallback), name, role, bio, and social links.
+ * - Standard team section for business sites.
+ */
+
+export const docs = `
+## TeamGrid Component API
+
+### Overview
+The TeamGrid component displays a team as a responsive grid of bio cards. Each card shows a photo, name, role, bio, and social links. Missing photos fall back to an initial placeholder.
+
+---
+
+### Props
+
+| Prop      | Type       | Default | Description |
+|-----------|------------|---------|-------------|
+| \`members\` | Member[]   | —       | The team members to display. |
+| \`columns\` | number     | 3       | Columns on desktop (1–4). Mobile is always 1 column, tablet 2. |
+
+### Member
+
+| Field     | Type                              | Description |
+|-----------|-----------------------------------|-------------|
+| \`name\`    | string                            | Member's full name. |
+| \`role\`    | string                            | Member's role/title. |
+| \`bio\`     | string                            | Short bio. Optional. |
+| \`photo\`   | string                            | Image URL for the member's photo. Optional — falls back to an initial. |
+| \`socials\` | { label: string, href: string }[] | Social/profile links. Optional. |
+
+---
+
+### Slots
+
+| Slot    | Description |
+|---------|-------------|
+| none    | Content is provided entirely through the \`members\` prop. |
+
+---
+
+### Behavior
+
+- Renders members in a responsive grid: 1 column on mobile, 2 on tablet, \`columns\` on desktop.
+- Each card: photo (or initial placeholder), name, role, bio, and social links.
+- Photos use a square aspect ratio with object-cover; missing photos show the member's initial in a colored circle.
+- No framework hydration required.
+
+---
+
+### Usage Examples
+
+<TeamGrid
+  members={[
+    { name: "Alex Rivera", role: "Founder & CEO", bio: "Started the company in 2018 after a decade in the trade.", socials: [{ label: "LinkedIn", href: "https://linkedin.com" }] },
+    { name: "Sam Chen", role: "Lead Installer", bio: "Certified installer with 200+ projects completed." },
+  ]}
+/>
+
+<TeamGrid columns={4} members={[...]} />
+`;
+
+interface Member {
+  name: string;
+  role: string;
+  bio?: string;
+  photo?: string;
+  socials?: { label: string; href: string }[];
+}
+
+interface Props {
+  members: Member[];
+  columns?: number;
+}
+
+const { members, columns = 3 } = Astro.props;
+
+const gridCols =
+  columns <= 1
+    ? "sm:grid-cols-1"
+    : columns === 2
+      ? "sm:grid-cols-2"
+      : columns >= 4
+        ? "sm:grid-cols-2 lg:grid-cols-4"
+        : "sm:grid-cols-2 lg:grid-cols-3";
+---
+
+<div class={`grid grid-cols-1 ${gridCols} gap-6`}>
+  {members.map((member) => (
+    <article class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+      {member.photo ? (
+        <img
+          src={member.photo}
+          alt={`Photo of ${member.name}`}
+          class="aspect-square w-full object-cover"
+          loading="lazy"
+        />
+      ) : (
+        <div class="flex aspect-square w-full items-center justify-center bg-blue-50" aria-hidden="true">
+          <span class="text-6xl font-bold text-blue-600">
+            {member.name.charAt(0)}
+          </span>
+        </div>
+      )}
+
+      <div class="p-5">
+        <h3 class="text-lg font-semibold text-gray-900">{member.name}</h3>
+        <p class="text-sm font-medium text-blue-600">{member.role}</p>
+
+        {member.bio && (
+          <p class="mt-2 text-sm leading-relaxed text-gray-600">{member.bio}</p>
+        )}
+
+        {member.socials && member.socials.length > 0 && (
+          <div class="mt-4 flex flex-wrap gap-3">
+            {member.socials.map((s) => (
+              <a
+                href={s.href}
+                class="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline"
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </article>
+  ))}
+</div>
