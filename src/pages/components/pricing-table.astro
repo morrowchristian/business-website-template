@@ -1,0 +1,124 @@
+---
+/**
+ * PricingTable Component Explorer Page
+ *
+ * Purpose:
+ * - Displays the PricingTable component's API documentation.
+ * - Provides a live preview with 3 sample tiers.
+ * - Shows example usage code for reference.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import PricingTableComponent, { docs } from "../../components/PricingTable.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const samplePlans = [
+  {
+    name: "Starter",
+    price: "$29",
+    period: "/month",
+    description: "For new businesses getting online.",
+    features: [
+      "1-page website",
+      "Contact form",
+      "Mobile-friendly design",
+      { text: "Blog", included: false },
+      { text: "Priority support", included: false }
+    ],
+    cta: { label: "Choose Starter", href: "/contact" }
+  },
+  {
+    name: "Growth",
+    price: "$79",
+    period: "/month",
+    description: "For growing businesses that need more.",
+    features: [
+      "Up to 5 pages",
+      "Contact form",
+      "Mobile-friendly design",
+      "Blog",
+      { text: "Priority support", included: false }
+    ],
+    featured: true,
+    cta: { label: "Choose Growth", href: "/contact" }
+  },
+  {
+    name: "Pro",
+    price: "$149",
+    period: "/month",
+    description: "For established businesses that want it all.",
+    features: [
+      "Unlimited pages",
+      "Contact form",
+      "Mobile-friendly design",
+      "Blog",
+      "Priority support"
+    ],
+    cta: { label: "Choose Pro", href: "/contact" }
+  }
+];
+---
+
+<ComponentExplorerLayout title="Pricing Table">
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <p class="text-gray-600 mb-6">
+      Three tiers with the middle one featured. Excluded features show an x marker and are struck through. The layout stacks on mobile and shows columns on desktop.
+    </p>
+    <PricingTableComponent plans={samplePlans} />
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<PricingTable
+  plans={[
+    {
+      name: "Starter",
+      price: "$29",
+      period: "/month",
+      description: "For new businesses getting online.",
+      features: ["1-page website", "Contact form", { text: "Blog", included: false }],
+      cta: { label: "Choose Starter", href: "/contact" },
+    },
+    {
+      name: "Growth",
+      price: "$79",
+      period: "/month",
+      description: "For growing businesses that need more.",
+      features: ["Up to 5 pages", "Contact form", "Blog"],
+      featured: true,
+      cta: { label: "Choose Growth", href: "/contact" },
+    },
+  ]}
+/>`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/button" class="text-blue-600 hover:underline">Button</a>
+        {" "}— the CTA buttons on each tier use the Button component.
+      </li>
+      <li>
+        <a href="/components/card" class="text-blue-600 hover:underline">Card</a>
+        {" "}— another content container for grouping related information.
+      </li>
+      <li>
+        <a href="/components/faq-accordion" class="text-blue-600 hover:underline">FAQ Accordion</a>
+        {" "}— the section that often sits below a pricing table to answer plan questions.
+      </li>
+    </ul>
+  </section>
+
+</ComponentExplorerLayout>
