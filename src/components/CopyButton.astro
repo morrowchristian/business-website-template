@@ -1,0 +1,85 @@
+---
+/**
+ * CopyButton Component
+ *
+ * Purpose:
+ * - Small button that copies a given string to the clipboard.
+ * - Shows a brief "Copied!" confirmation after a successful copy.
+ * - Used by CodeBlock (top-right corner) and anywhere else a copy action is needed.
+ */
+
+export const docs = `
+## CopyButton Component API
+
+### Overview
+The CopyButton component copies a string to the clipboard when clicked and briefly shows a "Copied!" confirmation. It uses the Clipboard API with a textarea fallback for older browsers.
+
+---
+
+### Props
+
+| Prop    | Type   | Default  | Description |
+|---------|--------|----------|-------------|
+| \`text\`  | string | —        | The text to copy to the clipboard. |
+| \`label\` | string | "Copy"   | The button label shown before copying. |
+
+---
+
+### Behavior
+
+- Copies \`text\` to the clipboard on click.
+- Temporarily changes its label to "Copied!" for 1.5 seconds.
+- Falls back to a hidden textarea + execCommand when the Clipboard API is unavailable.
+- No framework hydration required (vanilla script).
+`;
+
+interface Props {
+  text: string;
+  label?: string;
+}
+
+const { text, label = "Copy" } = Astro.props;
+const id = `copy-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<button
+  id={id}
+  type="button"
+  class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 hover:text-gray-900 transition whitespace-nowrap"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+  </svg>
+  <span>{label}</span>
+</button>
+
+<script define:vars={{ id, text, label }}>
+  const btn = document.getElementById(id);
+  btn?.addEventListener("click", async () => {
+    const labelEl = btn.querySelector("span");
+    const original = labelEl?.textContent ?? label;
+    const showCopied = () => {
+      if (labelEl) labelEl.textContent = "Copied!";
+      setTimeout(() => {
+        if (labelEl) labelEl.textContent = original;
+      }, 1500);
+    };
+    try {
+      await navigator.clipboard.writeText(text);
+      showCopied();
+    } catch {
+      // Fallback for browsers without Clipboard API access.
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        showCopied();
+      } catch {}
+      document.body.removeChild(ta);
+    }
+  });
+</script>

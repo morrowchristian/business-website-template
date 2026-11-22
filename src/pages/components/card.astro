@@ -9,10 +9,9 @@
  */
 
 import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
-import CardComponent from "../../components/Card.astro";
+import CardComponent, { docs } from "../../components/Card.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
 
-// Access internal docs safely with a type cast
-const docs = (CardComponent as any).__astro_internal?.docs ?? "No documentation available.";
 ---
 
 <ComponentExplorerLayout title="Card">
@@ -20,7 +19,7 @@ const docs = (CardComponent as any).__astro_internal?.docs ?? "No documentation 
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
     <h2>API Documentation</h2>
-    <pre class="bg-gray-100 p-4 rounded whitespace-pre-wrap text-sm">{docs}</pre>
+    <CodeBlock code={docs} language="markdown" />
   </section>
 
   <!-- Live Preview -->
@@ -70,15 +69,13 @@ const docs = (CardComponent as any).__astro_internal?.docs ?? "No documentation 
   <!-- Code Example -->
   <section>
     <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <pre class="bg-gray-100 p-4 rounded text-sm">
-{`<Card
+    <CodeBlock code={`<Card
   variant="base"
   href="#"
   image="/assets/placeholders/placeholder.jpg"
   title="Base Card"
   description="Default image-top layout."
-/>`}
-    </pre>
+/>`} language="astro" />
   </section>
 
 </ComponentExplorerLayout>
