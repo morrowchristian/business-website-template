@@ -1,20 +1,23 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+/**
+ * Site root — redirects to the Component Explorer.
+ *
+ * The Components explorer is the template's home now (Home and Services
+ * were removed from the navigation). This page redirects there so the
+ * root URL still lands somewhere useful.
+ */
 ---
 
-<BaseLayout 
-  title="Business Website" 
-  description="Professional business website template built with Astro"
->
-  <h1 class="text-5xl font-extrabold mb-4">Astro</h1>
-  <p class="text-gray-600 text-xl mb-8">
-    A clean, modern starting point for a business website and component design system.
-  </p>
-
-  <a 
-    href="/components" 
-    class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
-  >
-    Open Component Explorer
-  </a>
-</BaseLayout>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0; url=/components" />
+    <link rel="canonical" href="/components" />
+    <title>Business Website Template</title>
+  </head>
+  <body>
+    <p>
+      Redirecting to the <a href="/components">Component Explorer</a>…
+    </p>
+  </body>
+</html>

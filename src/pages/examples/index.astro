@@ -1,0 +1,56 @@
+---
+/**
+ * Examples Index Page
+ *
+ * Purpose:
+ * - Lists the complete example business sites built from the template's
+ *   components, so a visitor can see the system working as a finished site.
+ */
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const examples = [
+  {
+    name: "Cedar Creek Plumbing",
+    href: "/examples/plumbing/",
+    description:
+      "A fictional local plumbing company — Home, Services, About, Reviews, and Contact, built entirely from the template's components. Shows the Local Service page set from the Page Catalog in action."
+  }
+];
+---
+
+<BaseLayout
+  title="Examples"
+  description="Complete example business sites built from the template's components."
+>
+  <h1 class="text-3xl font-bold mb-4">Examples</h1>
+  <p class="text-gray-600 mb-8 max-w-3xl">
+    Complete example business sites built from this template's components.
+    Each one shows a full page set for a business type from the{" "}
+    <a href="/guides/page-catalog" class="text-blue-600 hover:underline">
+      Page Catalog
+    </a>{" "}
+    — click through a finished site, then dig into the components behind it.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {examples.map((example) => (
+      <article class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 class="text-xl font-semibold">
+          <a href={example.href} class="text-blue-600 hover:underline">
+            {example.name}
+          </a>
+        </h2>
+        <p class="mt-2 text-gray-600">{example.description}</p>
+        <p class="mt-4">
+          <a
+            href={example.href}
+            class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          >
+            View example site
+          </a>
+        </p>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
