@@ -17,10 +17,11 @@ It wraps the core Button component and applies a standardized "back" visual styl
 
 ### Props
 
-| Prop      | Type                | Default | Description |
-|-----------|---------------------|---------|-------------|
-| \`href\`    | string \| null      | null    | When provided, navigates to the given URL instead of going back in history. |
-| \`variant\` | "text" \| "button"  | "text"  | "text" renders a plain link with an arrow; "button" renders an outlined button. |
+| Prop       | Type                | Default | Description |
+|------------|---------------------|---------|-------------|
+| \`href\`     | string \| null      | null    | When provided, navigates to the given URL instead of going back in history. |
+| \`variant\`  | "text" \| "button"  | "text"  | "text" renders a plain link with an arrow; "button" renders an outlined button. |
+| \`iconOnly\` | boolean             | false   | When true, renders only the back arrow, with no "Back" text (with an aria-label of "Back" for screen readers). |
 
 ---
 
@@ -30,6 +31,7 @@ It wraps the core Button component and applies a standardized "back" visual styl
 |----------|-------|
 | \`text\`   | Plain link with a back arrow, as before. |
 | \`button\` | Outlined button style (white background, blue border, blue text) with a back arrow. |
+| \`iconOnly\` | Either variant with only the arrow and no text — useful in a header where space is tight. |
 
 ---
 
@@ -52,6 +54,8 @@ It wraps the core Button component and applies a standardized "back" visual styl
 <BackButton href="/components" variant="button" />
 
 <BackButton variant="button" />
+
+<BackButton href="/components" variant="button" iconOnly />
 `;
 
 import Button from "./Button.astro";
@@ -59,31 +63,34 @@ import Button from "./Button.astro";
 interface Props {
   href?: string | null;
   variant?: "text" | "button";
+  iconOnly?: boolean;
 }
 
-const { href = null, variant = "text" } = Astro.props;
+const { href = null, variant = "text", iconOnly = false } = Astro.props;
 
 const isButton = variant === "button";
 ---
 
 {href ? (
-  <Button href={href} variant={isButton ? "outline" : "ghost"} icon="arrow_back">
-    Back
+  <Button href={href} variant={isButton ? "outline" : "ghost"} icon="arrow_back" ariaLabel={iconOnly ? "Back" : null}>
+    {!iconOnly && "Back"}
   </Button>
 ) : isButton ? (
   <button
     onclick="history.back()"
+    aria-label={iconOnly ? "Back" : undefined}
     class="inline-flex items-center justify-center gap-2 px-4 py-2 text-base font-medium text-blue-600 bg-white border border-blue-600 rounded-md hover:bg-blue-50 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
   >
     <span class="material-icons text-base">arrow_back</span>
-    Back
+    {!iconOnly && "Back"}
   </button>
 ) : (
   <button
     onclick="history.back()"
+    aria-label={iconOnly ? "Back" : undefined}
     class="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900"
   >
     <span class="material-icons text-base">arrow_back</span>
-    Back
+    {!iconOnly && "Back"}
   </button>
 )}
