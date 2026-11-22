@@ -23,6 +23,7 @@ The Hero component displays a large headline with supporting text and optional c
 | \`subtitle\`  | string                        | A default marketing subtitle.  | Supporting description text. |
 | \`layout\`    | "centered" \| "left" \| "split" | "centered" | Controls text alignment and overall arrangement. |
 | \`image\`     | string \| null                | null    | Optional image URL. Used by the "split" layout (text left, image right). Ignored by the other layouts. |
+| \`primaryCta\` | { label: string; href: string } | { label: "Our Services", href: "/services" } | Primary CTA button. Override the href when the hero is used on a site whose services page lives elsewhere (e.g. an example site). |
 
 ---
 
@@ -64,13 +65,15 @@ interface Props {
   subtitle?: string;
   layout?: "centered" | "left" | "split";
   image?: string | null;
+  primaryCta?: { label: string; href: string };
 }
 
 const {
   title = "Build Your Business Presence",
   subtitle = "A clean, modern template designed to help you launch fast and look professional.",
   layout = "centered",
-  image = null
+  image = null,
+  primaryCta = { label: "Our Services", href: "/services" }
 } = Astro.props;
 
 const isSplit = layout === "split" && image;
@@ -91,10 +94,10 @@ const isLeft = layout === "left" || isSplit;
 
         <div class="flex gap-4">
           <a
-            href="/services"
+            href={primaryCta.href}
             class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           >
-            Our Services
+            {primaryCta.label}
           </a>
 
           <button
@@ -121,10 +124,10 @@ const isLeft = layout === "left" || isSplit;
 
       <div class={isLeft ? "flex gap-4" : "flex justify-center gap-4"}>
         <a
-          href="/services"
+          href={primaryCta.href}
           class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
-          Our Services
+          {primaryCta.label}
         </a>
 
         <button

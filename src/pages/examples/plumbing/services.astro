@@ -1,0 +1,115 @@
+---
+/**
+ * Cedar Creek Plumbing — Services (example site)
+ *
+ * Purpose:
+ * - Example Local Service services page: full service list + example pricing.
+ * - All services, prices, and copy are fictional/placeholder content.
+ */
+
+import ExampleLayout from "../../../layouts/ExampleLayout.astro";
+import Card from "../../../components/Card.astro";
+import PricingTable from "../../../components/PricingTable.astro";
+
+const services = [
+  {
+    title: "Drain Cleaning",
+    description: "Slow drains, clogs, and backups cleared fast — with a camera inspection to find the real cause, not just the symptom."
+  },
+  {
+    title: "Water Heater Repair & Replacement",
+    description: "Tank and tankless heaters repaired or replaced, usually the same day. We service all major brands."
+  },
+  {
+    title: "Leak Detection & Repair",
+    description: "Hidden leaks found fast with acoustic and camera tools — then repaired with minimal disruption to your home."
+  },
+  {
+    title: "Fixture Installation",
+    description: "Faucets, toilets, showers, and sinks installed cleanly, sealed properly, and tested before we leave."
+  },
+  {
+    title: "Sewer Line Services",
+    description: "Sewer cleaning, camera inspection, and line repair or replacement — including trenchless options where possible."
+  },
+  {
+    title: "Emergency Plumbing",
+    description: "Burst pipes, major leaks, and sewer backups. 24/7 emergency line, on site within 2 hours in the Cleveland area.",
+    featured: true
+  }
+];
+
+const plans = [
+  {
+    name: "Drain Cleaning",
+    price: "$89",
+    description: "Starting price — most homes.",
+    features: [
+      "Up to 2 drains cleared",
+      "Camera inspection included",
+      "Same-day service",
+      { text: "After-hours surcharge", included: false }
+    ],
+    cta: { label: "Book Drain Cleaning", href: "/examples/plumbing/contact" }
+  },
+  {
+    name: "Water Heater",
+    price: "$199",
+    description: "Starting price — repair visit.",
+    features: [
+      "Full diagnostic included",
+      "Most repairs same day",
+      "Parts & labor warranty",
+      "Free replacement estimate"
+    ],
+    featured: true,
+    cta: { label: "Book Water Heater Service", href: "/examples/plumbing/contact" }
+  },
+  {
+    name: "Emergency Call-Out",
+    price: "$149",
+    description: "Starting price — 24/7 response.",
+    features: [
+      "On site within 2 hours",
+      "Burst pipes & major leaks",
+      "Temporary fix to stop damage",
+      "Full repair quoted on site"
+    ],
+    cta: { label: "Call the Emergency Line", href: "tel:+14235550147" }
+  }
+];
+---
+
+<ExampleLayout
+  title="Services — Cedar Creek Plumbing"
+  description="Cedar Creek Plumbing services in Cleveland, TN: drain cleaning, water heaters, leak detection, fixture installation, sewer lines, and 24/7 emergency plumbing. Example prices shown."
+>
+  <h1 class="text-3xl font-bold mb-4">Our Services</h1>
+  <p class="text-gray-600 mb-8 max-w-3xl">
+    Every job starts with a free estimate and an upfront price — no surprises.
+    Below are our six core services, plus example starting prices.
+  </p>
+
+  <!-- Full service list -->
+  <section class="mb-12">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {services.map((s) => (
+        <Card
+          variant={s.featured ? "featured" : "base"}
+          title={s.title}
+          description={s.description}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- Example pricing -->
+  <section>
+    <h2 class="text-2xl font-semibold mb-2">Example starting prices</h2>
+    <p class="text-gray-600 mb-6">
+      These are example prices for the demo — replace them with your own rates.
+      Every job is quoted upfront before work begins.
+    </p>
+    <PricingTable plans={plans} />
+  </section>
+</ExampleLayout>

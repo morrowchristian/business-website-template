@@ -1,0 +1,86 @@
+---
+/**
+ * Cedar Creek Plumbing — Contact (example site)
+ *
+ * Purpose:
+ * - Example Local Service contact page: phone, email, hours, service area,
+ *   and the message form (ContactChat, rendered by ExampleLayout).
+ * - All contact details are fictional/placeholder content.
+ */
+
+import ExampleLayout from "../../../layouts/ExampleLayout.astro";
+import Button from "../../../components/Button.astro";
+import Card from "../../../components/Card.astro";
+---
+
+<ExampleLayout
+  title="Contact — Cedar Creek Plumbing"
+  description="Contact Cedar Creek Plumbing, a fictional local plumbing company in Cleveland, TN. Phone, email, hours, and service area — an example site built from the business-website-template components."
+>
+  <h1 class="text-3xl font-bold mb-4">Contact Us</h1>
+  <p class="text-gray-600 mb-8 max-w-3xl">
+    Call, email, or send us a message. For burst pipes, major leaks, and
+    sewer backups, call the 24/7 emergency line — don't wait for a reply.
+  </p>
+
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+    <!-- Contact details -->
+    <section>
+      <h2 class="text-xl font-semibold mb-4">Reach us</h2>
+      <dl class="space-y-4 text-gray-700">
+        <div>
+          <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">Phone</dt>
+          <dd class="mt-1">
+            <a href="tel:+14235550147" class="text-lg font-semibold text-blue-600 hover:underline">(423) 555-0147</a>
+            <span class="text-sm text-gray-500"> — 24/7 emergency line</span>
+          </dd>
+        </div>
+        <div>
+          <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">Email</dt>
+          <dd class="mt-1">
+            <a href="mailto:hello@cedarcreekplumbing.example" class="text-blue-600 hover:underline">hello@cedarcreekplumbing.example</a>
+          </dd>
+        </div>
+        <div>
+          <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">Service area</dt>
+          <dd class="mt-1">Cleveland, TN and surrounding areas — Charleston, Ooltewah, and Bradley County.</dd>
+        </div>
+        <div>
+          <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">Hours</dt>
+          <dd class="mt-1">
+            Mon–Fri 7am–6pm<br />
+            Sat 8am–2pm<br />
+            24/7 emergency line
+          </dd>
+        </div>
+      </dl>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <Button href="tel:+14235550147" variant="primary" size="lg">
+          Call (423) 555-0147
+        </Button>
+        <button
+          type="button"
+          data-open-contact-chat
+          class="inline-flex items-center justify-center gap-2 rounded-md border border-blue-600 bg-white px-5 py-3 text-lg font-medium text-blue-600 transition-colors hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+        >
+          Send Us a Message
+        </button>
+      </div>
+    </section>
+
+    <!-- Message form note -->
+    <section>
+      <Card
+        title="Send us a message"
+        description="Use the message form (top-right of the page) to tell us what's going on — a leak, a clog, a quote request — and we'll get back to you."
+      >
+        <p class="text-sm text-gray-600">
+          This is a demo form: it shows a confirmation when submitted, but it
+          does not send anywhere yet. Wire it to your email or form service
+          when you use this template for a real business.
+        </p>
+      </Card>
+    </section>
+  </div>
+</ExampleLayout>

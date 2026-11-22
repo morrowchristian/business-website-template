@@ -19,6 +19,7 @@ interface BusinessType {
   pages: string[];
   needs: string[];
   components: { name: string; href?: string; planned?: boolean }[];
+  example?: { label: string; href: string };
 }
 
 const businessTypes: BusinessType[] = [
@@ -39,7 +40,8 @@ const businessTypes: BusinessType[] = [
       { name: "Button", href: "/components/button" },
       { name: "Click-to-call button", planned: true },
       { name: "Service-area map", planned: true }
-    ]
+    ],
+    example: { label: "Cedar Creek Plumbing — a complete Local Service example site", href: "/examples/plumbing/" }
   },
   {
     name: "E-Commerce",
@@ -175,6 +177,15 @@ const businessTypes: BusinessType[] = [
             </li>
           ))}
         </ul>
+
+        {type.example && (
+          <p class="mt-6 text-gray-600">
+            See it in action:{" "}
+            <a href={type.example.href} class="text-blue-600 hover:underline">
+              {type.example.label}
+            </a>
+          </p>
+        )}
       </section>
     ))}
   </div>
