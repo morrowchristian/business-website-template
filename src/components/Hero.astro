@@ -4,28 +4,41 @@
  *
  * Purpose:
  * - Large headline + subtitle + default CTAs.
+ * - Layout variants: centered (default), left-aligned, or split with an image.
  */
 
 export const docs = `
 ## Hero Component API
 
 ### Overview
-The Hero component displays a large, centered headline with supporting text and optional call‑to‑action buttons.
+The Hero component displays a large headline with supporting text and optional call‑to‑action buttons.
 
 ---
 
 ### Props
 
-| Prop       | Type     | Default | Description |
-|------------|----------|---------|-------------|
-| \`title\`     | string   | "Build Your Business Presence" | Main headline text. |
-| \`subtitle\`  | string   | A default marketing subtitle.  | Supporting description text. |
+| Prop       | Type                          | Default | Description |
+|------------|-------------------------------|---------|-------------|
+| \`title\`     | string                        | "Build Your Business Presence" | Main headline text. |
+| \`subtitle\`  | string                        | A default marketing subtitle.  | Supporting description text. |
+| \`layout\`    | "centered" \| "left" \| "split" | "centered" | Controls text alignment and overall arrangement. |
+| \`image\`     | string \| null                | null    | Optional image URL. Used by the "split" layout (text left, image right). Ignored by the other layouts. |
+
+---
+
+### Variants
+
+| Variant | Description |
+|---------|-------------|
+| \`centered\` (default) | Text centered, CTAs centered below — the classic hero. |
+| \`left\` | Text and CTAs left-aligned, for pages where the hero sits above left-aligned content. |
+| \`split\` | Two-column layout: text left, image right. Requires the \`image\` prop; without an image it falls back to the left-aligned layout. |
 
 ---
 
 ### Behavior
 
-- Centers content with responsive typography.
+- Centers content with responsive typography (centered layout).
 - Includes two default CTA buttons.
 - Fully customizable via props and slots (future‑friendly).
 
@@ -37,37 +50,91 @@ The Hero component displays a large, centered headline with supporting text and 
   title="Grow Your Brand"
   subtitle="Modern tools to help your business thrive."
 />
+
+<Hero
+  layout="split"
+  title="Grow Your Brand"
+  subtitle="Modern tools to help your business thrive."
+  image="/assets/placeholders/placeholder.jpg"
+/>
 `;
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  layout?: "centered" | "left" | "split";
+  image?: string | null;
+}
 
 const {
   title = "Build Your Business Presence",
-  subtitle = "A clean, modern template designed to help you launch fast and look professional."
+  subtitle = "A clean, modern template designed to help you launch fast and look professional.",
+  layout = "centered",
+  image = null
 } = Astro.props;
+
+const isSplit = layout === "split" && image;
+const isLeft = layout === "left" || isSplit;
 ---
 
-<section class="py-20 text-center">
-  <h1 class="text-4xl md:text-5xl font-bold mb-4">
-    {title}
-  </h1>
+<section class={isSplit ? "py-20" : isLeft ? "py-20 text-left" : "py-20 text-center"}>
+  {isSplit ? (
+    <div class="max-w-6xl mx-auto px-4 grid gap-10 md:grid-cols-2 md:items-center">
+      <div class="text-left">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          {title}
+        </h1>
 
-  <p class="text-gray-600 max-w-xl mx-auto mb-8">
-    {subtitle}
-  </p>
+        <p class="text-gray-600 max-w-xl mb-8">
+          {subtitle}
+        </p>
 
-  <div class="flex justify-center gap-4">
-    <a 
-      href="/services" 
-      class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-    >
-      Our Services
-    </a>
+        <div class="flex gap-4">
+          <a
+            href="/services"
+            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          >
+            Our Services
+          </a>
 
-    <button
-      type="button"
-      data-open-contact-chat
-      class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition cursor-pointer"
-    >
-      Contact Us
-    </button>
-  </div>
+          <button
+            type="button"
+            data-open-contact-chat
+            class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition cursor-pointer"
+          >
+            Contact Us
+          </button>
+        </div>
+      </div>
+
+      <img src={image} alt={title} loading="lazy" class="w-full aspect-[4/3] object-cover rounded-lg shadow-md" />
+    </div>
+  ) : (
+    <>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        {title}
+      </h1>
+
+      <p class={isLeft ? "text-gray-600 max-w-xl mb-8 text-left" : "text-gray-600 max-w-xl mx-auto mb-8"}>
+        {subtitle}
+      </p>
+
+      <div class={isLeft ? "flex gap-4" : "flex justify-center gap-4"}>
+        <a
+          href="/services"
+          class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        >
+          Our Services
+        </a>
+
+        <button
+          type="button"
+          data-open-contact-chat
+          class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition cursor-pointer"
+        >
+          Contact Us
+        </button>
+      </div>
+    </>
+  )}
 </section>

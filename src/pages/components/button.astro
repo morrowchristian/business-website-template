@@ -16,31 +16,112 @@ import CodeBlock from "../../components/CodeBlock.astro";
 
 <ComponentExplorerLayout title="Button">
 
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <div class="flex flex-wrap items-center gap-4">
+      <ButtonComponent variant="primary">Primary Button</ButtonComponent>
+      <ButtonComponent variant="secondary">Secondary Button</ButtonComponent>
+      <ButtonComponent variant="ghost">Ghost Button</ButtonComponent>
+    </div>
+  </section>
+
+  <!-- Variants -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Variants</h2>
+
+    <div class="space-y-8">
+      <div>
+        <h3 class="text-lg font-medium mb-2">Primary — the default action</h3>
+        <div class="mb-3"><ButtonComponent variant="primary">Primary Button</ButtonComponent></div>
+        <CodeBlock code={`<Button variant="primary">Primary Button</Button>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Secondary — a quieter action</h3>
+        <div class="mb-3"><ButtonComponent variant="secondary">Secondary Button</ButtonComponent></div>
+        <CodeBlock code={`<Button variant="secondary">Secondary Button</Button>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Ghost — minimal, no background</h3>
+        <div class="mb-3"><ButtonComponent variant="ghost">Ghost Button</ButtonComponent></div>
+        <CodeBlock code={`<Button variant="ghost">Ghost Button</Button>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Outline — white background, blue border and text</h3>
+        <div class="mb-3"><ButtonComponent variant="outline">Outline Button</ButtonComponent></div>
+        <CodeBlock code={`<Button variant="outline">Outline Button</Button>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Danger — destructive actions</h3>
+        <div class="mb-3"><ButtonComponent variant="danger">Delete Account</ButtonComponent></div>
+        <CodeBlock code={`<Button variant="danger">Delete Account</Button>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Sizes — sm, md, and lg</h3>
+        <div class="flex flex-wrap items-center gap-4 mb-3">
+          <ButtonComponent size="sm">Small</ButtonComponent>
+          <ButtonComponent size="md">Medium</ButtonComponent>
+          <ButtonComponent size="lg">Large</ButtonComponent>
+        </div>
+        <CodeBlock code={`<Button size="sm">Small</Button>
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">States — loading, icon, full width, and link</h3>
+        <div class="space-y-4 mb-3">
+          <div class="flex flex-wrap items-center gap-4">
+            <ButtonComponent loading>Loading Button</ButtonComponent>
+            <ButtonComponent icon="star">With Icon</ButtonComponent>
+            <ButtonComponent href="/contact">Link Button</ButtonComponent>
+          </div>
+          <ButtonComponent fullWidth>Full Width Button</ButtonComponent>
+        </div>
+        <CodeBlock code={`<Button loading>Loading Button</Button>
+<Button icon="star">With Icon</Button>
+<Button fullWidth>Full Width Button</Button>
+<Button href="/contact">Link Button</Button>`} language="astro" />
+      </div>
+    </div>
+  </section>
+
   <!-- API Documentation -->
   <section class="prose max-w-none mb-12">
     <h2>API Documentation</h2>
     <CodeBlock code={docs} language="markdown" />
   </section>
 
-  <!-- Live Preview -->
+  <!-- Code Example -->
   <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
-
-    <div class="space-y-6">
-      <ButtonComponent variant="primary">Primary Button</ButtonComponent>
-      <ButtonComponent variant="secondary">Secondary Button</ButtonComponent>
-      <ButtonComponent variant="ghost">Ghost Button</ButtonComponent>
-      <ButtonComponent loading>Loading Button</ButtonComponent>
-      <ButtonComponent icon="star">With Icon</ButtonComponent>
-      <ButtonComponent fullWidth>Full Width Button</ButtonComponent>
-      <ButtonComponent href="/contact">Link Button</ButtonComponent>
-    </div>
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<Button variant="primary">Primary Button</Button>
+<Button variant="outline">Learn More</Button>
+<Button variant="danger">Delete Account</Button>`} language="astro" />
   </section>
 
-  <!-- Code Example -->
+  <!-- Related Components -->
   <section>
-    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <CodeBlock code={`<Button variant="primary">Primary Button</Button>`} language="astro" />
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/button-group" class="text-blue-600 hover:underline">ButtonGroup</a>
+        {" "}— arranges multiple Buttons in a row, column, or segmented control.
+      </li>
+      <li>
+        <a href="/components/back-button" class="text-blue-600 hover:underline">BackButton</a>
+        {" "}— a back-navigation button built on top of Button.
+      </li>
+      <li>
+        <a href="/components/copy-button" class="text-blue-600 hover:underline">CopyButton</a>
+        {" "}— a small button that copies text to the clipboard.
+      </li>
+    </ul>
   </section>
 
 </ComponentExplorerLayout>

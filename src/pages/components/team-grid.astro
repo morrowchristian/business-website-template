@@ -5,6 +5,7 @@
  * Purpose:
  * - Displays the TeamGrid component's API documentation.
  * - Provides a live preview with sample members.
+ * - Shows the default, compact, and circle card styles, plus the 4-column layout.
  * - Shows example usage code for reference.
  *
  * Note: the members below are sample/placeholder content used to
@@ -39,15 +40,14 @@ const sampleMembers = [
     socials: [{ label: "Email", href: "mailto:jordan@example.com" }]
   }
 ];
+
+const fourMembers = [
+  ...sampleMembers,
+  { name: "Casey Brooks", role: "Design Lead", bio: "Owns the look and feel of every site we ship.", socials: [{ label: "LinkedIn", href: "https://linkedin.com" }] }
+];
 ---
 
 <ComponentExplorerLayout title="Team Grid">
-
-  <!-- API Documentation -->
-  <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
-    <CodeBlock code={docs} language="markdown" />
-  </section>
 
   <!-- Live Preview -->
   <section class="mb-12">
@@ -58,13 +58,59 @@ const sampleMembers = [
     <TeamGridComponent members={sampleMembers} />
   </section>
 
-  <!-- Live Preview: 4 columns -->
+  <!-- Variants -->
   <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Live Preview — 4 Columns</h2>
-    <p class="text-gray-600 mb-6">
-      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">columns={4}</code>, the grid shows 4 cards per row on desktop.
+    <h2 class="text-xl font-semibold mb-6">Variants</h2>
+
+    <h3 class="text-lg font-medium mb-2">Default — Photo on Top</h3>
+    <p class="text-gray-600 mb-4">
+      The classic team card: a square photo on top, name, role, bio, and social links below.
     </p>
-    <TeamGridComponent members={[...sampleMembers, { name: "Casey Brooks", role: "Design Lead", bio: "Owns the look and feel of every site we ship.", socials: [{ label: "LinkedIn", href: "https://linkedin.com" }] }]} columns={4} />
+    <div class="mb-4">
+      <TeamGridComponent members={sampleMembers} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<TeamGrid members={members} />`} language="astro" />
+    </div>
+
+    <h3 class="text-lg font-medium mb-2">Compact</h3>
+    <p class="text-gray-600 mb-4">
+      A smaller card with the photo on the left and the text on the right — for denser team sections.
+    </p>
+    <div class="mb-4">
+      <TeamGridComponent cardStyle="compact" members={sampleMembers} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<TeamGrid cardStyle="compact" members={members} />`} language="astro" />
+    </div>
+
+    <h3 class="text-lg font-medium mb-2">Circle</h3>
+    <p class="text-gray-600 mb-4">
+      A round photo centered above centered text.
+    </p>
+    <div class="mb-4">
+      <TeamGridComponent cardStyle="circle" members={sampleMembers} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<TeamGrid cardStyle="circle" members={members} />`} language="astro" />
+    </div>
+
+    <h3 class="text-lg font-medium mb-2">4 Columns</h3>
+    <p class="text-gray-600 mb-4">
+      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">columns={4}</code>, the grid shows 4 cards per row on desktop. Works with any card style.
+    </p>
+    <div class="mb-4">
+      <TeamGridComponent members={fourMembers} columns={4} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<TeamGrid columns={4} members={members} />`} language="astro" />
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
   </section>
 
   <!-- Code Example -->

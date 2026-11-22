@@ -15,12 +15,6 @@ import CodeBlock from "../../components/CodeBlock.astro";
 
 <ComponentExplorerLayout title="CopyButton">
 
-  <!-- API Documentation -->
-  <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
-    <CodeBlock code={docs} language="markdown" />
-  </section>
-
   <!-- Live Preview -->
   <section class="mb-12">
     <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
@@ -30,10 +24,59 @@ import CodeBlock from "../../components/CodeBlock.astro";
     <CopyButtonComponent text="Hello from the CopyButton component!" />
   </section>
 
+  <!-- Variants -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Variants</h2>
+
+    <div class="space-y-8">
+      <div>
+        <h3 class="text-lg font-medium mb-2">Primary — blue background, white text (default)</h3>
+        <div class="mb-3"><CopyButtonComponent text="Hello from the CopyButton component!" /></div>
+        <CodeBlock code={`<CopyButton text="Hello from the CopyButton component!" />`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Secondary — white background, gray border</h3>
+        <div class="mb-3"><CopyButtonComponent text="Hello from the CopyButton component!" variant="secondary" /></div>
+        <CodeBlock code={`<CopyButton text="Hello from the CopyButton component!" variant="secondary" />`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Ghost — transparent background</h3>
+        <div class="mb-3"><CopyButtonComponent text="Hello from the CopyButton component!" variant="ghost" /></div>
+        <CodeBlock code={`<CopyButton text="Hello from the CopyButton component!" variant="ghost" />`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Sizes — sm and md</h3>
+        <div class="flex flex-wrap items-center gap-4 mb-3">
+          <CopyButtonComponent text="Small copy button" size="sm" />
+          <CopyButtonComponent text="Medium copy button" size="md" />
+        </div>
+        <CodeBlock code={`<CopyButton text="Small copy button" size="sm" />
+<CopyButton text="Medium copy button" size="md" />`} language="astro" />
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Custom label</h3>
+        <div class="mb-3"><CopyButtonComponent text="Hello from the CopyButton component!" label="Copy text" variant="secondary" /></div>
+        <CodeBlock code={`<CopyButton text="Hello from the CopyButton component!" label="Copy text" variant="secondary" />`} language="astro" />
+      </div>
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
   <!-- Code Example -->
   <section class="mb-12">
     <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <CodeBlock code={`<CopyButton text="Hello from the CopyButton component!" />`} language="astro" />
+    <CodeBlock code={`<CopyButton text="Hello from the CopyButton component!" />
+
+<CopyButton text="Hello from the CopyButton component!" variant="secondary" size="sm" />`} language="astro" />
   </section>
 
   <!-- Related Components -->

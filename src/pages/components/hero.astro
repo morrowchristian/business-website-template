@@ -4,6 +4,7 @@
  *
  * Purpose:
  * - Demonstrates the Hero component with default and custom props.
+ * - Shows the centered, left, and split layouts.
  * - Displays API documentation and usage example.
  */
 
@@ -15,31 +16,109 @@ import CodeBlock from "../../components/CodeBlock.astro";
 
 <ComponentExplorerLayout title="Hero">
 
-  <!-- API Documentation -->
-  <section class="prose max-w-none mb-12">
-    <h2>API Documentation</h2>
-    <CodeBlock code={docs} language="markdown" />
-  </section>
-
   <!-- Live Preview -->
   <section class="mb-12">
     <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <p class="text-gray-600 mb-6">
+      The default centered hero, with its headline, subtitle, and two CTA buttons.
+    </p>
 
     <HeroComponent />
-
-    <HeroComponent 
-      title="Grow Your Brand"
-      subtitle="Modern tools to help your business thrive."
-    />
   </section>
 
-  <!-- Code Example -->
-  <section>
-    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <CodeBlock code={`<Hero 
+  <!-- Variants -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Variants</h2>
+
+    <!-- Centered -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Centered (default)</h3>
+      <p class="text-gray-600 mb-4">Text centered, CTAs centered below — the classic hero.</p>
+      <div class="mb-4 border rounded-lg overflow-hidden">
+        <HeroComponent
+          title="Grow Your Brand"
+          subtitle="Modern tools to help your business thrive."
+        />
+      </div>
+      <CodeBlock code={`<Hero
   title="Grow Your Brand"
   subtitle="Modern tools to help your business thrive."
 />`} language="astro" />
+    </div>
+
+    <!-- Left -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Left</h3>
+      <p class="text-gray-600 mb-4">Text and CTAs left-aligned, for pages where the hero sits above left-aligned content.</p>
+      <div class="mb-4 border rounded-lg overflow-hidden px-4">
+        <HeroComponent
+          layout="left"
+          title="Grow Your Brand"
+          subtitle="Modern tools to help your business thrive."
+        />
+      </div>
+      <CodeBlock code={`<Hero
+  layout="left"
+  title="Grow Your Brand"
+  subtitle="Modern tools to help your business thrive."
+/>`} language="astro" />
+    </div>
+
+    <!-- Split -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Split</h3>
+      <p class="text-gray-600 mb-4">Two-column layout: text left, image right. Requires the <code class="font-mono text-sm bg-gray-100 px-1 rounded">image</code> prop — without an image it falls back to the left-aligned layout.</p>
+      <div class="mb-4 border rounded-lg overflow-hidden">
+        <HeroComponent
+          layout="split"
+          title="Grow Your Brand"
+          subtitle="Modern tools to help your business thrive."
+          image="/assets/placeholders/placeholder.jpg"
+        />
+      </div>
+      <CodeBlock code={`<Hero
+  layout="split"
+  title="Grow Your Brand"
+  subtitle="Modern tools to help your business thrive."
+  image="/assets/placeholders/placeholder.jpg"
+/>`} language="astro" />
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<Hero
+  layout="split"
+  title="Grow Your Brand"
+  subtitle="Modern tools to help your business thrive."
+  image="/assets/placeholders/placeholder.jpg"
+/>`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/header" class="text-blue-600 hover:underline">Header</a>
+        {" "}— the navigation bar that sits above the hero on every page.
+      </li>
+      <li>
+        <a href="/components/button" class="text-blue-600 hover:underline">Button</a>
+        {" "}— the CTA buttons used in the hero.
+      </li>
+      <li>
+        <a href="/components/card" class="text-blue-600 hover:underline">Card</a>
+        {" "}— the content blocks that often follow a hero section.
+      </li>
+    </ul>
   </section>
 
 </ComponentExplorerLayout>

@@ -4,6 +4,7 @@
  *
  * Purpose:
  * - Displays the global Footer component.
+ * - Shows the default, simple, and centered layouts.
  * - Shows API documentation and usage example.
  */
 
@@ -15,23 +16,82 @@ import CodeBlock from "../../components/CodeBlock.astro";
 
 <ComponentExplorerLayout title="Footer">
 
-  <!-- API Documentation -->
-  <section class="prose max-w-none mb-12">
-    <h2>API Documentation</h2>
-    <CodeBlock code={docs} language="markdown" />
-  </section>
-
   <!-- Live Preview -->
   <section class="mb-12">
     <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <p class="text-gray-600 mb-6">
+      The default footer: multi-column layout with navigation, an About section, and copyright. This is the same footer used site-wide.
+    </p>
 
-    <FooterComponent />
+    <div class="border rounded-lg overflow-hidden">
+      <FooterComponent />
+    </div>
+  </section>
+
+  <!-- Variants -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Variants</h2>
+
+    <!-- Default -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Default</h3>
+      <p class="text-gray-600 mb-4">Multi-column layout: navigation links, an About section, and copyright.</p>
+      <div class="mb-4 border rounded-lg overflow-hidden">
+        <FooterComponent />
+      </div>
+      <CodeBlock code={`<Footer />`} language="astro" />
+    </div>
+
+    <!-- Simple -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Simple</h3>
+      <p class="text-gray-600 mb-4">A single line: copyright on the left, navigation links on the right.</p>
+      <div class="mb-4 border rounded-lg overflow-hidden">
+        <FooterComponent layout="simple" />
+      </div>
+      <CodeBlock code={`<Footer layout="simple" />`} language="astro" />
+    </div>
+
+    <!-- Centered -->
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-2">Centered</h3>
+      <p class="text-gray-600 mb-4">All content centered and stacked: navigation links, About text, and copyright.</p>
+      <div class="mb-4 border rounded-lg overflow-hidden">
+        <FooterComponent layout="centered" />
+      </div>
+      <CodeBlock code={`<Footer layout="centered" />`} language="astro" />
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
   </section>
 
   <!-- Code Example -->
-  <section>
+  <section class="mb-12">
     <h2 class="text-xl font-semibold mb-4">Code Example</h2>
-    <CodeBlock code={`<Footer />`} language="astro" />
+    <CodeBlock code={`<Footer layout="simple" />`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/header" class="text-blue-600 hover:underline">Header</a>
+        {" "}— the matching site-wide header, with its own layout variants.
+      </li>
+      <li>
+        <a href="/components/hero" class="text-blue-600 hover:underline">Hero</a>
+        {" "}— the headline section at the top of the page.
+      </li>
+      <li>
+        <a href="/components/card" class="text-blue-600 hover:underline">Card</a>
+        {" "}— the content blocks used across the site's pages.
+      </li>
+    </ul>
   </section>
 
 </ComponentExplorerLayout>

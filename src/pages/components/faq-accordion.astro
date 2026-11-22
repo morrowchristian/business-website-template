@@ -4,7 +4,7 @@
  *
  * Purpose:
  * - Displays the FAQAccordion component's API documentation.
- * - Provides live previews of single-open and multi-open behavior.
+ * - Provides live previews of single-open, multi-open, and the three variants.
  * - Shows example usage code for reference.
  */
 
@@ -30,28 +30,68 @@ const sampleItems = [
 
 <ComponentExplorerLayout title="FAQ Accordion">
 
-  <!-- API Documentation -->
+  <!-- Live Preview -->
   <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
-    <CodeBlock code={docs} language="markdown" />
-  </section>
-
-  <!-- Live Preview: single-open (default) -->
-  <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Live Preview — Single Open (Default)</h2>
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
     <p class="text-gray-600 mb-4">
       Only one answer is open at a time. Opening a new question closes the previous one. The first question starts open here via <code class="font-mono text-sm bg-gray-100 px-1 rounded">defaultOpen={0}</code>.
     </p>
     <FAQAccordionComponent items={sampleItems} defaultOpen={0} />
   </section>
 
-  <!-- Live Preview: multi-open -->
+  <!-- Variants -->
   <section class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Live Preview — Multiple Open</h2>
+    <h2 class="text-xl font-semibold mb-6">Variants</h2>
+
+    <h3 class="text-lg font-medium mb-2">Default — Bordered Rows</h3>
     <p class="text-gray-600 mb-4">
-      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">allowMultiple</code>, more than one answer can stay open at once.
+      The classic FAQ look: bordered rows in a single container.
     </p>
-    <FAQAccordionComponent items={sampleItems} allowMultiple />
+    <div class="mb-4">
+      <FAQAccordionComponent items={sampleItems} defaultOpen={0} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<FAQAccordion items={items} defaultOpen={0} />`} language="astro" />
+    </div>
+
+    <h3 class="text-lg font-medium mb-2">Card</h3>
+    <p class="text-gray-600 mb-4">
+      Each question/answer lives in its own white card with a soft shadow.
+    </p>
+    <div class="mb-4">
+      <FAQAccordionComponent variant="card" items={sampleItems} defaultOpen={0} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<FAQAccordion variant="card" items={items} defaultOpen={0} />`} language="astro" />
+    </div>
+
+    <h3 class="text-lg font-medium mb-2">Minimal</h3>
+    <p class="text-gray-600 mb-4">
+      Dividers only — no outer border or background, for quieter pages.
+    </p>
+    <div class="mb-4">
+      <FAQAccordionComponent variant="minimal" items={sampleItems} defaultOpen={0} />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<FAQAccordion variant="minimal" items={items} defaultOpen={0} />`} language="astro" />
+    </div>
+
+    <h3 class="text-lg font-medium mb-2">Multiple Open</h3>
+    <p class="text-gray-600 mb-4">
+      With <code class="font-mono text-sm bg-gray-100 px-1 rounded">allowMultiple</code>, more than one answer can stay open at once. Works with any variant.
+    </p>
+    <div class="mb-4">
+      <FAQAccordionComponent items={sampleItems} allowMultiple />
+    </div>
+    <div class="mb-8">
+      <CodeBlock code={`<FAQAccordion allowMultiple items={items} />`} language="astro" />
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
   </section>
 
   <!-- Code Example -->
