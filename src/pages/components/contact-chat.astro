@@ -1,0 +1,80 @@
+---
+/**
+ * ContactChat Component Explorer Page
+ *
+ * Purpose:
+ * - Displays the ContactChat component's API documentation.
+ * - Provides a live preview (open the panel from the trigger button).
+ * - Shows example usage code, including custom business copy.
+ */
+
+import ComponentExplorerLayout from "../../layouts/ComponentExplorerLayout.astro";
+import ContactChatComponent, { docs } from "../../components/ContactChat.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<ComponentExplorerLayout title="Contact Chat">
+
+  <!-- Live Preview -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Live Preview</h2>
+    <p class="text-gray-600 mb-4">
+      The chat panel is a floating overlay — click the button to open it. This
+      preview uses custom copy for a plumbing business; the defaults are
+      business-neutral ("Message Us" / "we'll get back to you soon").
+    </p>
+    <div class="mb-3">
+      <button
+        type="button"
+        data-open-contact-chat
+        class="inline-flex items-center justify-center rounded-md px-4 py-2 text-base font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+      >
+        Message Cedar Creek Plumbing
+      </button>
+    </div>
+    <ContactChatComponent
+      title="Message Cedar Creek Plumbing"
+      submitLabel="Send Request"
+      successMessage="Thanks! We'll get back to you within one business day."
+    />
+  </section>
+
+  <!-- API Documentation -->
+  <section class="max-w-none mb-12">
+    <h2 class="text-xl font-semibold mb-4">API Documentation</h2>
+    <CodeBlock code={docs} language="markdown" />
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Code Example</h2>
+    <CodeBlock code={`<!-- Default (business-neutral) copy -->
+<ContactChat />
+
+<!-- Custom copy for a specific business -->
+<ContactChat
+  title="Message Cedar Creek Plumbing"
+  submitLabel="Send Request"
+  successMessage="Thanks! We'll get back to you within one business day."
+/>
+
+<!-- Any element with data-open-contact-chat opens the panel -->
+<button type="button" data-open-contact-chat>Message Us</button>`} language="astro" />
+  </section>
+
+  <!-- Related Components -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Related Components</h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+        <a href="/components/button" class="text-blue-600 hover:underline">Button</a>
+        {" "}— the submit button inside the chat form.
+      </li>
+      <li>
+        <a href="/components/header" class="text-blue-600 hover:underline">Header</a>
+        {" "}— includes the message button that opens the chat panel.
+      </li>
+    </ul>
+  </section>
+
+</ComponentExplorerLayout>
