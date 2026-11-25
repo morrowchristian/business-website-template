@@ -1,5 +1,74 @@
 ---
+/**
+ * ContactChat Component
+ *
+ * Purpose:
+ * - Floating contact panel (opens from any element with
+ *   `data-open-contact-chat`, e.g. the header's message button).
+ * - All user-facing copy is configurable via props so the panel reads
+ *   as a business, not as an individual. Defaults are business-neutral
+ *   (third-person / "we"), never first-person.
+ */
+
 import Button from "./Button.astro";
+
+export interface Props {
+  /** Heading shown at the top of the chat panel. */
+  title?: string;
+  /** Label on the form's submit button. */
+  submitLabel?: string;
+  /** Message shown after the form is submitted. */
+  successMessage?: string;
+}
+
+const {
+  title = "Message Us",
+  submitLabel = "Send Message",
+  successMessage = "Thanks for reaching out! Your message has been received and we'll get back to you soon.",
+} = Astro.props;
+
+export const docs = `
+## ContactChat Component API
+
+### Overview
+The ContactChat component is a floating contact panel that opens from any element with a \`data-open-contact-chat\` attribute (for example, the header's message button). It collects a name, email, and message, then shows a confirmation. All user-facing copy is configurable via props; the defaults are business-neutral ("we" / third-person), so the panel reads as a business rather than an individual.
+
+---
+
+### Props
+
+| Prop | Type | Default | Description |
+|-------------|---------------------------------------------------------|-------------|-------------|
+| \`title\` | string | "Message Us" | Heading shown at the top of the chat panel. |
+| \`submitLabel\` | string | "Send Message" | Label on the form's submit button. |
+| \`successMessage\` | string | "Thanks for reaching out! Your message has been received and we'll get back to you soon." | Message shown after the form is submitted. |
+
+---
+
+### Usage
+
+\`\`\`astro
+---
+import ContactChat from "../components/ContactChat.astro";
+---
+
+<!-- Default (business-neutral) copy -->
+<ContactChat />
+
+<!-- Custom copy for a specific business -->
+<ContactChat
+  title="Message Cedar Creek Plumbing"
+  submitLabel="Send Request"
+  successMessage="Thanks! We'll get back to you within one business day."
+/>
+\`\`\`
+
+Any element with \`data-open-contact-chat\` opens the panel:
+
+\`\`\`html
+<button type="button" data-open-contact-chat>Message Us</button>
+\`\`\`
+`;
 ---
 
 <!-- Chat panel -->
@@ -8,7 +77,7 @@ import Button from "./Button.astro";
   class="hidden fixed top-20 right-4 min-[1152px]:right-[calc((100vw-72rem)/2+1rem)] z-50 w-[calc(100vw-3rem)] max-w-sm bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700 rounded-lg shadow-xl"
 >
   <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-    <h2 class="font-semibold text-gray-900 dark:text-gray-100">Message Me</h2>
+    <h2 class="font-semibold text-gray-900 dark:text-gray-100">{title}</h2>
     <button
       id="contact-chat-close"
       type="button"
@@ -59,11 +128,11 @@ import Button from "./Button.astro";
       ></textarea>
     </div>
 
-    <Button variant="primary" fullWidth>Send Message</Button>
+    <Button variant="primary" fullWidth>{submitLabel}</Button>
   </form>
 
   <p id="contact-chat-success" class="hidden mx-4 mb-4 p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 text-green-800 dark:text-green-200 rounded-md text-sm">
-    Thanks for reaching out! Your message has been received and I'll get back to you soon.
+    {successMessage}
   </p>
 </div>
 
@@ -136,7 +205,7 @@ import Button from "./Button.astro";
     closeChat();
   });
 
-  // Any element with data-open-contact-chat opens the panel (e.g. the navbar Message Me button).
+  // Any element with data-open-contact-chat opens the panel (e.g. the header's message button).
   document.addEventListener("click", (event) => {
     const target = event.target instanceof Element ? event.target.closest("[data-open-contact-chat]") : null;
     if (target) {
