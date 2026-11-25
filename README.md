@@ -13,7 +13,7 @@ The template emphasizes clarity, modularity, and long‑term maintainability.
 
 - Fast, static‑first architecture using Astro  
 - Fully responsive layout  
-- Reusable UI components (Button, Card, Hero, Header, Footer)  
+- Reusable UI components — 15 in the explorer, each with style variants: BackButton, Button, ButtonGroup, Card, CodeBlock, ContactChat, CopyButton, DarkModeToggle, FAQAccordion, Footer, Header, Hero, PricingTable, TeamGrid, TestimonialCarousel  
 - Clean folder structure and documentation  
 - Centralized data model for navigation and site metadata  
 - Tailwind CSS utility‑first styling  
