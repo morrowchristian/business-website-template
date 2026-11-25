@@ -117,8 +117,7 @@ before submitting a pull request.
 
 ## 📄 License
 
-This project may be open‑sourced under a license of your choice.  
-(If you plan to open‑source it, add a `LICENSE` file.)
+This project is open-source under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
